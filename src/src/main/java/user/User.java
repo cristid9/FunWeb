@@ -1,7 +1,7 @@
 package main.java.user;
 
 public class User {
-    private int id;
+    private long id;
     private String name;
     private String userRole;
     private String email;
@@ -63,7 +63,7 @@ public class User {
         this.avatarPath = avatarPath;
     }
 
-    public int getId() {
+    public long getId() {
 
         return id;
     }
