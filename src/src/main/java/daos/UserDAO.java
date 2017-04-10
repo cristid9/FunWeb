@@ -28,4 +28,17 @@ public class UserDAO {
 
         return null;
     }
+
+    public boolean createUser(User user){
+        return true;
+    }
+
+    public boolean updateUser(User user){
+        return true;
+    }
+
+    public boolean removeUser(User user){
+        return true;
+    }
+
 }
