@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/web/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/src/web" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+    <facet type="ejb" name="EJB">
+      <configuration>
+        <ejbRoots />
+      </configuration>
+    </facet>
+    <facet type="web" name="Web2">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/FunWeb_ejb_exploded/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/out/artifacts/FunWeb_ejb_exploded" relative="/WEB-INF" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web3">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/FunWeb_ejb_exploded/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/out/artifacts/FunWeb_ejb_exploded" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Spring-4.3.7.RELEASE" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library name="Spring MVC-4.3.7.RELEASE" type="spring-mvc">
+        <properties version="4.3.7.RELEASE" />
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/spring-webmvc-portlet-4.3.7.RELEASE.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-websocket-4.3.7.RELEASE.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-webmvc-4.3.7.RELEASE.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-web-4.3.7.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="ejb-3.2" level="project" />
+    <orderEntry type="module-library" exported="" scope="PROVIDED">
+      <library name="Tomcat 8.0.32 (Ubuntu)">
+        <CLASSES>
+          <root url="jar:///usr/share/tomcat8/lib/jsp-api.jar!/" />
+          <root url="jar:///usr/share/tomcat8/lib/servlet-api.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
