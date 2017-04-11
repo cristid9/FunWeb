@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="exploded-ejb" name="FunWeb:ejb exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/FunWeb_ejb_exploded</output-path>
-    <root id="root">
-      <element id="dir-copy" path="$PROJECT_DIR$/src/web/WEB-INF" />
-      <element id="javaee-facet-resources" facet="FunWeb/web/Web" />
-    </root>
-  </artifact>
-</component>
