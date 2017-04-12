@@ -5,6 +5,7 @@ import db.DBConnection;
 import user.User;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -30,11 +31,31 @@ public class UserDAO {
         Statement stmt = null;
 
         try {
+
             conn  = connection.getDBConnection();
             stmt = conn.createStatement();
 
+            ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS \"ID\" FROM users");
+            rs.next();
+
+            int id = 0;
+
+            if (rs != null) {
+                id = rs.getInt("ID") + 1;
+            }
+
             try {
-                stmt.executeQuery("INSERT INTO users values (15001, 'vasile', 'user', 'mail', 'normal', 1, 10, 10, '/home')");
+                stmt.executeQuery("INSERT INTO users values " +
+                        "(" + id + ", " +
+                        "'" + user.getName() +  "', " +
+                        "'"  + user.getUserRole() +  "', " +
+                        "'" + user.getUserRole() + "', " +
+                        "'" + user.getLoginType() + "', " +
+                        user.getLevel() +   ", " +
+                        user.getHintsLeft() + ", " +
+                         user.getGoldLeft() + ", " +
+                        "'/home')");
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
