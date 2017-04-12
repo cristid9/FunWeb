@@ -63,11 +63,31 @@ public class UserDAO {
         Statement stmt = null;
 
         try {
+
             conn  = connection.getDBConnection();
             stmt = conn.createStatement();
 
+            ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS \"ID\" FROM users");
+            rs.next();
+
+            int id = 0;
+
+            if (rs != null) {
+                id = rs.getInt("ID") + 1;
+            }
+
             try {
-                stmt.executeQuery("INSERT INTO users values (15001, 'vasile', 'user', 'mail', 'normal', 1, 10, 10, '/home')");
+                stmt.executeQuery("INSERT INTO users values " +
+                        "(" + id + ", " +
+                        "'" + user.getName() +  "', " +
+                        "'"  + user.getUserRole() +  "', " +
+                        "'" + user.getUserRole() + "', " +
+                        "'" + user.getLoginType() + "', " +
+                        user.getLevel() +   ", " +
+                        user.getHintsLeft() + ", " +
+                         user.getGoldLeft() + ", " +
+                        "'/home')");
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -81,7 +101,26 @@ public class UserDAO {
         return true;
     }
 
-    public boolean updateUserPassword(User user){
+
+    public boolean updateUserPassword(User user , String newPassword){
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn  = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try {
+                stmt.executeQuery("UPDATE LoginDataCustom SET password=" + newPassword + "where LoginDataCustom.user_id ="+user.getId() + ";");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
