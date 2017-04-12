@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
 
@@ -304,5 +306,30 @@ public class UserDAO {
 
 
         return false;
+    }
+
+    public ArrayList<String> getAllUsers() {
+        ArrayList<String> users = new ArrayList<String>();
+
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT name FROM users");
+
+            while(rs.next()){
+                String user = rs.getString("name");
+                users.add(user);
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
     }
 }
