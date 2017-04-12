@@ -82,7 +82,7 @@
             </div>
             <div id = "atributes" class="col-sm-6">
                 <br>
-                <p> Name: name </p>
+                <p> Name: ${username} </p>
                 <p> Level: level </p>
                 <p> Title: noob </p>
                 <p> Gold: gold </p>

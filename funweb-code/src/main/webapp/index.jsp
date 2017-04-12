@@ -20,15 +20,15 @@
 
 <div class="col-sm-4"></div>
 <div class="col-sm-4"> <h3>Login </h3>
-    <form>
+    <form action="/login" method="POST">
         <div class="form-group">
             <label for="username">Username:</label>
-            <input type="username" class="form-control" id="username" placeholder="Enter username">
+            <input type="username" class="form-control" id="username" name="username" placeholder="Enter username">
         </div>
 
         <div>
             <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter password">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
         </div>
 
         <div class="checkbox">
@@ -36,7 +36,7 @@
         </div>
 
         <form>
-            <button formaction="main_menu.html" type="login" class="btn btn-success"> Login </button>
+            <button type="submit" class="btn btn-success" > Login </button>
         </form>
         <button type="login" class="btn btn-primary">Login with FaceBook</button>
 

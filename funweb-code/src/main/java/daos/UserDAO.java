@@ -252,4 +252,38 @@ public class UserDAO {
 
         return returnValue;
     }
+
+    public boolean checkIfUserMatchesPassword(String username, String password) {
+        User user = getUser(username);
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT password FROM logindatacustom WHERE user_id = '" + user.getId() + "'");
+
+
+            if (rs == null) {
+                return false; // the user doesn't even exists
+            }
+
+            rs.next();
+
+
+            String retrievedPassword = rs.getString("password");
+
+            if (retrievedPassword.equals(password)) {
+                return true;
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return false;
+    }
 }

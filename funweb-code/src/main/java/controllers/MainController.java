@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import user.User;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class MainController {
@@ -19,6 +23,7 @@ public class MainController {
     private DBConnection connection = new DBConnection();
     private UserDAO dao = new UserDAO(connection);
     private QuestionDAO qDao = new QuestionDAO(connection);
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage() {
 
@@ -26,6 +31,28 @@ public class MainController {
        
         return "register";
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView doLogin(HttpServletRequest request, HttpServletResponse response,
+                          @RequestParam(name = "username") String username,
+                          @RequestParam(name = "password") String password) {
+
+        if (dao.checkIfUserMatchesPassword(username, password)) {
+
+            Cookie loggedIn = new Cookie("username", username);
+            response.addCookie(loggedIn);
+            ModelAndView mainMenu = new ModelAndView();
+
+            mainMenu.setViewName("main_menu");
+            mainMenu.addObject("username", username);
+
+            return mainMenu;
+        } else {
+            return new ModelAndView("register") ;
+        }
+    }
+
+
     @RequestMapping(value="/main_menu", method = RequestMethod.GET)
     public String getMainMenuPage(){
 
