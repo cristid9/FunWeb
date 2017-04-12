@@ -145,4 +145,28 @@ public class UserDAO {
         return true;
     }
 
+    public String weakestChapter(int id){
+        Connection conn;
+        Statement stmt = null;
+
+        try{
+            conn = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try{
+                ResultSet rs = stmt.executeQuery("SELECT user_package.weakestChapter("+id+") as WEAKEST from dual");
+                rs.next();
+
+                String ret = rs.getString("WEAKEST");
+                return ret;
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            conn.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
