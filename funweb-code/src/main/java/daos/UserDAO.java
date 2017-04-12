@@ -48,7 +48,26 @@ public class UserDAO {
         return true;
     }
 
-    public boolean updateUser(User user){
+    public boolean updateUserPassword(User user , String newPassword){
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn  = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try {
+                stmt.executeQuery("UPDATE LoginDataCustom SET password=" + newPassword + "where LoginDataCustom.user_id ="+user.getId() + ";");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 
