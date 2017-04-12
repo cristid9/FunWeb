@@ -60,7 +60,7 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Suport</a></li>
                         <li role="separator" class="divider"></li>
-                        <li class="admin-options"><a href="#">Admin Options </a> </li>
+                        <li class="admin-options"><a href="/adminPannel">Admin Options </a> </li>
                         <li class="admin-options" role="separator" class="divider"></li>
                         <li><a href="#">Logout</a></li>
                     </form>
