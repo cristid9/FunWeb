@@ -2,10 +2,8 @@ package daos;
 
 
 import db.DBConnection;
-import oracle.jdbc.pool.OracleConnectionCacheTimeOutThread;
 import user.User;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -145,6 +143,7 @@ public class UserDAO {
         return true;
     }
 
+
     public String weakestChapter(int id){
         Connection conn;
         Statement stmt = null;
@@ -159,7 +158,7 @@ public class UserDAO {
 
                 String ret = rs.getString("WEAKEST");
                 return ret;
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 
@@ -168,5 +167,89 @@ public class UserDAO {
             e.printStackTrace();
         }
         return null;
+    }
+              
+
+    public String checkIfValidUsername(String username){
+
+        String suggestion = "";
+
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn  = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try {
+               ResultSet queryResult = stmt.executeQuery("SELECT user_package.existsUsername('"+username+"') as EXISTA from dual");
+               queryResult.next();
+
+               int exists = queryResult.getInt("EXISTA");
+
+               if(exists == 0)
+                   return null;
+
+               else if (exists == 1)
+               {
+                    ResultSet newUsername = stmt.executeQuery("SELECT user_package.generateSuggestion('"+username+"') as SUGESTIE from dual");
+                    newUsername.next();
+
+                    suggestion = newUsername.getString("SUGESTIE");
+               }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return suggestion;
+    }
+
+    public int checkPasswordStrengthness(String password){
+
+        int returnValue = 0;
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn  = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try {
+                ResultSet queryResult = stmt.executeQuery("SELECT user_package.isWeak('"+password+"') as VERIFICAREPAROLA from dual");
+                queryResult.next();
+
+                returnValue = queryResult.getInt("VERIFICAREPAROLA");
+
+                if(returnValue == 0){
+                    //weak password -> red
+                    System.out.println("red");
+                }
+                else if(returnValue == 1){
+                    //medium password -> yellow
+                    System.out.println("yellow");
+                }
+                else if(returnValue == 2){
+                    //good password -> green
+                    System.out.println("green");
+                }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+          
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return returnValue;
     }
 }

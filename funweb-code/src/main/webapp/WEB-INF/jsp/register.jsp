@@ -66,10 +66,17 @@
                     $.post("/checkUsernameAvailable", {
                         username: $("#username").val()
                     }, function (data) {
-                        console.log(data);
-                        $("#username").attr("title", "sugestii");
-                        $("#username").tooltip("show");
-                        $("#username").trigger("mouseover");
+
+                        data = JSON.parse(data);
+
+                        if (data.status === 'ok') {
+                            $("#username").tooltip("hide");
+                        } else if (data.status === "taken") {
+                            $("#username").attr("title",
+                                "The username is already taken, what about: " + data.suggestion);
+                            $("#username").tooltip("show");
+                            $("#username").trigger("mouseover");
+                        }
 
                         // the tool tip should be displayed conditionally, depending on the server's output
                     });
