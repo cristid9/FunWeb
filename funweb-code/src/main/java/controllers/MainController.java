@@ -40,7 +40,7 @@ public class MainController {
 
         User user = dao.getUser(username);
 
-        if (dao.checkIfUserMatchesPassword(username, password)) {
+        if (dao.getUser(username) != null && dao.checkIfUserMatchesPassword(username, password)) {
 
             Cookie loggedIn = new Cookie("username", username);
             response.addCookie(loggedIn);
