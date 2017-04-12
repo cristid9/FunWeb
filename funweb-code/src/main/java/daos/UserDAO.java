@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserDAO {
 
@@ -34,7 +33,6 @@ public class UserDAO {
 
             stmt.executeQuery("INSERT INTO logidatacustom VALUES('" + password + "', " + id  + ")");
 
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,7 +65,6 @@ public class UserDAO {
             } catch (SQLException e){
                 e.printStackTrace();
             }
-            conn.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -112,7 +109,6 @@ public class UserDAO {
             }
 
 
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -136,7 +132,6 @@ public class UserDAO {
             }
 
 
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -157,7 +152,6 @@ public class UserDAO {
                 e.printStackTrace();
             }
 
-            conn.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -183,7 +177,6 @@ public class UserDAO {
                 e.printStackTrace();
             }
 
-            conn.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -224,7 +217,6 @@ public class UserDAO {
                 e.printStackTrace();
             }
 
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -266,7 +258,6 @@ public class UserDAO {
                 e.printStackTrace();
             }
           
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -299,7 +290,6 @@ public class UserDAO {
                 return true;
             }
 
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -325,7 +315,6 @@ public class UserDAO {
                 users.add(user);
             }
 
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
