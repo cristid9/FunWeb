@@ -17,6 +17,7 @@ import user.User;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 @Controller
 public class MainController {
@@ -161,6 +162,12 @@ public class MainController {
         return new ModelAndView("admin");
     }
 
+    @ResponseBody
+    @RequestMapping(value="/getUsersList" , method = RequestMethod.GET)
+    public String getUsersList(@RequestParam ArrayList<String> usersList){
+        return null;
+    }
+    
 }
 
 
