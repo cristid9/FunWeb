@@ -1,9 +1,12 @@
 package daos;
 
 
-import oracle.jdbc.driver.DBConversion;
-import user.User;
 import db.DBConnection;
+import user.User;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UserDAO {
 
@@ -18,17 +21,30 @@ public class UserDAO {
     }
 
     public User getUser(Long id){
-        //String sql = "select name from User where id=" + id +";";
 
-        //HashMap<String, Long> parameters  = new HashMap<String, Long>();
-        //parameters.put("id" , id);
-
-        //List<User> query = namedParameterJdbcTemplate.query(sql , parameters , userRowMapper);
-
-        return null;
+       return null;
     }
 
     public boolean createUser(User user){
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn  = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try {
+                stmt.executeQuery("INSERT INTO users values (15001, 'vasile', 'user', 'mail', 'normal', 1, 10, 10, '/home')");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 
