@@ -13,18 +13,31 @@ public class DBConnection {
     Connection conn;
 
     public DBConnection() {
+
         try {
             Class.forName("oracle.jdbc.OracleDriver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        OracleDataSource ds = null;
+
+        try {
+            ds = new OracleDataSource();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        ds.setURL(jdbcUrl);
+
+        try {
+            conn = ds.getConnection(userid, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public Connection getDBConnection() throws SQLException {
-        OracleDataSource ds = new OracleDataSource();
-        ds.setURL(jdbcUrl);
-        conn = ds.getConnection(userid, password);
-
         return conn;
     }
 }
