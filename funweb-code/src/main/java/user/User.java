@@ -15,7 +15,7 @@ public class User {
 
     }
 
-    public User(int id, String name, String userRole, String eMail, String loginType, int level, int hintsLeft, int goldLeft, String avatarPath){
+    public User(long id, String name, String userRole, String eMail, String loginType, int level, int hintsLeft, int goldLeft, String avatarPath){
         this.id = id;
         this.name = name;
         this.userRole = userRole;
@@ -27,7 +27,7 @@ public class User {
         this.avatarPath = avatarPath;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -98,5 +98,20 @@ public class User {
 
     public String getAvatarPath() {
         return avatarPath;
+    }
+
+    public String toString(){
+        StringBuilder ret = new StringBuilder("Name : ");
+        ret.append(this.name + "\n");
+        ret.append("ID : " + this.id + "\n");
+        ret.append("UserRole : " + this.userRole + "\n");
+        ret.append("EMail : " + this.email +"\n");
+        ret.append("LoginType : " + this.loginType+"\n") ;
+        ret.append("Level : " + this.level +"\n");
+        ret.append("HintsLeft : " + this.hintsLeft +"\n");
+        ret.append("Gold Left : " + this.goldLeft + "\n");
+        ret.append("Avatar path : " + this.avatarPath  + "\n");
+
+        return ret.toString();
     }
 }
