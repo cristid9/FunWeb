@@ -24,6 +24,7 @@ public class MainController {
     private DBConnection connection = new DBConnection();
     private UserDAO dao = new UserDAO(connection);
     private QuestionDAO qDao = new QuestionDAO(connection);
+    User loggedInUser = null;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage() {
@@ -51,6 +52,8 @@ public class MainController {
             mainMenu.addObject("Level", user.getLevel());
             mainMenu.addObject("Title", user.getLoginType());
             mainMenu.addObject("Gold", user.getGoldLeft());
+
+            this.loggedInUser = user;
 
             return mainMenu;
         } else {
@@ -134,6 +137,20 @@ public class MainController {
 
 
         return new ModelAndView("redirect:/");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/weakestChapter", method = RequestMethod.POST)
+    public String getWeakestChapter() {
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("weakestChapter", dao.weakestChapter((int) loggedInUser.getId()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString();
     }
 }
 
