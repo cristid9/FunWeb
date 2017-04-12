@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import user.User;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,8 @@ public class MainController {
                           @RequestParam(name = "username") String username,
                           @RequestParam(name = "password") String password) {
 
+        User user = dao.getUser(username);
+
         if (dao.checkIfUserMatchesPassword(username, password)) {
 
             Cookie loggedIn = new Cookie("username", username);
@@ -44,7 +47,10 @@ public class MainController {
             ModelAndView mainMenu = new ModelAndView();
 
             mainMenu.setViewName("main_menu");
-            mainMenu.addObject("username", username);
+            mainMenu.addObject("Username", username);
+            mainMenu.addObject("Level", user.getLevel());
+            mainMenu.addObject("Title", user.getLoginType());
+            mainMenu.addObject("Gold", user.getGoldLeft());
 
             return mainMenu;
         } else {
