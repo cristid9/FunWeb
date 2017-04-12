@@ -155,7 +155,7 @@ public class MainController {
 
     @RequestMapping(value = "/adminPannel", method = RequestMethod.GET)
     public ModelAndView getAdminPannel() {
-        if (loggedInUser.getUserRole().equals("admin"))  {
+        if (!loggedInUser.getUserRole().equals("admin"))  {
             return new ModelAndView("redirect:/main_menu");
         }
         return new ModelAndView("admin");
