@@ -35,7 +35,9 @@
             <label><input type="checkbox"> Remember me</label>
         </div>
 
-        <button type="login" class="btn btn-success">Login</button>
+        <form>
+            <button formaction="main_menu.html" type="login" class="btn btn-success"> Login </button>
+        </form>
         <button type="login" class="btn btn-primary">Login with FaceBook</button>
 
         <br> <br>

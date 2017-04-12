@@ -26,6 +26,11 @@ public class MainController {
        
         return "register";
     }
+    @RequestMapping(value="/main_menu", method = RequestMethod.GET)
+    public String getMainMenuPage(){
+
+        return "main_menu";
+    }
 
     @ResponseBody
     @RequestMapping(value = "/checkUsernameAvailable", method = RequestMethod.POST)
