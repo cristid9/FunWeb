@@ -24,6 +24,7 @@ public class MainController {
     private DBConnection connection = new DBConnection();
     private UserDAO dao = new UserDAO(connection);
     private QuestionDAO qDao = new QuestionDAO(connection);
+    User loggedInUser = null;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage() {
@@ -51,6 +52,8 @@ public class MainController {
             mainMenu.addObject("Level", user.getLevel());
             mainMenu.addObject("Title", user.getLoginType());
             mainMenu.addObject("Gold", user.getGoldLeft());
+
+            this.loggedInUser = user;
 
             return mainMenu;
         } else {
