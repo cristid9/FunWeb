@@ -132,8 +132,6 @@ create or replace package questions_package as
   function isRelevant(p_id QUESTIONS.QUESTION_ID%type)
    return int;
   
-  
-  
 end questions_package;
 
 create or replace package body questions_package as
@@ -144,6 +142,7 @@ create or replace package body questions_package as
   
   v_asked float := 0;
   v_solved float := 0;
+  counter integer;
   
   begin
     select asked into v_asked from QUESTIONS where QUESTION_ID = p_id;
@@ -158,6 +157,13 @@ create or replace package body questions_package as
     end if;
     
     return 1;
+    
+    exception
+    when no_data_found then
+      select count(*) into counter from questions where question_id = p_id;
+       IF counter = 0 THEN
+     raise_application_error (-20001,'Intrebarea cu id-ul ' || p_id || ' nu exista in baza de date.');
+      end if;
   end;
   
   
