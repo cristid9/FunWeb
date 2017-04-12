@@ -9,6 +9,9 @@ create or replace package user_package as
     
   function isWeak(pass varchar2)
     return int;
+    
+  function weakestChapter(p_id USERS.id%type)
+   return varchar2;
   
 end user_package;
 
@@ -90,42 +93,6 @@ create or replace package body user_package as
   end;
   
   
-end user_package;
-
-create or replace package questions_package as
-  
-  function isRelevant(p_id QUESTIONS.QUESTION_ID%type)
-   return int;
-  
-  function weakestChapter(p_id USERS.id%type)
-   return varchar2;
-  
-end questions_package;
-
-create or replace package body questions_package as
-  
-  function isRelevant(p_id QUESTIONS.QUESTION_ID%type)
-    return int
-  as
-  
-  v_asked float := 0;
-  v_solved float := 0;
-  
-  begin
-    select asked into v_asked from QUESTIONS;
-    select solved into v_solved from QUESTIONS;
-    
-    if v_asked < 3 then
-      return 0;
-    end if;
-    
-    if v_solved <= v_asked * 0.2 or v_solved >= v_asked * 0.8 then
-      return 0;
-    end if;
-    
-    return 1;
-  end;
-  
   function weakestChapter(p_id USERS.id%type) 
     return varchar2 as
   cursor c_chapter is select questions.chapter, count(id) from answers join questions on questions.question_id = answers.question_id where answers.solved = 1 and answers.user_id = p_id group by questions.chapter;
@@ -157,10 +124,45 @@ create or replace package body questions_package as
     return v_ret;
   end;
   
+  
+end user_package;
+
+create or replace package questions_package as
+  
+  function isRelevant(p_id QUESTIONS.QUESTION_ID%type)
+   return int;
+  
+  
+  
 end questions_package;
 
-select questions_package.weakestChapter(10) from dual;
+create or replace package body questions_package as
+  
+  function isRelevant(p_id QUESTIONS.QUESTION_ID%type)
+    return int
+  as
+  
+  v_asked float := 0;
+  v_solved float := 0;
+  
+  begin
+    select asked into v_asked from QUESTIONS where QUESTION_ID = p_id;
+    select solved into v_solved from QUESTIONS where QUESTION_ID = p_id;
+    
+    if v_asked < 3 then
+      return 0;
+    end if;
+    
+    if v_solved <= v_asked * 0.2 or v_solved >= v_asked * 0.8 then
+      return 0;
+    end if;
+    
+    return 1;
+  end;
+  
+  
+end questions_package;
+
 
 --select * from users where name = 'Bogdan';
-
 
