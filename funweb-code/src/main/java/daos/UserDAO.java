@@ -145,4 +145,46 @@ public class UserDAO {
         return true;
     }
 
+    public String checkIfValidUsername(String username){
+
+
+        String suggestion = "";
+
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn  = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try {
+               ResultSet queryResult = stmt.executeQuery("SELECT user_package.existsUsername('"+username+"') as EXISTA from dual");
+               queryResult.next();
+
+               int exists = queryResult.getInt("EXISTA");
+
+               if(exists == 0)
+                   return null;
+
+               else if (exists == 1)
+               {
+                    ResultSet newUsername = stmt.executeQuery("SELECT user_package.generateSuggestion('"+username+"') as SUGESTIE from dual");
+                    newUsername.next();
+
+                    suggestion = newUsername.getString("SUGESTIE");
+               }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return suggestion;
+    }
+
 }
