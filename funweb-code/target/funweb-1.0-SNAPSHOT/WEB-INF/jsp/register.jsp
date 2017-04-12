@@ -43,7 +43,7 @@
                 <label><input type="checkbox"> Remember me</label>
             </div>
 
-            <button type="login" class="btn btn-success">Register</button>
+            <button type="login" class="btn btn-success" href="/register">Register</button>
             <button type="login" class="btn btn-primary">Register with FaceBook</button> </a>
 
 
