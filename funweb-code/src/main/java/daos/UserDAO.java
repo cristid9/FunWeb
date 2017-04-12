@@ -101,7 +101,10 @@ public class UserDAO {
         return true;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1889d9ffde0aa4bf7080b8bc6de3cafca4116629
     public boolean updateUserPassword(User user , String newPassword){
         Connection conn;
         Statement stmt = null;
@@ -121,6 +124,10 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1889d9ffde0aa4bf7080b8bc6de3cafca4116629
         return true;
     }
 
