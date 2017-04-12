@@ -48,11 +48,28 @@ public class UserDAO {
         return true;
     }
 
-    public boolean updateUser(User user){
+    public boolean updateUserPassword(User user){
         return true;
     }
 
     public boolean removeUser(User user){
+        Connection conn;
+        Statement stmt = null;
+
+        try{
+            conn = connection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try{
+                stmt.executeQuery("delete from users where id = " + user.getId() + ";");
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            conn.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
