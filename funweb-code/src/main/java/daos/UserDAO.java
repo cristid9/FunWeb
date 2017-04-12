@@ -21,6 +21,23 @@ public class UserDAO {
         this.connection = connection;
     }
 
+    public void registerPassword(Long id, String password) {
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn = connection.getDBConnection();
+
+            stmt = conn.createStatement();
+
+            stmt.executeQuery("INSERT INTO logidatacustom VALUES('" + password + "', " + id  + ")");
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public User getUser(String name){
         User user = null;
         Connection conn;
@@ -56,9 +73,11 @@ public class UserDAO {
         return user;
     }
 
-    public boolean createUser(User user){
+    // updated to return the database id of the newly inserted item in the database
+    public int createUser(User user){
         Connection conn;
         Statement stmt = null;
+        int id = 0;
 
         try {
 
@@ -67,8 +86,6 @@ public class UserDAO {
 
             ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS \"ID\" FROM users");
             rs.next();
-
-            int id = 0;
 
             if (rs != null) {
                 id = rs.getInt("ID") + 1;
@@ -86,6 +103,8 @@ public class UserDAO {
                          user.getGoldLeft() + ", " +
                         "'/home')");
 
+                return id;
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -96,7 +115,7 @@ public class UserDAO {
             e.printStackTrace();
         }
 
-        return true;
+        return -1; // replace with an exception
     }
 
 

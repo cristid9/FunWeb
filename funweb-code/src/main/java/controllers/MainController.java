@@ -107,6 +107,34 @@ public class MainController {
 
         return json.toString();
     }
- }
+
+    @RequestMapping(value = "/validateRegistration", method = RequestMethod.POST)
+    public ModelAndView validateRegistration(@RequestParam(name = "email") String email,
+                                       @RequestParam(name = "username") String username,
+                                       @RequestParam(name = "password") String password) {
+
+        if (email.equals("") || username.equals("") || password.equals("")) {
+            return new ModelAndView("redirect:/register");
+        }
+
+
+        User registeredUser = new User(0,
+        username,
+        "user",
+        email,
+        "normal",
+        1,
+        2,
+        300,
+        "/home");
+
+        // missing error check
+        int id = dao.createUser(registeredUser);
+        dao.registerPassword(Long.valueOf(id), password);
+
+
+        return new ModelAndView("redirect:/");
+    }
+}
 
 
