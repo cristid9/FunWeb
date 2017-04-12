@@ -5,7 +5,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-class DBConnection {
+public class DBConnection {
 
     String jdbcUrl = " jdbc:oracle:thin:@127.0.0.1:1521:XE";
     String userid = "tw2017";

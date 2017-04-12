@@ -1,7 +1,9 @@
 package daos;
 
 
+import oracle.jdbc.driver.DBConversion;
 import user.User;
+import db.DBConnection;
 
 public class UserDAO {
 
@@ -10,7 +12,10 @@ public class UserDAO {
     //private SimpleJdbcInsert insert;
 
     // add crud methods here
-
+    private DBConnection connection;
+    public UserDAO(DBConnection connection){
+        this.connection = connection;
+    }
 
     public User getUser(Long id){
         //String sql = "select name from User where id=" + id +";";
