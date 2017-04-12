@@ -27,7 +27,7 @@
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li class="navbar-left"><a href="#">Fun Web</a></li>
-            <li data-toggle="modal" data-target="#myModal"><a href="#">Help</a></li>
+            <li data-toggle="modal" data-target="#myModal" id="helpModalButton"><a href="#">Help</a></li>
             <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog">
 
@@ -38,10 +38,9 @@
                             <h4 class="modal-title">Help</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at augue non libero vulputate sagittis. Proin et vehicula ex. Nunc at nisl vel purus dignissim convallis. Nam quis enim efficitur mi gravida tincidunt id vel magna. Mauris consequat iaculis tortor at fermentum. Proin viverra laoreet turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque condimentum odio at odio porttitor dignissim. Cras at tellus tempor, cursus arcu a, vulputate purus. Vivamus porttitor id nunc vel aliquet.<p>
-
                             <h3>Tips:</h3>
                             <p>You should learn more from this chapter: </p>
+                            <p id="helpModalContent"> </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -116,6 +115,21 @@
         <p class="text-center">FunWeb &#9400; 2017 <p>
     </div>
 </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#helpModalButton").on('click', function(e) {
+                $.post("/weakestChapter", {}, function(data) {
+                    data = JSON.parse(data);
+
+                    $("#helpModalContent").html(data.weakestChapter);
+                });
+
+            });
+
+        });
+    </script>
 </body>
 
 </html>

@@ -144,7 +144,11 @@ public class MainController {
     public String getWeakestChapter() {
         JSONObject json = new JSONObject();
 
-        // get weakest chapter
+        try {
+            json.put("weakestChapter", dao.weakestChapter((int) loggedInUser.getId()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return json.toString();
     }
