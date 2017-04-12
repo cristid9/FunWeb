@@ -135,6 +135,16 @@ public class MainController {
 
         return new ModelAndView("redirect:/");
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/weakestChapter", method = RequestMethod.POST)
+    public String getWeakestChapter() {
+        JSONObject json = new JSONObject();
+
+        // get weakest chapter
+
+        return json.toString();
+    }
 }
 
 
