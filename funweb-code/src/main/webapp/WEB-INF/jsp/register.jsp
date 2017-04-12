@@ -61,8 +61,8 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $("#username").tooltip("hide");
                 $("#username").change(function () {
+                    $("#username").tooltip("hide");
                     $.post("/checkUsernameAvailable", {
                         username: $("#username").val()
                     }, function (data) {
@@ -74,13 +74,45 @@
                         } else if (data.status === "taken") {
                             $("#username").attr("title",
                                 "The username is already taken, what about: " + data.suggestion);
+                            $("#username").tooltip("fixTitle");
                             $("#username").tooltip("show");
                             $("#username").trigger("mouseover");
                         }
 
                         // the tool tip should be displayed conditionally, depending on the server's output
                     });
+
+
                 });
+
+                $("#password").change(function () {
+                    $("#password").tooltip("hide");
+
+                    $.post("/checkPasswordStrength", {
+                        password: $("#password").val()
+                    }, function (data) {
+                        data = JSON.parse(data);
+
+                        var strengthString = null;
+
+                        if (data.strength === 0) {
+                            strengthString = "weak password";
+                        } else if (data.strength === 1) {
+                            strengthString = "medium password";
+                        } else {
+                            strengthString = "strong password";
+                        }
+
+                        $("#password").attr("title", strengthString);
+                        $("#password").tooltip("fixTitle");
+                        $("#password").tooltip("show");
+                        $("#password").trigger("mouseover");
+
+                    })
+                });
+
+
+
             });
         </script>
 

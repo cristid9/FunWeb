@@ -88,8 +88,18 @@ public class MainController {
 
     @ResponseBody
     @RequestMapping(value = "/checkPasswordStrength", method = RequestMethod.POST)
-    public String checkPasswordStrengths(@RequestParam String password) {
-        return "dummy";
+    public String checkPasswordStrength(@RequestParam String password) {
+        JSONObject json = new JSONObject();
+
+        int strength = dao.checkPasswordStrengthness(password);
+
+        try {
+            json.put("strength", strength);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString();
     }
  }
 
