@@ -21,27 +21,27 @@
 
             <div class="col-sm-4"></div>
             <div class="col-sm-4"><h3>Register</h3>
-                <form>
+                <form action="/validateRegistration" method="post">
                     <div class="form-group">
                         <label for="email">E-mail:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter e-mail">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter e-mail">
                     </div>
 
                     <div class="form-group">
                         <label for="username">Username:</label>
-                        <input type="username" class="form-control" id="username" placeholder="Enter username">
+                        <input type="username" class="form-control" id="username"  name="username" placeholder="Enter username">
                     </div>
 
                     <div>
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
                     </div>
 
                     <div class="checkbox">
                         <label><input type="checkbox"> Remember me</label>
                     </div>
 
-                    <button type="login" class="btn btn-success" href="/register">Register</button>
+                    <button type="login" class="btn btn-success">Register</button>
                     <button type="login" class="btn btn-primary">Register with FaceBook</button>
                     </a>
 
@@ -74,7 +74,7 @@
                         } else if (data.status === "taken") {
                             $("#username").attr("title",
                                 "The username is already taken, what about: " + data.suggestion);
-                            $("#username").tooltip("fixTitle");
+                            $("#username").tooltip("fixTitleda");
                             $("#username").tooltip("show");
                             $("#username").trigger("mouseover");
                         }
@@ -110,9 +110,6 @@
 
                     })
                 });
-
-
-
             });
         </script>
 
