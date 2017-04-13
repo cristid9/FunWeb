@@ -35,17 +35,14 @@
                 </tr>
                 </thead>
 
-                <tbody>
-                <tr>
-                    <td> Boca </td>
-                    <td> <button type="button" class="btn btn-danger"> Ban </button> </td>
-                </tr>
+                <tbody id="usersListMain">
+
                 </tbody>
             </table>
             <div class="text-center">
                 <ul class="pagination pagination-lg pager" id="myPager">
-                    <li> 1 </li>
-                    <li> 2 </li>
+                    <li id="prevPage"> prev </li>
+                    <li id="nextPage"> next </li>
                 </ul>
             </div>
 
@@ -70,6 +67,32 @@
     </div>
 
 </div>
+    <script type="text/javascript">
 
+        $(document).ready(function() {
+
+            var currentPage = 0;
+            var usersList = null;
+            var itemsPerPage = 20;
+
+            var initTableOfUsers = function(users) {
+                for (var i = 0; i < itemsPerPage && i < users.length; ++i) {
+                    $("#usersListMain").append(
+                        '<tr>' +
+                        '<td>' + users[i].username + '</td>' +
+                            '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger"> Ban </button> </td>' +
+                        '</tr>'
+                    );
+                }
+            }
+
+            $.post("/getUsersList", {}, function(data) {
+                usersList = JSON.parse(data);
+
+                initTableOfUsers(usersList);
+            });
+
+        });
+    </script>
 </body>
 </html>

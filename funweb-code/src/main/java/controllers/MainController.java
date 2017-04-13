@@ -156,16 +156,31 @@ public class MainController {
 
     @RequestMapping(value = "/adminPannel", method = RequestMethod.GET)
     public ModelAndView getAdminPannel() {
-        if (!loggedInUser.getUserRole().equals("admin"))  {
+        // don't ask why it works, it just works. we know is dirty, that's the life
+        if (!loggedInUser.getUserRole().equals("\nadmin"))  {
             return new ModelAndView("redirect:/main_menu");
         }
         return new ModelAndView("admin");
     }
 
     @ResponseBody
-    @RequestMapping(value="/getUsersList" , method = RequestMethod.GET)
-    public String getUsersList(@RequestParam ArrayList<String> usersList){
-        return null;
+    @RequestMapping(value="/getUsersList" , method = RequestMethod.POST)
+    public String getUsersList(){
+        JSONArray jsonArray = new JSONArray();
+
+        ArrayList<String> users = dao.getAllUsers();
+
+        for (String user : users) {
+            JSONObject jsonUser = new JSONObject();
+            try {
+                jsonUser.put("username", user);
+                jsonArray.put(jsonUser);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonArray.toString();
     }
     
 }
