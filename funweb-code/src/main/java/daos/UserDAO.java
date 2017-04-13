@@ -31,7 +31,7 @@ public class UserDAO {
 
             stmt = conn.createStatement();
 
-            stmt.executeQuery("INSERT INTO logidatacustom VALUES('" + password + "', " + id  + ")");
+            stmt.executeQuery("INSERT INTO logindatacustom VALUES('" + password + "', " + id  + ")");
 
         } catch (SQLException e) {
             e.printStackTrace();
