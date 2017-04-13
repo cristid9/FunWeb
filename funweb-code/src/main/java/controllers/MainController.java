@@ -17,6 +17,7 @@ import user.User;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Controller
@@ -181,6 +182,16 @@ public class MainController {
         }
 
         return jsonArray.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/banUser" , method = RequestMethod.POST)
+    public boolean banUser(@RequestParam String username) throws SQLException {
+
+        User targetedForBan = dao.getUser(username);
+        dao.removeUser(targetedForBan);
+
+        return true;
     }
     
 }
