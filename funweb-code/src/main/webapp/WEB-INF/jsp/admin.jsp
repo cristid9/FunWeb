@@ -30,19 +30,14 @@
                 </tr>
                 </thead>
 
-                <tbody>
-
-                <tr>
-                    <td> plm </td>
-                    <td> <button type="button" class="btn btn-danger"> Ban </button> </td>
-                </tr>
+                <tbody id="usersListMain">
 
                 </tbody>
             </table>
             <div class="text-center">
                 <ul class="pagination pagination-lg pager" id="myPager">
-                    <li> 1 </li>
-                    <li> 2 </li>
+                    <li id="prevPage" class="btn btn-success"> prev </li>
+                    <li id="nextPage" class="btn btn-success"> next </li>
                 </ul>
             </div>
 
@@ -69,6 +64,54 @@
     </div>
 
 </div>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            var currentPage = 0;
+            var usersList = null;
+            var itemsPerPage = 15;
+            var current = 0;
+
+            var populateTable = function(users, page, itemsPerPage) {
+                $("#usersListMain").html("");
+                for (var i = page * itemsPerPage; i < page * itemsPerPage + itemsPerPage && i < users.length; ++i) {
+                    $("#usersListMain").append(
+                        '<tr>' +
+                        '<td>' + users[i].username + '</td>' +
+                            '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger"> Ban </button> </td>' +
+                        '</tr>'
+                    );
+                }
+            }
+
+            $.post("/getUsersList", {}, function(data) {
+                usersList = JSON.parse(data);
+
+                populateTable(usersList, current, itemsPerPage);
+            });
+
+            $("#nextPage").on('click', function(e) {
+                console.log(current);
+                console.log(usersList.length / itemsPerPage);
+
+                // refactor o be easier to understand
+                if ((current + 1) < usersList.length / itemsPerPage) {
+
+                    current++;
+                    populateTable(usersList, current, itemsPerPage)
+                }
+            });
+
+            $("#prevPage").on('click', function(e) {
+
+                if (current > 0) {
+                    current--;
+                    populateTable(usersList, current, itemsPerPage)
+                }
+            });
+        });
+    </script>
 
 <script type="text/javascript">
     $('#check').on('click', function() {
@@ -82,6 +125,7 @@
         });
     });
 </script>
+
 
 </body>
 </html>

@@ -17,6 +17,8 @@ import user.User;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Controller
 public class MainController {
@@ -169,13 +171,43 @@ public class MainController {
 
     @RequestMapping(value = "/adminPannel", method = RequestMethod.GET)
     public ModelAndView getAdminPannel() {
-        if (loggedInUser.getUserRole().equals("admin")) {
-            return new ModelAndView("admin");
+        if (!loggedInUser.getUserRole().equals("admin")) {
+            return new ModelAndView("redirect:/main_menu");
         }
-        return new ModelAndView("redirect:/main_menu");
+            return new ModelAndView("admin");
 
     }
 
+    @ResponseBody
+    @RequestMapping(value="/getUsersList" , method = RequestMethod.POST)
+    public String getUsersList(){
+        JSONArray jsonArray = new JSONArray();
+
+        ArrayList<String> users = dao.getAllUsers();
+
+        for (String user : users) {
+            JSONObject jsonUser = new JSONObject();
+            try {
+                jsonUser.put("username", user);
+                jsonArray.put(jsonUser);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonArray.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/banUser" , method = RequestMethod.POST)
+    public boolean banUser(@RequestParam String username) throws SQLException {
+
+        User targetedForBan = dao.getUser(username);
+        dao.removeUser(targetedForBan);
+
+        return true;
+    }
+    
 }
 
 
