@@ -62,4 +62,30 @@ public class QuestionDAO {
         return error;
     }
 
+    public int alreadyReceives(Long id) {
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn  = dbConnection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try {
+                ResultSet rs = stmt.executeQuery("select questions_package.alreadyReceived("+ id + ") as arecv from dual");
+                rs.next();
+
+
+                int receivedStatus = rs.getInt("arecv");
+
+                return receivedStatus;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 }

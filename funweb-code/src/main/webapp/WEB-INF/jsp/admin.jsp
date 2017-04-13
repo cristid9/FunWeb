@@ -64,6 +64,13 @@
                 </div>
                 <button id="check" type="button" class="btn btn-success">Check</button>
 
+                <div class="form-group">
+                    <label for="id"> Id </label>
+                    <input id="alreadyReceivedQuestion" class="form-control" />
+                </div>
+
+                <button id="check2" type="button" class="btn btn-success"> Check </button>
+
             </form>
 
             <p id="raspuns">  </p>
@@ -157,21 +164,26 @@
             });
 
          
-      $('#check').on('click', function() {
-         $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
-            data = JSON.parse(data);
-             $('#raspuns').html(data.relevance === true ? "true" : "false");
+              $('#check').on('click', function() {
+                 $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
+                    data = JSON.parse(data);
+                     $('#raspuns').html(data.relevance === true ? "true" : "false");
 
-            console.log(data);
-            console.log(data['relevance']);
+                    console.log(data);
+                    console.log(data['relevance']);
 
-            if (data.error === "yes") {
-                alert(data.errorMessage);
-            }
+                    if (data.error === "yes") {
+                        alert(data.errorMessage);
+                    }
 
-        });
-    });
-          
+                });
+            });
+
+            $("#check2").on('click', function(e) {
+               $.post("/checkAlreadyReceived", {id: $("#alreadyReceivedQuestion").val()}, function (event) {
+
+               });
+            });
         });
 
 

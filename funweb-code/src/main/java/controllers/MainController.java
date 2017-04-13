@@ -230,6 +230,21 @@ public class MainController {
 
         return json.toString();
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/checkAlreadyReceived", method = RequestMethod.POST)
+    public String checkAlreadyReceived(@RequestParam(name = "id") String id) {
+
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("receivedStatus", );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
 
 
