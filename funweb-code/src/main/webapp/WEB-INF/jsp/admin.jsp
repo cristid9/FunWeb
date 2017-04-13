@@ -79,17 +79,20 @@
                     $("#usersListMain").append(
                         '<tr>' +
                         '<td>' + users[i].username + '</td>' +
-                            '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger"> Ban </button> </td>' +
+                            '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger banIt"> Ban </button> </td>' +
                         '</tr>'
                     );
                 }
             }
 
-            $.post("/getUsersList", {}, function(data) {
-                usersList = JSON.parse(data);
+            function getData() {
+                $.post("/getUsersList", {}, function (data) {
+                    usersList = JSON.parse(data);
 
-                populateTable(usersList, current, itemsPerPage);
-            });
+                    populateTable(usersList, current, itemsPerPage);
+                });
+            }
+            getData();
 
             $("#nextPage").on('click', function(e) {
                 console.log(current);
@@ -110,6 +113,16 @@
                     populateTable(usersList, current, itemsPerPage)
                 }
             });
+
+            $(document).on('click', ".banIt", function(e) {
+               var targetedUsername = e.target.id;
+
+               $.post("/banUser", {username: targetedUsername}, function (data) {
+                    alert("The user " + targetedUsername + " was banned!");
+                    getData();
+               });
+            });
+
         });
     </script>
 
