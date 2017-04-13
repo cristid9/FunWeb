@@ -161,6 +161,14 @@ public class MainController {
 
         try{
             json.put("relevance", qDao.isRelevant(id));
+
+            if (qDao.getError() != null) {
+                json.put("error", "yes");
+                json.put("errorMessage", qDao.getError());
+            } else {
+                json.put("error", "no");
+            }
+
         } catch (JSONException e){
             e.printStackTrace();
         }

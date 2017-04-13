@@ -165,6 +165,10 @@
             console.log(data);
             console.log(data['relevance']);
 
+            if (data.error === "yes") {
+                alert(data.errorMessage);
+            }
+
         });
     });
           

@@ -14,7 +14,10 @@ public class QuestionDAO {
     public QuestionDAO(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
-    
+
+    // dirty
+    private String error =  null;
+
     /**
      * Wrapper over `isRelevant` pl/sql function. Checks if a question is relevant.
      * @param id The id of the question
@@ -40,15 +43,23 @@ public class QuestionDAO {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+
+                error = e.getMessage();
+
+                return false;
             }
 
-            conn.close();
+//            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
         return true;
+    }
+
+    public String getError() {
+        return error;
     }
 
 }
