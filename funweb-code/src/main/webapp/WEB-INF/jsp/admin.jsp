@@ -22,6 +22,15 @@
 
         <div class="col-sm-6">
             <p class="text-center"> Lista paginata cu useri </p>
+            <input type="text" id="filterLength" class="form-control" placeholder="nr chars"/>
+            <button type="button" id="filter" class="btn btn-success">
+                filter
+            </button>
+
+            <button type="button" id="reset" class="btn btn-success">
+                reset
+            </button>
+
             <table id="users" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
@@ -64,79 +73,106 @@
     </div>
 
 </div>
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-
-            var currentPage = 0;
-            var usersList = null;
-            var itemsPerPage = 15;
-            var current = 0;
-
-            var populateTable = function(users, page, itemsPerPage) {
-                $("#usersListMain").html("");
-                for (var i = page * itemsPerPage; i < page * itemsPerPage + itemsPerPage && i < users.length; ++i) {
-                    $("#usersListMain").append(
-                        '<tr>' +
-                        '<td>' + users[i].username + '</td>' +
-                            '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger banIt"> Ban </button> </td>' +
-                        '</tr>'
-                    );
-                }
-            }
-
-            function getData() {
-                $.post("/getUsersList", {}, function (data) {
-                    usersList = JSON.parse(data);
-
-                    populateTable(usersList, current, itemsPerPage);
-                });
-            }
-            getData();
-
-            $("#nextPage").on('click', function(e) {
-                console.log(current);
-                console.log(usersList.length / itemsPerPage);
-
-                // refactor o be easier to understand
-                if ((current + 1) < usersList.length / itemsPerPage) {
-
-                    current++;
-                    populateTable(usersList, current, itemsPerPage)
-                }
-            });
-
-            $("#prevPage").on('click', function(e) {
-
-                if (current > 0) {
-                    current--;
-                    populateTable(usersList, current, itemsPerPage)
-                }
-            });
-
-            $(document).on('click', ".banIt", function(e) {
-               var targetedUsername = e.target.id;
-
-               $.post("/banUser", {username: targetedUsername}, function (data) {
-                    alert("The user " + targetedUsername + " was banned!");
-                    getData();
-               });
-            });
-
-        });
-    </script>
-
 <script type="text/javascript">
-    $('#check').on('click', function() {
-         $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
-            data = JSON.parse(data);
-             $('#raspuns').html(data.relevance === true ? "true" : "false");
 
-            console.log(data);
-            console.log(data['relevance']);
+    $(document).ready(function() {
 
+        var currentPage = 0;
+        var usersList = null;
+        var itemsPerPage = 15;
+        var current = 0;
+        var filterLength = 0;
+
+        var populateTable = function(users, page, itemsPerPage, filterLength) {
+            $("#usersListMain").html("");
+
+
+            var itemsInPage = 0;
+            for (var i = page * itemsPerPage;  itemsInPage < itemsPerPage && i < users.length; i++) {
+
+                // aoci
+                if (filterLength !== 0 && users[i].username.length != filterLength) {
+                    continue;
+                }
+
+                $("#usersListMain").append(
+                    '<tr>' +
+                    '<td>' + users[i].username + '</td>' +
+                    '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger banIt"> Ban </button> </td>' +
+                    '</tr>'
+                );
+
+                itemsInPage++;
+            }
+        }
+
+        function getData() {
+            $.post("/getUsersList", {}, function (data) {
+                usersList = JSON.parse(data);
+
+                populateTable(usersList, current, itemsPerPage, filterLength);
+            });
+        }
+        getData();
+
+        $("#nextPage").on('click', function(e) {
+            console.log(current);
+            console.log(usersList.length / itemsPerPage);
+
+            // refactor o be easier to understand
+            if ((current + 1) < usersList.length / itemsPerPage) {
+
+                current++;
+                populateTable(usersList, current, itemsPerPage, filterLength)
+            }
         });
+
+        $("#prevPage").on('click', function(e) {
+
+            if (current > 0) {
+                current--;
+                populateTable(usersList, current, itemsPerPage, filterLength)
+            }
+        });
+
+        $(document).on('click', ".banIt", function(e) {
+            var targetedUsername = e.target.id;
+
+            $.post("/banUser", {username: targetedUsername}, function (data) {
+                alert("The user " + targetedUsername + " was banned!");
+                getData();
+            });
+        });
+
+        $("#filter").on('click', function(e) {
+            console.log("ce plm");
+            filterLength = $("#filterLength").val();
+            getData();
+        });
+
+        $("#reset").on('click', function(e) {
+            console.log("baa ");
+            filterLength = 0;
+            getData();
+        });
+
+
+        $('#check').on('click', function() {
+            $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
+                data = JSON.parse(data);
+                $('#raspuns').html(data.relevance === true ? "true" : "false");
+
+                console.log(data);
+                console.log(data['relevance']);
+
+            });
+        });
+
     });
+
+
+
+
 </script>
 
 
