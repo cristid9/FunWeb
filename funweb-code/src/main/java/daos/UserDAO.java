@@ -49,7 +49,7 @@ public class UserDAO {
 
             try{
                 // todo : add level
-                ResultSet rs = stmt.executeQuery("SELECT id, user_role, email, login_type, hints_left, gold_left, avatar_path from USERS where USERS.name ='" + name + "'");
+                ResultSet rs = stmt.executeQuery("SELECT id, user_role, email, login_type, hints_left, gold_left, avatar_path from USERS where USERS.name ='" + name.replace("'", "\\'") + "'");
                 rs.next();
                 long id = rs.getLong("id");
                 String userRole = rs.getString("user_role");
@@ -274,7 +274,7 @@ public class UserDAO {
             conn = connection.getDBConnection();
             stmt = conn.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT password FROM logindatacustom WHERE user_id = '" + user.getId() + "'");
+            ResultSet rs = stmt.executeQuery("select count(password) as valid from logindatacustom where user_id= " + user.getId() + " and password = '" + password + "'");
 
 
             if (rs == null) {
@@ -284,9 +284,9 @@ public class UserDAO {
             rs.next();
 
 
-            String retrievedPassword = rs.getString("password");
+            Integer matched = rs.getInt("valid");
 
-            if (retrievedPassword.equals(password)) {
+            if (matched == 1) {
                 return true;
             }
 
