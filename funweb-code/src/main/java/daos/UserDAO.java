@@ -126,7 +126,7 @@ public class UserDAO {
             stmt = conn.createStatement();
 
             try {
-                stmt.executeQuery("UPDATE LoginDataCustom SET password=" + newPassword + "where LoginDataCustom.user_id ="+user.getId() + ";");
+                stmt.executeQuery("UPDATE LoginDataCustom SET password=" + newPassword + "where LoginDataCustom.user_id ="+user.getId());
             } catch (SQLException e) {
                 e.printStackTrace();
             }

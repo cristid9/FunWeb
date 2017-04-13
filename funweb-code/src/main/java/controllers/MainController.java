@@ -206,7 +206,22 @@ public class MainController {
 
         return "dummy";
     }
-    
+
+    @ResponseBody
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    public String updatePassword(@RequestParam(name = "newPassword") String newPassword) {
+        JSONObject json = new JSONObject();
+
+        dao.updateUserPassword(loggedInUser, newPassword);
+
+        try {
+            json.put("status", "success");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString();
+    }
 }
 
 
