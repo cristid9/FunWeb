@@ -156,8 +156,8 @@ public class MainController {
 
     @RequestMapping(value = "/adminPannel", method = RequestMethod.GET)
     public ModelAndView getAdminPannel() {
-        // don't ask why it works, it just works. we know is dirty, that's the life
-        if (!loggedInUser.getUserRole().equals("\nadmin"))  {
+
+        if (!loggedInUser.getUserRole().equals("admin"))  {
             return new ModelAndView("redirect:/main_menu");
         }
         return new ModelAndView("admin");
