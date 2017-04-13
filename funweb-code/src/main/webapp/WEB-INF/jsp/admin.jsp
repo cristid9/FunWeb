@@ -73,7 +73,7 @@
 
             var currentPage = 0;
             var usersList = null;
-            var itemsPerPage = 2;
+            var itemsPerPage = 15;
             var current = 0;
 
             var populateTable = function(users, page, itemsPerPage) {
