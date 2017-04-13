@@ -132,6 +132,11 @@
 
             });
 
+            $("#updatePasswordButton").on('click', function (e) {
+                $.post("/updatePassword", {newPassword: $("#newPassword").val()}, function (data) {
+                    alert("password was updated")
+                })
+            })
         });
     </script>
 </body>
