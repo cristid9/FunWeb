@@ -1,10 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Marius
-  Date: 4/12/2017
-  Time: 9:24 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="daos.UserDAO" %>
+<%@ page import="user.User" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div class="container-fluid">
 
     <p> go <a href="#"> back </a> <p>
@@ -27,6 +22,15 @@
 
         <div class="col-sm-6">
             <p class="text-center"> Lista paginata cu useri </p>
+            <input type="text" id="filterLength" class="form-control" placeholder="nr chars"/>
+            <button type="button" id="filter" class="btn btn-success">
+                filter
+            </button>
+
+            <button type="button" id="reset" class="btn btn-success">
+                reset
+            </button>
+
             <table id="users" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
@@ -56,11 +60,13 @@
             <form>
                 <div class="form-group">
                     <label for="id">Id-ul intrebarii:</label>
-                    <input type="id" class="form-control" id="id" placeholder="Introdu id-ul:">
+                    <input id = "id-intrebare" type="input" class="form-control" id="id" placeholder="Introdu id-ul:">
                 </div>
-                <button type="check" class="btn btn-success">Check</button>
+                <button id="check" type="button" class="btn btn-success">Check</button>
 
             </form>
+
+            <p id="raspuns">  </p>
 
         </div>
 
@@ -75,16 +81,28 @@
             var usersList = null;
             var itemsPerPage = 15;
             var current = 0;
+            var filterLength = 0;
 
-            var populateTable = function(users, page, itemsPerPage) {
+            var populateTable = function(users, page, itemsPerPage, filterLength) {
                 $("#usersListMain").html("");
-                for (var i = page * itemsPerPage; i < page * itemsPerPage + itemsPerPage && i < users.length; ++i) {
+
+
+                var itemsInPage = 0;
+                for (var i = page * itemsPerPage;  itemsInPage < itemsPerPage && i < users.length; i++) {
+
+                    // aoci
+                    if (filterLength !== 0 && users[i].username.length != filterLength) {
+                        continue;
+                    }
+
                     $("#usersListMain").append(
                         '<tr>' +
                         '<td>' + users[i].username + '</td>' +
-                            '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger banIt"> Ban </button> </td>' +
+                        '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger banIt"> Ban </button> </td>' +
                         '</tr>'
                     );
+
+                    itemsInPage++;
                 }
             }
 
@@ -92,7 +110,7 @@
                 $.post("/getUsersList", {}, function (data) {
                     usersList = JSON.parse(data);
 
-                    populateTable(usersList, current, itemsPerPage);
+                    populateTable(usersList, current, itemsPerPage, filterLength);
                 });
             }
             getData();
@@ -105,7 +123,7 @@
                 if ((current + 1) < usersList.length / itemsPerPage) {
 
                     current++;
-                    populateTable(usersList, current, itemsPerPage)
+                    populateTable(usersList, current, itemsPerPage, filterLength)
                 }
             });
 
@@ -113,7 +131,7 @@
 
                 if (current > 0) {
                     current--;
-                    populateTable(usersList, current, itemsPerPage)
+                    populateTable(usersList, current, itemsPerPage, filterLength)
                 }
             });
 
@@ -126,7 +144,37 @@
                });
             });
 
+            $("#filter").on('click', function(e) {
+                console.log("ce plm");
+                filterLength = $("#filterLength").val();
+                getData();
+            });
+
+            $("#reset").on('click', function(e) {
+                console.log("baa ");
+                filterLength = 0;
+                getData();
+            });
+
+         
+      $('#check').on('click', function() {
+         $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
+            data = JSON.parse(data);
+             $('#raspuns').html(data.relevance === true ? "true" : "false");
+
+            console.log(data);
+            console.log(data['relevance']);
+
         });
-    </script>
+    });
+          
+        });
+
+
+
+
+</script>
+
+
 </body>
 </html>
