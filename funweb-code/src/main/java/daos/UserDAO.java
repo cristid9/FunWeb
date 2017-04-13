@@ -147,7 +147,7 @@ public class UserDAO {
             stmt = conn.createStatement();
 
             try{
-                stmt.executeQuery("delete from users where id = " + user.getId() + ";");
+                stmt.executeQuery("delete from users where id = " + user.getId());
             } catch (SQLException e){
                 e.printStackTrace();
             }
