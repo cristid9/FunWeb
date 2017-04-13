@@ -274,7 +274,7 @@ public class UserDAO {
             conn = connection.getDBConnection();
             stmt = conn.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT password FROM logindatacustom WHERE user_id = '" + user.getId() + "'");
+            ResultSet rs = stmt.executeQuery("select count(password) as valid from logindatacustom where user_id= " + user.getId() + " and password = '" + password + "'");
 
 
             if (rs == null) {
@@ -284,9 +284,9 @@ public class UserDAO {
             rs.next();
 
 
-            String retrievedPassword = rs.getString("password");
+            Integer matched = rs.getInt("valid");
 
-            if (retrievedPassword.equals(password)) {
+            if (matched == 1) {
                 return true;
             }
 
