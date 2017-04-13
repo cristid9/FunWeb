@@ -78,6 +78,10 @@
 
             <div class="col-sm-4">
                 <img id="avatar" src="path" alt="avatar" width="150" height="150">
+                <input type="text" class="form-control" name="newPassword" id="newPassword"/>
+                <button id="updatePasswordButton" type="button" class="btn btn-default">
+                    update password
+                </button>
             </div>
             <div id = "atributes" class="col-sm-6">
                 <br>
