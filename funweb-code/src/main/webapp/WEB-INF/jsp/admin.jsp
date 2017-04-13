@@ -41,8 +41,8 @@
             </table>
             <div class="text-center">
                 <ul class="pagination pagination-lg pager" id="myPager">
-                    <li id="prevPage"> prev </li>
-                    <li id="nextPage"> next </li>
+                    <li id="prevPage" class="btn btn-success"> prev </li>
+                    <li id="nextPage" class="btn btn-success"> next </li>
                 </ul>
             </div>
 
@@ -73,10 +73,12 @@
 
             var currentPage = 0;
             var usersList = null;
-            var itemsPerPage = 20;
+            var itemsPerPage = 2;
+            var current = 0;
 
-            var initTableOfUsers = function(users) {
-                for (var i = 0; i < itemsPerPage && i < users.length; ++i) {
+            var populateTable = function(users, page, itemsPerPage) {
+                $("#usersListMain").html("");
+                for (var i = page * itemsPerPage; i < page * itemsPerPage + itemsPerPage && i < users.length; ++i) {
                     $("#usersListMain").append(
                         '<tr>' +
                         '<td>' + users[i].username + '</td>' +
@@ -89,7 +91,27 @@
             $.post("/getUsersList", {}, function(data) {
                 usersList = JSON.parse(data);
 
-                initTableOfUsers(usersList);
+                populateTable(usersList, current, itemsPerPage);
+            });
+
+            $("#nextPage").on('click', function(e) {
+                console.log(current);
+                console.log(usersList.length / itemsPerPage);
+
+                // refactor o be easier to understand
+                if ((current + 1) < usersList.length / itemsPerPage) {
+
+                    current++;
+                    populateTable(usersList, current, itemsPerPage)
+                }
+            });
+
+            $("#prevPage").on('click', function(e) {
+
+                if (current > 0) {
+                    current--;
+                    populateTable(usersList, current, itemsPerPage)
+                }
             });
 
         });
