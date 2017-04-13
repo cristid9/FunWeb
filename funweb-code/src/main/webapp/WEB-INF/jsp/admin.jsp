@@ -1,10 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Marius
-  Date: 4/12/2017
-  Time: 9:24 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="daos.UserDAO" %>
+<%@ page import="user.User" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div class="container-fluid">
 
     <p> go <a href="#"> back </a> <p>
@@ -65,11 +60,13 @@
             <form>
                 <div class="form-group">
                     <label for="id">Id-ul intrebarii:</label>
-                    <input type="id" class="form-control" id="id" placeholder="Introdu id-ul:">
+                    <input id = "id-intrebare" type="input" class="form-control" id="id" placeholder="Introdu id-ul:">
                 </div>
-                <button type="check" class="btn btn-success">Check</button>
+                <button id="check" type="button" class="btn btn-success">Check</button>
 
             </form>
+
+            <p id="raspuns">  </p>
 
         </div>
 
@@ -158,7 +155,26 @@
                 filterLength = 0;
                 getData();
             });
+
+         
+      $('#check').on('click', function() {
+         $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
+            data = JSON.parse(data);
+             $('#raspuns').html(data.relevance === true ? "true" : "false");
+
+            console.log(data);
+            console.log(data['relevance']);
+
         });
-    </script>
+    });
+          
+        });
+
+
+
+
+</script>
+
+
 </body>
 </html>

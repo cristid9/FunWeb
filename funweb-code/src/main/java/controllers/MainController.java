@@ -31,7 +31,7 @@ public class MainController {
     public String getRegisterPage() {
 
       // dao.createUser(null);
-       
+
         return "register";
     }
 
@@ -154,13 +154,27 @@ public class MainController {
         return json.toString();
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/isRelevant", method = RequestMethod.POST)
+    public String getRelevance(@RequestParam(name ="id") Long id){
+        JSONObject json = new JSONObject();
+
+        try{
+            json.put("relevance", qDao.isRelevant(id));
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return json.toString();
+    }
+
     @RequestMapping(value = "/adminPannel", method = RequestMethod.GET)
     public ModelAndView getAdminPannel() {
-
-        if (!loggedInUser.getUserRole().equals("admin"))  {
+        if (!loggedInUser.getUserRole().equals("admin")) {
             return new ModelAndView("redirect:/main_menu");
         }
-        return new ModelAndView("admin");
+            return new ModelAndView("admin");
+
     }
 
     @ResponseBody
