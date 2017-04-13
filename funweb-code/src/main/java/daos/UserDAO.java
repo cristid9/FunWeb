@@ -49,7 +49,7 @@ public class UserDAO {
 
             try{
                 // todo : add level
-                ResultSet rs = stmt.executeQuery("SELECT id, user_role, email, login_type, hints_left, gold_left, avatar_path from USERS where USERS.name ='" + name + "'");
+                ResultSet rs = stmt.executeQuery("SELECT id, user_role, email, login_type, hints_left, gold_left, avatar_path from USERS where USERS.name ='" + name.replace("'", "\\'") + "'");
                 rs.next();
                 long id = rs.getLong("id");
                 String userRole = rs.getString("user_role");
