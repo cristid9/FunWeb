@@ -1,15 +1,29 @@
 package db;
 
 import oracle.jdbc.pool.OracleDataSource;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DBConnection {
 
-    String jdbcUrl = " jdbc:oracle:thin:@127.0.0.1:1521:XE";
-    String userid = "tw2017";
-    String password = "tw2017";
+    @Value("${db.url}")
+    String dbUrl;
+
+    @Value("${db.user}")
+    String dbUser;
+
+    @Value("${db.password}")
+    String dbPass;
+
+    @Value("${db.port}")
+    Long dbPort;
+
+    @Value("${db.sid}")
+    String dbSid;
+
+    String jdbcUrl = String.format("jdbc:oracle:thin:@%s:%d:%s", dbUrl, dbPort, dbSid);
     Connection conn;
 
     public DBConnection() {
@@ -30,7 +44,7 @@ public class DBConnection {
         ds.setURL(jdbcUrl);
 
         try {
-            conn = ds.getConnection(userid, password);
+            conn = ds.getConnection(dbUser, dbPass);
         } catch (SQLException e) {
             e.printStackTrace();
         }
