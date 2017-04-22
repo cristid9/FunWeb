@@ -23,6 +23,8 @@ Exact ca in imaginea asta:
 ![ConnSqlDeveloper](imgs/connection.png)
 
 
+| Field           | Value                                                     |
+| --------------- |:----------------------------------------------------------|
 | Parola          | `f11f3pass`                                               |
 | Connection Name | `fiifw-cloud-db`                                          |
 | Username        | `fiifw`                                                   |
