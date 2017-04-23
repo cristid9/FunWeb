@@ -64,6 +64,13 @@
                 </div>
                 <button id="check" type="button" class="btn btn-success">Check</button>
 
+                <div class="form-group">
+                    <label for="id"> Id </label>
+                    <input id="alreadyReceivedQuestion" class="form-control" />
+                </div>
+
+                <button id="check2" type="button" class="btn btn-success"> Check </button>
+
             </form>
 
             <p id="raspuns">  </p>
@@ -144,6 +151,7 @@
             });
         });
 
+<<<<<<< HEAD
         $("#filter").on('click', function(e) {
             console.log("ce plm");
             filterLength = $("#filterLength").val();
@@ -169,6 +177,30 @@
         });
 
     });
+=======
+         
+              $('#check').on('click', function() {
+                 $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
+                    data = JSON.parse(data);
+                     $('#raspuns').html(data.relevance === true ? "true" : "false");
+
+                    console.log(data);
+                    console.log(data['relevance']);
+
+                    if (data.error === "yes") {
+                        alert(data.errorMessage);
+                    }
+
+                });
+            });
+
+            $("#check2").on('click', function(e) {
+               $.post("/checkAlreadyReceived", {id: $("#alreadyReceivedQuestion").val()}, function (event) {
+
+               });
+            });
+        });
+>>>>>>> 0c9bc54d6a31d9aa3d04445acfc21862c3bf5e83
 
 
 

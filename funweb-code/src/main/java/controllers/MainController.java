@@ -161,6 +161,14 @@ public class MainController {
 
         try{
             json.put("relevance", qDao.isRelevant(id));
+
+            if (qDao.getError() != null) {
+                json.put("error", "yes");
+                json.put("errorMessage", qDao.getError());
+            } else {
+                json.put("error", "no");
+            }
+
         } catch (JSONException e){
             e.printStackTrace();
         }
@@ -206,7 +214,37 @@ public class MainController {
 
         return "dummy";
     }
-    
+
+    @ResponseBody
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    public String updatePassword(@RequestParam(name = "newPassword") String newPassword) {
+        JSONObject json = new JSONObject();
+
+        dao.updateUserPassword(loggedInUser, newPassword);
+
+        try {
+            json.put("status", "success");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/checkAlreadyReceived", method = RequestMethod.POST)
+    public String checkAlreadyReceived(@RequestParam(name = "id") String id) {
+
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("receivedStatus", );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
 
 

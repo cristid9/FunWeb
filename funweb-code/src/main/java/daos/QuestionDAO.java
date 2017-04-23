@@ -14,7 +14,10 @@ public class QuestionDAO {
     public QuestionDAO(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
-    
+
+    // dirty
+    private String error =  null;
+
     /**
      * Wrapper over `isRelevant` pl/sql function. Checks if a question is relevant.
      * @param id The id of the question
@@ -40,9 +43,13 @@ public class QuestionDAO {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+
+                error = e.getMessage();
+
+                return false;
             }
 
-            conn.close();
+//            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,4 +58,34 @@ public class QuestionDAO {
         return true;
     }
 
+    public String getError() {
+        return error;
+    }
+
+    public int alreadyReceives(Long id) {
+        Connection conn;
+        Statement stmt = null;
+
+        try {
+            conn  = dbConnection.getDBConnection();
+            stmt = conn.createStatement();
+
+            try {
+                ResultSet rs = stmt.executeQuery("select questions_package.alreadyReceived("+ id + ") as arecv from dual");
+                rs.next();
+
+
+                int receivedStatus = rs.getInt("arecv");
+
+                return receivedStatus;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 }
