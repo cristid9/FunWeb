@@ -15,7 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.js"> </script>
 
     <link href="/resources/css/index_style.css" rel="stylesheet">
-
+    <script src="/resources/js/pages/bounceText.js"> </script>
+    <script src="/resources/js/pages/titleInAnimation.js"> </script>
 </head>
 
 <body>
@@ -58,44 +59,6 @@
         <p class="text-center" > FunWeb &#9400; 2017 </p>
     </div>
 </footer>
-
-
-<script>
-    $(document).ready(function(){
-        $('.content-header').textillate({
-            in: {
-                shuffle: false,
-                sync: true
-            },
-            out: {
-                effect: 'FadeOutRightBig',
-                shuffle: false,
-                sync: true
-            }
-        });
-
-    })
-</script>
-
-<script>
-    $(document).ready(function(){
-        $('.bounce').textillate({
-            loop: true,
-            in: {
-                effect: 'tada',
-                delayScale: 1,
-                delay: 150,
-                shuffle: true
-            },
-            out: {
-                effect: 'flipOutY',
-                reverse: true
-            }
-        });
-
-    })
-</script>
-
 
 
 </body>
