@@ -2,24 +2,24 @@ var mainState = {
 
     preload: function preload() {
 
-        this.game.load.baseURL = 'http://i.imgur.com/';
-        this.game.load.crossOrigin = 'anonymous';
+        // this.game.load.baseURL = 'http://i.imgur.com/';
+        // this.game.load.crossOrigin = 'anonymous';
 
-        this.game.load.image('IfosDEc.png', sessionStorage.getItem('IfosDEc.png'));
-        this.game.load.image('JPIRRqM.png', sessionStorage.getItem('JPIRRqM.png'));
-        this.game.load.image('4sS7xA4.png', sessionStorage.getItem('4sS7xA4.png'));
+        this.game.load.image('mainPlayer', '/resources/assets/mainPlayer.png');
+        this.game.load.image('backendQuestioner', '/resources/assets/backendQuestioner.png');
+        this.game.load.image('frontendQuestioner', '/resources/assets/frontendQuestioner.png');
     },
 
     create: function create() {
         this.player = this.game.add.sprite(this.game.world.centerX,
-            this.game.world.centerY,
-            'IfosDEc.png');
+                                           this.game.world.centerY,
+                                           'mainPlayer');
 
-        this.questioner1 = this.game.add.sprite(10, 200, 'JPIRRqM.png');
+        this.questioner1 = this.game.add.sprite(10, 200, 'backendQuestioner');
         this.questioner1BitmapText = this.game.add.text(0, 100, 'Eu trebuia sa iti pun intrebari despre backend, \ndar nu merge severul.');
         this.questioner1BitmapText.visible = false;
 
-        this.questioner2 = this.game.add.sprite(400, 300, '4sS7xA4.png');
+        this.questioner2 = this.game.add.sprite(400, 300, 'frontendQuestioner');
         this.questioner2BitmapText = this.game.add.text(300, 250, 'Nici la mine nu merge serverul');
         this.questioner2BitmapText.visible = false;
 
