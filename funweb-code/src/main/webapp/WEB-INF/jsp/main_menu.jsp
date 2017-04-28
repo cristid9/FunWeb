@@ -40,7 +40,7 @@
 
                         <li class="notifications"><a href="#">Notifications</a>
                             <div class="messages">
-                                <a href="#" class="message">Giani invited you to play in Arena</a>
+                                <a href="/arena" class="message">Giani invited you to play in Arena</a>
                             </div>
                         </li>
                         <li><a href="#">Chat</a></li>
@@ -108,7 +108,7 @@
         <div class="grid_6">
             <div class="p1_box right cl4">
                 <div class="type"></div>
-                <a href="#" class="bot" align="left" id="tutorial">Tutorial Mode</a>
+                <a href="/arena" class="bot" align="left" id="tutorial">Tutorial Mode</a>
             </div>
         </div>
     </div>
@@ -543,7 +543,7 @@
         <div class="grid_6">
             <div class="p1_box right cl4">
                 <div class="type"></div>
-                <a href="#" class="bot" align="left" id="tutorial">Tutorial Mode</a>
+                <a href="/arena" class="bot" align="left" id="tutorial">Tutorial Mode</a>
             </div>
         </div>
     </div>
