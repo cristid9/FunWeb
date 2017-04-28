@@ -2,12 +2,10 @@ var mainState = {
 
     preload: function preload() {
 
-        // this.game.load.baseURL = 'http://i.imgur.com/';
-        // this.game.load.crossOrigin = 'anonymous';
-
         this.game.load.image('mainPlayer', '/resources/assets/mainPlayer.png');
         this.game.load.image('backendQuestioner', '/resources/assets/backendQuestioner.png');
         this.game.load.image('frontendQuestioner', '/resources/assets/frontendQuestioner.png');
+        this.game.load.image('sqlQuestioner', '/resources/assets/sqlQuestioner.png');
     },
 
     create: function create() {
@@ -15,18 +13,29 @@ var mainState = {
                                            this.game.world.centerY,
                                            'mainPlayer');
 
+        // backend questioner setup
         this.questioner1 = this.game.add.sprite(10, 200, 'backendQuestioner');
         this.questioner1BitmapText = this.game.add.text(0, 100, 'Eu trebuia sa iti pun intrebari despre backend, \ndar nu merge severul.');
         this.questioner1BitmapText.visible = false;
 
+        // frontend questioner setup
         this.questioner2 = this.game.add.sprite(400, 300, 'frontendQuestioner');
         this.questioner2BitmapText = this.game.add.text(300, 250, 'Nici la mine nu merge serverul');
         this.questioner2BitmapText.visible = false;
 
+        // sql questioner setup
+        this.sqlQuestioner = this.game.add.sprite(600, 450, 'sqlQuestioner');
+        this.sqlQuestionerText = this.game.add.text(570, 420, 'Eu trebuie sa pun intrebari din SQL');
+        this.sqlQuestionerText.visible = false;
 
         this.game.stage.backgroundColor = "#4488AA";
 
-        this.physics.arcade.enable([this.player, this.questioner1, this.questioner2]);
+        this.physics.arcade.enable([
+            this.player,
+            this.questioner1,
+            this.questioner2,
+            this.sqlQuestioner,
+        ]);
     },
 
     update: function update() {
@@ -48,6 +57,9 @@ var mainState = {
 
         this.game.physics.arcade.overlap(this.player, this.questioner1, collisionHandler, null, this);
         this.game.physics.arcade.overlap(this.player, this.questioner2, collisionHandler2, null, this);
+        this.game.physics.arcade.overlap(this.player, this.sqlQuestioner, collisionHandler3, null, null);
+
+        // needs a refactor, to much boilerplate code
 
         function collisionHandler(player, questionare) {
             this.questioner1BitmapText.visible = true;
@@ -66,6 +78,15 @@ var mainState = {
                 self.questioner2BitmapText.visible = false
             }, 1000);
 
+        }
+
+        function collisionHandler3(player, sqlQuestioner) {
+            this.sqlQuestionerText.visible = true;
+
+            var self = this;
+            setTimeout(function () {
+                self.sqlQuestionerText.visible = false;
+            }, 1000);
         }
     }
 };
