@@ -238,12 +238,17 @@ public class MainController {
         JSONObject json = new JSONObject();
 
         try {
-            json.put("receivedStatus", );
+            json.put("receivedStatus", null);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    @RequestMapping(value = "/arena", method = RequestMethod.GET)
+    public ModelAndView getArena() {
+        return new ModelAndView("arena");
     }
 }
 
