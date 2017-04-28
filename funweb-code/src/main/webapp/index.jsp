@@ -14,7 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.js"> </script>
 
-    <link href="../css/index_style.css" rel="stylesheet">
+    <link href="/resources/css/index_style.css" rel="stylesheet">
 
 </head>
 
