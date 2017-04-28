@@ -6,6 +6,7 @@ var mainState = {
         this.game.load.image('backendQuestioner', '/resources/assets/backendQuestioner.png');
         this.game.load.image('frontendQuestioner', '/resources/assets/frontendQuestioner.png');
         this.game.load.image('sqlQuestioner', '/resources/assets/sqlQuestioner.png');
+        this.game.load.image('noSqlQuestioner', '/resources/assets/noSqlQuestioner.png');
     },
 
     create: function create() {
@@ -28,6 +29,11 @@ var mainState = {
         this.sqlQuestionerText = this.game.add.text(570, 420, 'Eu trebuie sa pun intrebari din SQL');
         this.sqlQuestionerText.visible = false;
 
+        // no sql questioner setup
+        this.noSqlQuestioner = this.game.add.sprite(800, 300, 'noSqlQuestioner');
+        this.noSqlQuestionerText = this.game.add.text(790, 280, 'Eu iti pun intrebari din no sql');
+        this.noSqlQuestionerText.visible = false;
+
         this.game.stage.backgroundColor = "#4488AA";
 
         this.physics.arcade.enable([
@@ -35,6 +41,7 @@ var mainState = {
             this.questioner1,
             this.questioner2,
             this.sqlQuestioner,
+            this.noSqlQuestioner,
         ]);
     },
 
@@ -57,7 +64,8 @@ var mainState = {
 
         this.game.physics.arcade.overlap(this.player, this.questioner1, collisionHandler, null, this);
         this.game.physics.arcade.overlap(this.player, this.questioner2, collisionHandler2, null, this);
-        this.game.physics.arcade.overlap(this.player, this.sqlQuestioner, collisionHandler3, null, null);
+        this.game.physics.arcade.overlap(this.player, this.sqlQuestioner, collisionHandler3, null, this);
+        this.game.physics.arcade.overlap(this.player, this.noSqlQuestioner, collisionHandler4, null, this);
 
         // needs a refactor, to much boilerplate code
 
@@ -86,6 +94,15 @@ var mainState = {
             var self = this;
             setTimeout(function () {
                 self.sqlQuestionerText.visible = false;
+            }, 1000);
+        }
+
+        function collisionHandler4(player, noSqlQuestioner) {
+            this.noSqlQuestionerText.visible = true;
+
+            var self = this;
+            setTimeout(function() {
+                self.noSqlQuestionerText.visible = false;
             }, 1000);
         }
     }
