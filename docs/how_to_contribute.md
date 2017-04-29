@@ -12,9 +12,9 @@ Formatul commiturilor
 Mod general de a contribui
 --------------------------
 * Se adauga taskul, descrierea lui, responsabilul (sau responsabilii, dupa caz)
-  de solutionarea taskului pe ![trello](https://trello.com/b/5DrmwIrh/funweb) 
+  de solutionarea taskului pe [trello](https://trello.com/b/5DrmwIrh/funweb) 
 
-* Unde sunt intrebari sau nelamuriri se discuta pe ![slack](http://fiifw.slack.com), in caz ca nu 
+* Unde sunt intrebari sau nelamuriri se discuta pe [slack](http://fiifw.slack.com), in caz ca nu 
   ne putem vedea in lumea fizica.
 
 * Pentru fiecare task individual se creaza un branch nou din `develop`
