@@ -11,6 +11,15 @@ var mainState = {
         this.game.load.image('acceptButton', '/resources/assets/accept.png');
         this.game.load.image('dismissButton', '/resources/assets/dismiss.png');
         this.game.load.image('questionerDialogPanel', '/resources/assets/questionerDialogPanel.png');
+        this.game.load.image('path', '/resources/assets/path.png');
+        this.game.load.image('border_up', '/resources/assets/path_border_up.png');
+        this.game.load.image('copac1', '/resources/assets/copac1.png');
+        this.game.load.image('copac2', '/resources/assets/copac2.png');
+        this.game.load.image('copac3', '/resources/assets/copac3.png');
+        this.game.load.image('piatra', '/resources/assets/piatra.png');
+        this.game.load.image('floare', '/resources/assets/floare.png');
+
+
     },
 
     create: function create() {
@@ -18,6 +27,56 @@ var mainState = {
                                            this.game.world.centerY,
                                            'mainPlayer');
         */
+
+        //build basic map
+        this.game.add.sprite(72, 160, 'border_up');
+        this.game.add.sprite(72, 220, 'path');
+
+        this.game.add.sprite(136, 160, 'border_up');
+        this.game.add.sprite(136, 220, 'path');
+
+        this.game.add.sprite(200, 160, 'border_up');
+        this.game.add.sprite(200, 220, 'path');
+
+        this.game.add.sprite(264, 160, 'border_up');
+        this.game.add.sprite(264, 220, 'path');
+
+        this.game.add.sprite(328, 160, 'border_up');
+        this.game.add.sprite(328, 220, 'path');
+
+        this.game.add.sprite(392, 160, 'border_up');
+        this.game.add.sprite(392, 220, 'path');
+
+        this.game.add.sprite(456, 160, 'border_up');
+        this.game.add.sprite(456, 220, 'path');
+
+        this.game.add.sprite(500, 160, 'border_up');
+        this.game.add.sprite(500, 220, 'path');
+
+        this.game.add.sprite(500, 274, 'path');
+        this.game.add.sprite(500, 328, 'path');
+        this.game.add.sprite(564, 328, 'path');
+        this.game.add.sprite(612, 328, 'path');
+        this.game.add.sprite(612, 382, 'path');
+        this.game.add.sprite(612, 436, 'path');
+        this.game.add.sprite(676, 328, 'path');
+        this.game.add.sprite(740, 328, 'path');
+
+        this.game.add.sprite(200, 360, 'copac1');
+        this.game.add.sprite(1000, 203 , 'copac1');
+        this.game.add.sprite(1200, 383, 'copac3');
+        this.game.add.sprite(685, 106, 'copac2');
+        this.game.add.sprite(345, 321, 'floare');
+        this.game.add.sprite(600, 672, 'floare');
+        this.game.add.sprite(236, 257, 'piatra');
+        this.game.add.sprite(873, 444, 'piatra');
+
+
+
+
+        console.log(game.width);
+
+
 
         this.player = this.game.add.sprite(100, 150, 'trotinel');
         this.player.animations.add('walk', [9, 10], 12, false);
@@ -59,7 +118,7 @@ var mainState = {
         this.noSqlQuestionerText = this.game.add.text(790, 280, 'Eu iti pun intrebari din no sql');
         this.noSqlQuestionerText.visible = false;
 
-        this.game.stage.backgroundColor = "#4488AA";
+        this.game.stage.backgroundColor = "#66CD00";
 
         this.physics.arcade.enable([
             this.player,
