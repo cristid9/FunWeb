@@ -12,11 +12,6 @@ import java.util.ArrayList;
 
 public class UserDAO {
 
-    //private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    // private JdbcTemplate jdbcTemplate;
-    //private SimpleJdbcInsert insert;
-
-    // add crud methods here
     private DBConnection connection;
     public UserDAO(DBConnection connection){
         this.connection = connection;
@@ -55,7 +50,7 @@ public class UserDAO {
                 String userRole = rs.getString("user_role");
                 String email = rs.getString("email");
                 String loginType = rs.getString("login_type");
-               // int level = rs.getInt("level");
+
                 int hintsLeft = rs.getInt("hints_left");
                 int goldLeft = rs.getInt("gold_left");
                 String avatarPath = rs.getString("avatar_path");
@@ -72,7 +67,6 @@ public class UserDAO {
         return user;
     }
 
-    // updated to return the database id of the newly inserted item in the database
     public int createUser(User user){
         Connection conn;
         Statement stmt = null;
@@ -240,19 +234,19 @@ public class UserDAO {
 
                 returnValue = queryResult.getInt("VERIFICAREPAROLA");
 
-                if(returnValue == 0){
-                    //weak password -> red
-                    System.out.println("red");
-                }
-                else if(returnValue == 1){
-                    //medium password -> yellow
-                    System.out.println("yellow");
-                }
-                else if(returnValue == 2){
-                    //good password -> green
-                    System.out.println("green");
-                }
-
+//                if(returnValue == 0){
+//                    //weak password -> red
+//                    System.out.println("red");
+//                }
+//                else if(returnValue == 1){
+//                    //medium password -> yellow
+//                    System.out.println("yellow");
+//                }
+//                else if(returnValue == 2){
+//                    //good password -> green
+//                    System.out.println("green");
+//                }
+//
 
             } catch (SQLException e) {
                 e.printStackTrace();
