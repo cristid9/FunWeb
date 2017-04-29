@@ -74,7 +74,10 @@ var mainState = {
         }
 
         function dismissHandler() {
-            // stub
+            this.acceptButton.visible = false;
+            this.dismissButton.visible = false;
+            this.questionerDialogPanel.visible = false;
+            this.player.x += 30;
         }
     },
 
