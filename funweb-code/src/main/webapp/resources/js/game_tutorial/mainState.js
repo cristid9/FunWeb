@@ -24,17 +24,24 @@ var mainState = {
         this.player.animations.add('idle', [0, 23] , 5, true);
         this.player.animations.add('up',   [22], 12, true);
 
-
+        // Npc dialog setup
+        this.currentNpc = '';
         this.acceptButton = this.game.add.button(10, 10, 'acceptButton', acceptHandler, this, 0, 0, 0);
-        this.acceptButton = this.game.add.button(20, 10, 'dismissHandler', dismissHandler, this, 0,0, 0);
+        this.dismissButton = this.game.add.button(20, 10, 'dismissButton', dismissHandler, this, 0,0, 0);
         this.acceptButton.scale.setTo(0.3, 0.3);
-
+        this.dismissButton.scale.setTo(0.3, 0.3);
         this.questionerDialogPanel = this.game.add.sprite(0, 0, 'questionerDialogPanel');
 
+        this.acceptButton.visible = false;
+        this.dismissButton.visible = false;
+        this.questionerDialogPanel.visible = false;
 
         // backend questioner setup
         this.questioner1 = this.game.add.sprite(10, 200, 'backendQuestioner');
-        this.questioner1BitmapText = this.game.add.text(0, 100, 'Eu trebuia sa iti pun intrebari despre backend, \ndar nu merge severul.');
+        this.questioner1BitmapText = this.game.add.text(7, 110, 'Intrebari de\n front-end?', {
+            font: "12px Arial",
+            fill: "#fff",
+        });
         this.questioner1BitmapText.visible = false;
 
         // frontend questioner setup
@@ -61,7 +68,6 @@ var mainState = {
             this.sqlQuestioner,
             this.noSqlQuestioner,
         ]);
-
 
         function acceptHandler() {
             // stub
@@ -94,7 +100,7 @@ var mainState = {
             this.player.x += 2;
             this.player.animations.play("walk");
         }
-        else{
+        else {
             downFlag = false;
         }
 
@@ -110,15 +116,32 @@ var mainState = {
         // needs a refactor, to much boilerplate code
 
         function collisionHandler(player, questionare) {
+            this.currentNpc = 'backendQuestioner';
             this.questioner1BitmapText.visible = true;
+
+            this.questionerDialogPanel.x = 0;
+            this.questionerDialogPanel.y = 100;
+            this.questionerDialogPanel.visible = true;
+
+            this.acceptButton.x = 60;
+            this.acceptButton.y = 160;
+            this.acceptButton.visible = true;
+
+            this.dismissButton.x = 10;
+            this.dismissButton.y = 160;
+            this.dismissButton.visible = true;
 
             var self = this;
             setTimeout(function () {
-                self.questioner1BitmapText.visible = false
+                self.questioner1BitmapText.visible = false;
+                self.acceptButton.visible = false;
+                self.dismissButton.visible = false;
+                self.questionerDialogPanel.visible = false;
             }, 1000);
         }
 
         function collisionHandler2(player, questionare2) {
+            this.currentNpc = 'frontendQuestioner';
             this.questioner2BitmapText.visible = true;
 
             var self = this;
@@ -129,6 +152,7 @@ var mainState = {
         }
 
         function collisionHandler3(player, sqlQuestioner) {
+            this.currentNpc = 'sqlQuestioner';
             this.sqlQuestionerText.visible = true;
 
             var self = this;
@@ -138,6 +162,7 @@ var mainState = {
         }
 
         function collisionHandler4(player, noSqlQuestioner) {
+            this.currentNpc = 'noSqlQuestioner';
             this.noSqlQuestionerText.visible = true;
 
             var self = this;
