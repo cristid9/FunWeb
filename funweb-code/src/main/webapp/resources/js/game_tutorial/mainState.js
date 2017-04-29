@@ -130,6 +130,7 @@ var mainState = {
 
         function acceptHandler() {
             // stub
+            this.state.start('questionsState');
         }
 
         function dismissHandler() {
