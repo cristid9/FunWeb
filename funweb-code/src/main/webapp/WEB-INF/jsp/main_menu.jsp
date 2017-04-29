@@ -34,15 +34,25 @@
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#" class="">Home</a></li>
+                                <li class="active">
+                                    <a href="#" class="glyphicon glyphicon-home"></a>
+                                </li>
 
-                                <li class="notifications"><a href="#">Notifications</a>
+                                <li id="myBtn" >
+                                    <a class="glyphicon glyphicon-question-sign" href="#"></a>
+                                </li>
+
+                                <li>
+                                    <a class="glyphicon glyphicon-comment" href="#"></a>
+                                </li>
+
+                                <li class="notifications">
+                                    <a class="glyphicon glyphicon-exclamation-sign" href="#"></a>
                                     <div class="messages">
-                                        <a href="#" class="message">Giani invited you to play in Arena</a>
+                                        <a href="#" class="message">Giani  invited you to play in Arena</a>
                                     </div>
                                 </li>
-                                <li><a href="#">Chat</a></li>
-                                <li id="myBtn"><a href="#">Help</a></li>
+
                                 <div id="myModal" class="modal">
                                     <div class="modal-content">
                                         <span class="close">&times;</span>
@@ -53,7 +63,12 @@
                                 </div>
                             </ul>
                             <ul class="nav navbar-nav pull-right">
-                                <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Options <span class="caret"></span></a>
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle active glyphicon glyphicon-wrench"
+                                                         data-toggle="dropdown" role="button"
+                                                         aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">Change Password</a></li>
                                         <li><a href="#">Admin Menu</a></li>
@@ -98,7 +113,7 @@
         <div id="footer">
             <div class="container">
                 <br><br><br>
-                <p class="text-center"><span class="name">FunWeb &#9400; 2017 </span><p>
+                <%--<p class="text-center"><span class="name">FunWeb &#9400; 2017 </span><p>--%>
             </div>
         </div>
 
