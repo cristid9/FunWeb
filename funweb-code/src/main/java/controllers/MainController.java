@@ -176,7 +176,7 @@ public class MainController {
         return json.toString();
     }
 
-    @RequestMapping(value = "/adminPannel", method = RequestMethod.GET)
+    @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
     public ModelAndView getAdminPannel() {
         if (!loggedInUser.getUserRole().equals("admin")) {
             return new ModelAndView("redirect:/main_menu");
