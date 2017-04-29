@@ -7,7 +7,7 @@ Indentare si spatii
 
 * Indentarea se face cu `4` spatii
 * Apelurile lungi de functii se indenteaza cu numarul necesar de
-  apsatii astfel incat primul argument de dupa `linefeed` sa
+  spatii astfel incat primul argument de dupa `linefeed` sa
   fie aliniat cu prima paranteza a apeului
 * Inainte de `{` se lasa `un` spatiu
 * fiecare operator se prefixeaza cu un spatiu si este urmat de un spatiu
@@ -102,7 +102,7 @@ Importuri
 
 Comentarii
 ----------
-* Fiecare metoda este precedate de un coment (docstring) de forma
+* Fiecare metoda este precedata de un comment (docstring) de forma
   ```
   /**
    * @brief Descriere scurta despre ce face metoda.
