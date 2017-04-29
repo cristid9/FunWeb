@@ -7,12 +7,22 @@ var mainState = {
         this.game.load.image('frontendQuestioner', '/resources/assets/frontendQuestioner.png');
         this.game.load.image('sqlQuestioner', '/resources/assets/sqlQuestioner.png');
         this.game.load.image('noSqlQuestioner', '/resources/assets/noSqlQuestioner.png');
+        this.game.load.image('acceptButton', '/resources/assets/accept.png');
+        this.game.load.image('dismissButton', '/resources/assets/dismiss.png');
+        this.game.load.image('questionerDialogPanel', '/resources/assets/questionerDialogPanel.png');
     },
 
     create: function create() {
         this.player = this.game.add.sprite(this.game.world.centerX,
                                            this.game.world.centerY,
                                            'mainPlayer');
+
+        this.acceptButton = this.game.add.button(10, 10, 'acceptButton', acceptHandler, this, 0, 0, 0);
+        this.acceptButton = this.game.add.button(20, 10, 'dismissHandler', dismissHandler, this, 0,0, 0);
+        this.acceptButton.scale.setTo(0.3, 0.3);
+
+        this.questionerDialogPanel = this.game.add.sprite(0, 0, 'questionerDialogPanel');
+
 
         // backend questioner setup
         this.questioner1 = this.game.add.sprite(10, 200, 'backendQuestioner');
@@ -43,6 +53,15 @@ var mainState = {
             this.sqlQuestioner,
             this.noSqlQuestioner,
         ]);
+
+
+        function acceptHandler() {
+            // stub
+        }
+
+        function dismissHandler() {
+            // stub
+        }
     },
 
     update: function update() {
