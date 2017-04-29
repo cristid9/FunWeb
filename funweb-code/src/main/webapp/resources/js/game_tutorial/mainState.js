@@ -6,12 +6,20 @@ var mainState = {
         this.game.load.image('backendQuestioner', '/resources/assets/backendQuestioner.png');
         this.game.load.image('frontendQuestioner', '/resources/assets/frontendQuestioner.png');
         this.game.load.image('sqlQuestioner', '/resources/assets/sqlQuestioner.png');
+        this.game.load.spritesheet('trotinel', '/resources/assets/playerSprite.png', 80, 110, 24);
     },
 
     create: function create() {
-        this.player = this.game.add.sprite(this.game.world.centerX,
+        /*this.player = this.game.add.sprite(this.game.world.centerX,
                                            this.game.world.centerY,
                                            'mainPlayer');
+        */
+
+        this.player = this.game.add.sprite(100, 150, 'trotinel');
+        this.player.animations.add('walk', [9, 10], 12, false);
+        this.player.animations.add('idle', [0, 23] , 5, true);
+        this.player.animations.add('up',   [22], 12, true);
+
 
         // backend questioner setup
         this.questioner1 = this.game.add.sprite(10, 200, 'backendQuestioner');
@@ -39,20 +47,33 @@ var mainState = {
     },
 
     update: function update() {
+        var downFlag = false;
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
             this.player.y -= 2;
+            downFlag = true;
+            this.player.animations.play("up");
         }
-
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             this.player.y += 2;
+            downFlag = true;
         }
-
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
             this.player.x -= 2;
+            downFlag = true;
+
+            this.player.animations.play("walk");
+        }
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+            downFlag = true;
+            this.player.x += 2;
+            this.player.animations.play("walk");
+        }
+        else{
+            downFlag = false;
         }
 
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.player.x += 2;
+        if(downFlag === false){
+            this.player.animations.play('idle');
         }
 
         this.game.physics.arcade.overlap(this.player, this.questioner1, collisionHandler, null, this);
