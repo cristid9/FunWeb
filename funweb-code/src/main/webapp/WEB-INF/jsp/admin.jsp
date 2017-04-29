@@ -11,202 +11,127 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/resources/css/admin_style.css">
+
 </head>
+
 <body>
-<div class="container-fluid">
+<div class="navbar-wrapper">
+    <div class="container-fluid">
+        <nav class="navbar navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">FunWeb</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" class="">Home</a></li>
 
-    <p> go <a href="#"> back </a> <p>
-    <h1 class="text-center">Admin menu</h1>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Chat</a></li>
+                        <li><a href="#">Notifications</a></li>
 
-    <div class="row">
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Options <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Change Password</a></li>
+                                <li><a href="#">Admin Menu</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
 
-        <div class="col-sm-6">
-            <p class="text-center"> Lista paginata cu useri </p>
-            <input type="text" id="filterLength" class="form-control" placeholder="nr chars"/>
-            <button type="button" id="filter" class="btn btn-success">
-                filter
-            </button>
+<div class="container-fluid" id="menu">
 
-            <button type="button" id="reset" class="btn btn-success">
-                reset
-            </button>
+    <h1 class="text-center" id = "titlu" > Admin options </h1>
+    <br> <br> <br>
 
-            <table id="users" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th> Name </th>
-                    <th> Remove </th>
-                </tr>
-                </thead>
+    <div class="col-sm-3"> </div>
+    <div class="col-sm-6">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-                <tbody id="usersListMain">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="more-less glyphicon glyphicon-plus"></i>
+                            Ban an user
+                        </a>
+                    </h4>
+                </div>
 
-                </tbody>
-            </table>
-            <div class="text-center">
-                <ul class="pagination pagination-lg pager" id="myPager">
-                    <li id="prevPage" class="btn btn-success"> prev </li>
-                    <li id="nextPage" class="btn btn-success"> next </li>
-                </ul>
+                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <div class="fieldwrapper">
+                                <input type="text" class="form-control" id="username" name="username" placeholder=" Enter UserName">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="more-less glyphicon glyphicon-plus"></i>
+                            Another admin option
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <i class="more-less glyphicon glyphicon-plus"></i>
+                            See statistics
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
             </div>
 
         </div>
 
-        <div class="col-sm-6">
-            <p class="text-center"> Intrebari triviale </p>
-
-            <p class="text-center"> Introdu id-ul unei intrebari pentru a testa daca e triviala </p>
-
-            <form>
-                <div class="form-group">
-                    <label for="id">Id-ul intrebarii:</label>
-                    <input id = "id-intrebare" type="input" class="form-control" id="id" placeholder="Introdu id-ul:">
-                </div>
-                <button id="check" type="button" class="btn btn-success">Check</button>
-
-                <div class="form-group">
-                    <label for="id"> Id </label>
-                    <input id="alreadyReceivedQuestion" class="form-control" />
-                </div>
-
-                <button id="check2" type="button" class="btn btn-success"> Check </button>
-
-            </form>
-
-            <p id="raspuns">  </p>
-
-        </div>
-
     </div>
-
 </div>
-<script type="text/javascript">
 
-    $(document).ready(function() {
-
-        var currentPage = 0;
-        var usersList = null;
-        var itemsPerPage = 15;
-        var current = 0;
-        var filterLength = 0;
-
-        var populateTable = function(users, page, itemsPerPage, filterLength) {
-            $("#usersListMain").html("");
-
-
-            var itemsInPage = 0;
-            for (var i = page * itemsPerPage;  itemsInPage < itemsPerPage && i < users.length; i++) {
-
-                // aoci
-                if (filterLength !== 0 && users[i].username.length != filterLength) {
-                    continue;
-                }
-
-                $("#usersListMain").append(
-                    '<tr>' +
-                    '<td>' + users[i].username + '</td>' +
-                    '<td> <button type="button" id="' + users[i].username + '" class="btn btn-danger banIt"> Ban </button> </td>' +
-                    '</tr>'
-                );
-
-                itemsInPage++;
-            }
-        }
-
-        function getData() {
-            $.post("/getUsersList", {}, function (data) {
-                usersList = JSON.parse(data);
-
-                populateTable(usersList, current, itemsPerPage, filterLength);
-            });
-        }
-        getData();
-
-        $("#nextPage").on('click', function(e) {
-            console.log(current);
-            console.log(usersList.length / itemsPerPage);
-
-            // refactor o be easier to understand
-            if ((current + 1) < usersList.length / itemsPerPage) {
-
-                current++;
-                populateTable(usersList, current, itemsPerPage, filterLength)
-            }
-        });
-
-        $("#prevPage").on('click', function(e) {
-
-            if (current > 0) {
-                current--;
-                populateTable(usersList, current, itemsPerPage, filterLength)
-            }
-        });
-
-        $(document).on('click', ".banIt", function(e) {
-            var targetedUsername = e.target.id;
-
-            $.post("/banUser", {username: targetedUsername}, function (data) {
-                alert("The user " + targetedUsername + " was banned!");
-                getData();
-            });
-        });
-
-<<<<<<< HEAD
-        $("#filter").on('click', function(e) {
-            console.log("ce plm");
-            filterLength = $("#filterLength").val();
-            getData();
-        });
-
-        $("#reset").on('click', function(e) {
-            console.log("baa ");
-            filterLength = 0;
-            getData();
-        });
-
-
-        $('#check').on('click', function() {
-            $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
-                data = JSON.parse(data);
-                $('#raspuns').html(data.relevance === true ? "true" : "false");
-
-                console.log(data);
-                console.log(data['relevance']);
-
-            });
-        });
-
-    });
-=======
-         
-              $('#check').on('click', function() {
-                 $.post("/isRelevant", {id : $('#id-intrebare').val()}, function(data){
-                    data = JSON.parse(data);
-                     $('#raspuns').html(data.relevance === true ? "true" : "false");
-
-                    console.log(data);
-                    console.log(data['relevance']);
-
-                    if (data.error === "yes") {
-                        alert(data.errorMessage);
-                    }
-
-                });
-            });
-
-            $("#check2").on('click', function(e) {
-               $.post("/checkAlreadyReceived", {id: $("#alreadyReceivedQuestion").val()}, function (event) {
-
-               });
-            });
-        });
->>>>>>> 0c9bc54d6a31d9aa3d04445acfc21862c3bf5e83
-
-
-
+<script>
+    function toggleIcon(e) {
+        $(e.target)
+            .prev('.panel-heading')
+            .find(".more-less")
+            .toggleClass('glyphicon-plus glyphicon-minus');
+    }
+    $('.panel-group').on('hidden.bs.collapse', toggleIcon);
+    $('.panel-group').on('shown.bs.collapse', toggleIcon);
 
 </script>
-
-
 </body>
 </html>

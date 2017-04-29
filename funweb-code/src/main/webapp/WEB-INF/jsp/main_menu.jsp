@@ -71,7 +71,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">Change Password</a></li>
-                                        <li><a href="#">Admin Menu</a></li>
+                                        <li><a href="/adminPanel">Admin Menu</a></li>
                                     </ul>
                                 </li>
                                 <li class=""><a href="#">Logout</a></li>
