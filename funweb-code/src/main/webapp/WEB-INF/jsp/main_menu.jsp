@@ -111,9 +111,33 @@
         </div>
 
         <div id="footer">
-            <div class="container">
+            <div class="row">
                 <br><br><br>
-                <%--<p class="text-center"><span class="name">FunWeb &#9400; 2017 </span><p>--%>
+                <div class="col-lg-3">
+                    <div id="userAvatar">
+                        <span class="glyphicon glyphicon-user"> </span> Username, 16
+                    </div>
+                </div>
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp;
+
+                <div class="col-lg-2">
+                    <div id="userMoney">
+                        <span class="glyphicon glyphicon-usd"> </span> 500
+                    </div>
+                </div>
+
             </div>
         </div>
 
