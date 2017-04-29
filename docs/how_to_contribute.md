@@ -3,9 +3,9 @@ How to contribute
 
 Formatul commiturilor
 ---------------------
-* Comiturile sunt, de preferat, cat mai atomice
+* Commiturile sunt, de preferat, cat mai atomice
 * Fiecare commit incapsuleaza o modificare punctuala
-* Mesajul commiturile sunt la timpul trecut si incep cu litera mare
+* Mesajul commiturilor este la timpul trecut si incep cu litera mare
 * Mesajul commiturilor trebuie sa fie pe cat posibil mai scurt
 
 Mod general de a contribui
@@ -18,12 +18,12 @@ Mod general de a contribui
 * Se pushuieste branchul respectiv pe `upstream` si se asteapta revizuirea schimbarilor
   de catre un reviewer.
 
-* Dupa acceptului unui reviewer si mergeuieste branchul nou cu develop
+* Dupa acceptului unui reviewer se mergeuieste branchul nou cu `develop`
 
 * La fiecare release nou se mergeuieste `develop` cu `master`. `develop` devenind
   noul `master`.
 
-* Sub nicio forma nu se face rebase la cod deja pushuit!
+* Sub nicio forma nu se face `rebase` la cod deja pushuit!
 
 * Nu se face `push --force`
 
