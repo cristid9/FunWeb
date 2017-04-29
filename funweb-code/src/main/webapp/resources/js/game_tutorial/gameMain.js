@@ -2,4 +2,5 @@ var game = new Phaser.Game(document.body.offsetWidth, document.body.offsetHeight
 
 
 game.state.add('mainState', mainState);
+game.state.add('questionsState', questionsState);
 game.state.start('mainState');
