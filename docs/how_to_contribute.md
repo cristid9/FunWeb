@@ -8,8 +8,11 @@ Formatul commiturilor
 * Mesajul commiturilor este la timpul trecut si incep cu litera mare
 * Mesajul commiturilor trebuie sa fie pe cat posibil mai scurt
 
+
 Mod general de a contribui
 --------------------------
+* Se adauga taskul, descrierea lui, responsabilul (sau responsabilii, dupa caz)
+  de solutionarea taskului pe ![trello](https://trello.com/b/5DrmwIrh/funweb) 
 
 * Pentru fiecare task individual se creaza un branch nou din `develop`
   Spre exemplu, pentru taskul `hot-fix-in-ui` se creeaza un branch nou
