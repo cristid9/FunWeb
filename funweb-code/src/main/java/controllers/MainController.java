@@ -29,9 +29,6 @@ public class MainController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage() {
-
-      // dao.createUser(null);
-
         return "register";
     }
 
@@ -123,19 +120,18 @@ public class MainController {
 
 
         User registeredUser = new User(0,
-        username,
-        "user",
-        email,
-        "normal",
-        1,
-        2,
-        300,
-        "/home");
+            username,
+            "user",
+            email,
+            "normal",
+            1,
+            2,
+            300,
+            "/home");
 
         // missing error check
         int id = dao.createUser(registeredUser);
         dao.registerPassword(Long.valueOf(id), password);
-
 
         return new ModelAndView("redirect:/");
     }

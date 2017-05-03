@@ -276,3 +276,8 @@ html {
     font-family: 'arcadeFont';
     text-decoration: none;
 }
+
+#footer {
+    position: absolute;
+    bottom: 20px;
+}

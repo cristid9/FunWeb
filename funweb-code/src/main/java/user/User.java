@@ -1,5 +1,6 @@
 package user;
 
+// TODO: Use lombok annotations, to avoid boilerplate code
 public class User {
     private long id;
     private String name;
@@ -11,7 +12,7 @@ public class User {
     private int goldLeft;
     private String avatarPath;
 
-    public User(){
+    public User() {
 
     }
 
