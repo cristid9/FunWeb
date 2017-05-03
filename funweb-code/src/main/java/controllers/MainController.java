@@ -3,6 +3,7 @@ package controllers;
 import daos.QuestionDAO;
 import daos.UserDAO;
 import db.DBConnection;
+import funWebMailer.FunWebMailer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,6 +119,7 @@ public class MainController {
             return new ModelAndView("redirect:/register");
         }
 
+        FunWebMailer.sendTextRegisterNotification(username, email);
 
         User registeredUser = new User(0,
             username,
