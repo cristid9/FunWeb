@@ -11,74 +11,31 @@ var mainState = {
         this.game.load.image('acceptButton', '/resources/assets/accept.png');
         this.game.load.image('dismissButton', '/resources/assets/dismiss.png');
         this.game.load.image('questionerDialogPanel', '/resources/assets/questionerDialogPanel.png');
-        this.game.load.image('path', '/resources/assets/path.png');
-        this.game.load.image('border_up', '/resources/assets/path_border_up.png');
-        this.game.load.image('copac1', '/resources/assets/copac1.png');
-        this.game.load.image('copac2', '/resources/assets/copac2.png');
-        this.game.load.image('copac3', '/resources/assets/copac3.png');
-        this.game.load.image('piatra', '/resources/assets/piatra.png');
-        this.game.load.image('floare', '/resources/assets/floare.png');
-
+        this.game.load.tilemap('map', '/resources/assets/map.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image('tiles', '/resources/assets/terrain.png');
+        this.game.load.image('tiles1', '/resources/assets/trees.png');
 
     },
 
     create: function create() {
-        /*this.player = this.game.add.sprite(this.game.world.centerX,
-                                           this.game.world.centerY,
-                                           'mainPlayer');
-        */
+
+        var map = this.game.add.tilemap('map');
+        map.addTilesetImage('terrain', 'tiles');
+        map.addTilesetImage('foliagePack_default', 'tiles1');
+
+        var layer = map.createLayer(0);
+        var layer2 = map.createLayer(1);
+        layer.resizeWorld();
+
+        this.cursors = this.game.input.keyboard.createCursorKeys();
 
         //build basic map
-        this.game.add.sprite(72, 160, 'border_up');
-        this.game.add.sprite(72, 220, 'path');
-
-        this.game.add.sprite(136, 160, 'border_up');
-        this.game.add.sprite(136, 220, 'path');
-
-        this.game.add.sprite(200, 160, 'border_up');
-        this.game.add.sprite(200, 220, 'path');
-
-        this.game.add.sprite(264, 160, 'border_up');
-        this.game.add.sprite(264, 220, 'path');
-
-        this.game.add.sprite(328, 160, 'border_up');
-        this.game.add.sprite(328, 220, 'path');
-
-        this.game.add.sprite(392, 160, 'border_up');
-        this.game.add.sprite(392, 220, 'path');
-
-        this.game.add.sprite(456, 160, 'border_up');
-        this.game.add.sprite(456, 220, 'path');
-
-        this.game.add.sprite(500, 160, 'border_up');
-        this.game.add.sprite(500, 220, 'path');
-
-        this.game.add.sprite(500, 274, 'path');
-        this.game.add.sprite(500, 328, 'path');
-        this.game.add.sprite(564, 328, 'path');
-        this.game.add.sprite(612, 328, 'path');
-        this.game.add.sprite(612, 382, 'path');
-        this.game.add.sprite(612, 436, 'path');
-        this.game.add.sprite(676, 328, 'path');
-        this.game.add.sprite(740, 328, 'path');
-
-        this.game.add.sprite(200, 360, 'copac1');
-        this.game.add.sprite(1000, 203 , 'copac1');
-        this.game.add.sprite(1200, 383, 'copac3');
-        this.game.add.sprite(685, 106, 'copac2');
-        this.game.add.sprite(345, 321, 'floare');
-        this.game.add.sprite(600, 672, 'floare');
-        this.game.add.sprite(236, 257, 'piatra');
-        this.game.add.sprite(873, 444, 'piatra');
-
-
-
-
         console.log(game.width);
 
 
-
-        this.player = this.game.add.sprite(100, 150, 'trotinel');
+        this.game.camera.x = 700;
+        this.game.camera.y = 550;
+        this.player = this.game.add.sprite(730, 790, 'trotinel');
         this.player.animations.add('walk', [9, 10], 12, false);
         this.player.animations.add('idle', [0, 23] , 5, true);
         this.player.animations.add('up',   [22], 12, true);
@@ -118,7 +75,7 @@ var mainState = {
         this.noSqlQuestionerText = this.game.add.text(790, 280, 'Eu iti pun intrebari din no sql');
         this.noSqlQuestionerText.visible = false;
 
-        this.game.stage.backgroundColor = "#66CD00";
+     //   this.game.stage.backgroundColor = "#66CD00";
 
         this.physics.arcade.enable([
             this.player,
@@ -155,13 +112,13 @@ var mainState = {
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
             this.player.x -= 2;
             downFlag = true;
-
             this.player.animations.play("walk");
         }
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
             downFlag = true;
             this.player.x += 2;
             this.player.animations.play("walk");
+
         }
         else {
             downFlag = false;
@@ -170,6 +127,17 @@ var mainState = {
         if(downFlag === false){
             this.player.animations.play('idle');
         }
+
+        if(this.cursors.left.isDown){
+            this.game.camera.x -= 2;
+        } else if (this.cursors.right.isDown) {
+            this.game.camera.x += 2;
+        } else if (this.cursors.up.isDown) {
+            this.game.camera.y -= 2;
+        } else if (this.cursors.down.isDown) {
+            this.game.camera.y += 2;
+        }
+
 
         this.game.physics.arcade.overlap(this.player, this.questioner1, collisionHandler, null, this);
         this.game.physics.arcade.overlap(this.player, this.questioner2, collisionHandler2, null, this);
