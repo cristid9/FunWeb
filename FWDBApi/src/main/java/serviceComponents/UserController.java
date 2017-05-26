@@ -127,4 +127,21 @@ public class UserController {
         return new ResponseEntity<>(chapter, HttpStatus.OK);
     }
 
+    /**
+     * Checks if a username is valid or returns a suggestion, if not.
+     * @param name The candidate name.
+     * @return An empty string if the name is valid, a suggestion otherwise.
+     */
+    @RequestMapping(
+            value = "/checkValidUsername",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<String> checkIfValidUsername(@RequestBody String name) {
+        userDAO = new UserDAO(dbConnector);
+        String suggestion = userDAO.checkIfValidUsername(name);
+
+        return new ResponseEntity<>(suggestion, HttpStatus.OK);
+    }
+
 }
