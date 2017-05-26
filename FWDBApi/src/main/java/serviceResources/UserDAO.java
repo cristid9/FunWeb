@@ -1,4 +1,4 @@
-package serviceComponents.serviceResources;
+package serviceResources;
 
 
 import db.DBConnector;

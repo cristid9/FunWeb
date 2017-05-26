@@ -1,4 +1,4 @@
-package serviceComponents.serviceResources;
+package serviceComponents;
 
 import db.DBConnector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import serviceRepresentations.User;
+import serviceResources.UserDAO;
 
 @RestController
 @RequestMapping("/v1/user/")
