@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    public Integer id;
+    public Long id;
     public String name;
     public String userRole;
     public String email;
