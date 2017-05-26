@@ -44,7 +44,7 @@ public class UserController {
      * @return BAD_REQUEST if the user data are invalid, CREATED otherwise.
      */
     @RequestMapping(
-            value = "/create",
+            value = "/",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -53,10 +53,34 @@ public class UserController {
         int id = userDAO.createUser(user);
 
         // TODO: needs rethinking.
+        // TODO: avoid creation of duplicate users
         if (id == -1) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    /**
+     * Endpoint for deleting an user.
+     * @param name The deletion is done using the user's name.
+     * @return OK if the deletion succeeded, NOT_FOUND otherwise.
+     */
+    @RequestMapping(
+            value = "/{name}",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Void> removeUser(@PathVariable String name) {
+        // TODO: check edge cases
+        userDAO = new UserDAO(dbConnector);
+        User user = userDAO.getUser(name);
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        userDAO.removeUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
