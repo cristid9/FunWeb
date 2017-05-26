@@ -83,4 +83,28 @@ public class UserController {
         userDAO.removeUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // TODO: Make it work for all the edge cases.
+    /**
+     * Registers a password for users that chose to sing in with the app's
+     * internal register system.
+     * @param id The id of the desired user.
+     * @param password The password that needs to be registered for this user.
+     * @return OK so far.
+     */
+    @RequestMapping(
+            value = "/password",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Void> registerPassword(
+            @RequestBody Long id,
+            @RequestBody String password) {
+
+       userDAO = new UserDAO(dbConnector);
+       userDAO.registerPassword(id, password);
+
+       return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
