@@ -107,4 +107,24 @@ public class UserController {
        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Returns a string representing the weakest chapter for the desired user.
+     * @param id The is of the desired user.
+     * @return A string representing the weakest chapter.
+     */
+    @RequestMapping(
+            value = "/weakestChapter/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<String> getWeakestChapter(@PathVariable Long id) {
+        userDAO = new UserDAO(dbConnector);
+        String chapter = userDAO.weakestChapter(id);
+
+        // TODO: Cover edge cases.
+        // TODO: Some dummy entries need to be created in order for this endpoint to work.
+
+        return new ResponseEntity<>(chapter, HttpStatus.OK);
+    }
+
 }
