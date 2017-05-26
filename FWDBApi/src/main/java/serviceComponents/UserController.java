@@ -144,4 +144,29 @@ public class UserController {
         return new ResponseEntity<>(suggestion, HttpStatus.OK);
     }
 
+    /**
+     * Checks if a password matches a name. This endpoint is available only for
+     * users that chose to register using the internal register system.
+     * @param name The name of the candidate user.
+     * @param password The candidate password.
+     * @return Not fully defined yet.
+     */
+    @RequestMapping(
+            value = "checkPasswordMatch",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Boolean> checkIfUserMatchesPassword(
+            @RequestBody String name,
+            @RequestBody String password) {
+
+        // TODO: What about password hashing?
+        // TODO: What about handling edge cases.
+
+        userDAO = new UserDAO(dbConnector);
+        Boolean status = userDAO.checkIfUserMatchesPassword(name, password);
+
+        return new ResponseEntity<>(status, HttpStatus.OK);
+    }
+
 }
