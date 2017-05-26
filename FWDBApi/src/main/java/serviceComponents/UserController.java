@@ -32,7 +32,7 @@ public class UserController {
         User user = userDAO.getUser(name);
 
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class UserController {
      * @return BAD_REQUEST if the user data are invalid, CREATED otherwise.
      */
     @RequestMapping(
-            value = "/",
+            value = "/create",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

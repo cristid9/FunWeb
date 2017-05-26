@@ -1,4 +1,4 @@
-package serviceComponents.serviceResources;
+package serviceComponents;
 
 import db.DBConnector;
 import org.springframework.boot.SpringApplication;
