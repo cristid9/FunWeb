@@ -195,4 +195,22 @@ public class UserController {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
+    /**
+     * Endpoint for checking the straightness of a password.
+     * @param password The candidate password.
+     * @return OK so far.
+     */
+    @RequestMapping(
+            value = "/checkPasswordStraightness",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> checkPasswordStrengthness(@RequestBody String password) {
+        userDAO = new UserDAO(dbConnector);
+
+        Integer strength = userDAO.checkPasswordStrengthness(password);
+
+        return new ResponseEntity<>(strength, HttpStatus.OK);
+    }
+
 }
