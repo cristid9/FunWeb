@@ -169,4 +169,30 @@ public class UserController {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
+    /**
+     * Endpoint for updating the password of an user that chose to register
+     * using the internal registering mechanism.
+     * @param user An object containing the targeted user, only the id field is relevant.
+     * @param password The new password.
+     * @return OK so far.
+     */
+    @RequestMapping(
+            value = "/",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE
+
+    )
+    public ResponseEntity<Boolean> updatePassword(
+            @RequestBody User user,
+            @RequestBody String password) {
+
+        // TODO: Treat edge cases
+        // TODO: What about security
+
+        userDAO = new UserDAO(dbConnector);
+        Boolean status = userDAO.updateUserPassword(user, password);
+
+        return new ResponseEntity<>(status, HttpStatus.OK);
+    }
+
 }

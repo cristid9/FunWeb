@@ -40,11 +40,11 @@ public class UserDAO {
         Connection conn;
         Statement stmt = null;
 
-        try{
+        try {
             conn = connection.getDBConnection();
             stmt = conn.createStatement();
 
-            try{
+            try {
                 // todo : add level
                 ResultSet rs = stmt.executeQuery("SELECT id, user_role, email, login_type, hints_left, gold_left, avatar_path from USERS where USERS.name ='" + name.replace("'", "\\'") + "'");
                 rs.next();
@@ -112,6 +112,7 @@ public class UserDAO {
         return -1; // replace with an exception
     }
 
+    // needs refactoring
     public boolean updateUserPassword(User user , String newPassword){
         Connection conn;
         Statement stmt = null;
@@ -154,7 +155,7 @@ public class UserDAO {
     }
 
 
-    public String weakestChapter(int id){
+    public String weakestChapter(Long id){
         Connection conn;
         Statement stmt = null;
 
