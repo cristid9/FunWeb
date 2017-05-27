@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import serviceRepresentations.User;
 import serviceResources.UserDAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/user/")
 public class UserController {
@@ -211,6 +214,25 @@ public class UserController {
         Integer strength = userDAO.checkPasswordStrengthness(password);
 
         return new ResponseEntity<>(strength, HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint for getting the names of all the users.
+     * @return OK so far.
+     */
+    @RequestMapping(
+            value = "/all",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<String>> getAllUsersNames() {
+        userDAO = new UserDAO(dbConnector);
+
+        // TODO: don't forget the security checks.
+
+        ArrayList<String> users = userDAO.getAllUsers();
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 }
