@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterDAO {
     private DBConnector dbConnector;
@@ -112,7 +114,7 @@ public class CharacterDAO {
      * @return TRUE if the update succeeded, FALSE otherwise. An update could fail if there
      *         was nothing to update.
      */
-    public Boolean updateQuestion(GameCharacter character) {
+    public Boolean updateCharacter(GameCharacter character) {
 
         try {
             Connection connection = dbConnector.getDBConnection();
@@ -141,6 +143,46 @@ public class CharacterDAO {
         return Boolean.FALSE;
     }
 
+
+    /**
+     * @return Returns a list with all the questions.
+     */
+    public List<GameCharacter> getCharacters() {
+
+        // TODO: Security and edge cases.
+
+        List<GameCharacter> characters = null;
+
+        try {
+
+            characters = new ArrayList<>();
+
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("SELECT ID, " +
+                            "NAME, " +
+                            "PICTURE_PATH, " +
+                            "QUESTION_NUMBER FROM CHARACTERS");
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                GameCharacter character = new GameCharacter();
+
+                character.setId(rs.getLong("ID"));
+                character.setName(rs.getString("NAME"));
+                character.setPicturePath(rs.getString("PICTURE_PATH"));
+                character.setQuestionsNumber(rs.getLong("QUESTION_NUMBER"));
+
+                characters.add(character);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return characters;
+    }
 
 
 }
