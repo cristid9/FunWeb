@@ -2,12 +2,14 @@ package serviceRepresentations;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * POJO for a game question.
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Question {
