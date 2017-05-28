@@ -165,4 +165,29 @@ public class QuestionDAO {
         return Boolean.FALSE;
     }
 
+    /**
+     * Deletes a question from the database.
+     * @param id The `id` of the targeted question.
+     * @return TRUE if the deletion succeeded, FALSE otherwise.
+     */
+    public Boolean removeQuestion(Long id) {
+        try {
+            Connection connection = dbConnector.getDBConnection();
+            // TODO: What about foreign keys?!
+            PreparedStatement statement =
+                    connection.prepareStatement("DELETE FROM QUESTIONS WHERE ID = ?");
+            statement.setLong(1, id);
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0) {
+                return Boolean.FALSE;
+            }
+
+            return Boolean.TRUE;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Boolean.TRUE;
+    }
+
 }
