@@ -36,7 +36,7 @@ public class QuestionDAO {
 
             ResultSet rs = statement.executeQuery();
             question.setId(id);
-            question.setEnunciation(rs.getString("ENUNCIATION");
+            question.setEnunciation(rs.getString("ENUNCIATION"));
             question.setChapterId(rs.getLong("CHAPTER"));
             question.setReward(rs.getLong("REWARD"));
             question.setCharacterId(rs.getLong("CHARACTERS_ID"));
@@ -59,12 +59,33 @@ public class QuestionDAO {
     }
 
     /**
-     *
-     * @param question
-     * @return
+     * Inserts a new entry in the database with the attributes of `question`.
+     * @param question The new question to be inserted in the database.
+     * @return Returns the `id` of the new entry.
      */
     public Long createQuestion(Question question) {
-        return null;
+        // TODO: Don't forget about edge cases.
+        Long id = Long.valueOf(-1);
+        try {
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("INSERT INTO QUESTIONS VALUES" +
+                            "?, ?, ?, ?");
+            statement.setString(1, question.getEnunciation());
+            statement.setLong(2, question.getReward());
+            statement.setLong(3, question.getCharacterId());
+            statement.setLong(4, question.getCharacterId());
+
+            statement.executeUpdate();
+
+            ResultSet rs = statement.getGeneratedKeys();
+            return Long.valueOf(rs.getInt(1));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
     /**
