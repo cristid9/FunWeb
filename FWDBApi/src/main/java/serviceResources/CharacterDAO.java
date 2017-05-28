@@ -2,6 +2,7 @@ package serviceResources;
 
 import db.DBConnector;
 import serviceRepresentations.GameCharacter;
+import serviceRepresentations.Question;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -102,5 +103,44 @@ public class CharacterDAO {
 
         return Boolean.FALSE;
     }
+
+    /**
+     * Updates a character in the database.
+     * @param character A character object. It should contain the id of the original
+     *                 and the fields that won't be updated should be the same as
+     *                 in the original.
+     * @return TRUE if the update succeeded, FALSE otherwise. An update could fail if there
+     *         was nothing to update.
+     */
+    public Boolean updateQuestion(GameCharacter character) {
+
+        try {
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("UPDATE CHARACTERS SET " +
+                            "NAME = ?," +
+                            "PICTURE_PATH = ?" +
+                            "QUESTION_NUMBER = ?" +
+                            "WHERE ID = ?");
+
+            statement.setString(1, character.getName());
+            statement.setString(2, character.getPicturePath());
+            statement.setLong(3, character.getQuestionsNumber());
+
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0)
+                return Boolean.FALSE;
+
+            return Boolean.TRUE;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Spaghetti code ftw!
+        return Boolean.FALSE;
+    }
+
+
 
 }
