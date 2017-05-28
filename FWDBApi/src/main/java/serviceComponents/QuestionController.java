@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import serviceRepresentations.Question;
 import serviceResources.QuestionDAO;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/question")
 public class QuestionController {
@@ -62,4 +64,24 @@ public class QuestionController {
         return new ResponseEntity<>(question, HttpStatus.OK);
     }
 
+    /**
+     * Endpoint for updating a question.
+     * @param question A json with the new version of the question.
+     * @return NOT_FOUND if the update failed, OK otherwise.
+     */
+    @RequestMapping(
+            value = "/",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Void> updateQuestion(@RequestBody Question question) {
+        questionDAO = new QuestionDAO(dbConnector);
+        Boolean status = questionDAO.updateQuestion(question);
+
+        if (status == Boolean.FALSE) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
