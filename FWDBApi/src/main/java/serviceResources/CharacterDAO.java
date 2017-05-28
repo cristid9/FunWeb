@@ -76,4 +76,31 @@ public class CharacterDAO {
         return gameCharacter;
     }
 
+    /**
+     * Removes the NPC with the id `id` from the database.
+     * @param id The `id` of the targeted NPC.
+     * @return TRUE if success, FALSE otherwise.
+     */
+    public Boolean removeCharacter(Long id) {
+        try {
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("DELETE FROM CHARACTERS WHERE ID = ?");
+            statement.setLong(1, id);
+
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0) {
+                return Boolean.FALSE;
+            }
+
+            return Boolean.TRUE;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Boolean.FALSE;
+    }
+
 }
