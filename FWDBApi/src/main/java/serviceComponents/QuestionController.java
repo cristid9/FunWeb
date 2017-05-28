@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import serviceRepresentations.Question;
 import serviceResources.QuestionDAO;
 
@@ -42,6 +39,27 @@ public class QuestionController {
         }
 
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint for getting a question based on it's id in the database.
+     * @param id The `id` in the database of the desired question.
+     * @return A new `Question` object representing the entry in the DB with id `id`.
+     */
+    @RequestMapping(
+            value = "/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Question> getQuestion(@PathVariable Long id) {
+        questionDAO = new QuestionDAO(dbConnector);
+        Question question = questionDAO.getQuestion(id);
+
+        if (question == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(question, HttpStatus.OK);
     }
 
 }
