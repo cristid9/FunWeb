@@ -4,6 +4,7 @@ import db.DBConnector;
 import serviceRepresentations.Question;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDAO {
@@ -51,11 +52,48 @@ public class QuestionDAO {
     }
 
     /**
-     *
-     * @return
+     * Returns the list with all the questions registered to a particular NPC.
+     * @param npcId The NPC whose questions we want.
+     * @return Returns a list with all the questions.
      */
     public List<Question> getNPCQuestions(Long npcId) {
-        return null;
+
+        // TODO: Security and edge cases.
+
+        List<Question> questions = null;
+
+        try {
+
+            questions = new ArrayList<>();
+
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("SELECT QUESTION_ID, " +
+                            "ENUNCIATION, " +
+                            "REWARD, " +
+                            "CHARACTERS_ID, " +
+                            "CHAPTER FROM QUESTIONS WHERE CHARACTERS_ID = ?");
+
+            statement.setLong(1, npcId);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Question question = new Question();
+
+                question.setId(rs.getLong("QUESTION_ID"));
+                question.setCharacterId(rs.getLong("CHARACTERS_ID"));
+                question.setEnunciation(rs.getString("ENUNCIATION"));
+                question.setChapterId(rs.getLong("CHAPTER"));
+
+                questions.add(question);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return questions;
     }
 
     /**
