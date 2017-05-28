@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * POJO for a chapter. A chapter is a logical collection of question.
- */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Chapter {
+public class Hint {
     public Long id;
-    public String chapterName;
+    public Long questionId;
+    public String text;
 }
