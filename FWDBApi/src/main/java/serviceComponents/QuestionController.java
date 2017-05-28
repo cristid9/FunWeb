@@ -84,4 +84,28 @@ public class QuestionController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /**
+     * Endpoint for removing a question.
+     * @param id The id of the targeted question.
+     * @return NOT_FOUND if the deletion failed, OK otherwise.
+     */
+    @RequestMapping(
+            value = "/",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Void> removeQuestion(@RequestBody Long id) {
+        // TODO: Edge cases and security checks.
+
+        questionDAO = new QuestionDAO(dbConnector);
+
+        Boolean status = questionDAO.removeQuestion(id);
+
+        if (status == Boolean.FALSE) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
