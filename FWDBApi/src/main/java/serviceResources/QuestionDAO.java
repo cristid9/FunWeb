@@ -127,12 +127,42 @@ public class QuestionDAO {
     }
 
     /**
-     *
-     * @param question
-     * @return
+     * Updates a question in the database.
+     * @param question A question object. It should contain the id of the original
+     *                 and the fields that won't be updated should be the same as
+     *                 in the original.
+     * @return TRUE if the update succeeded, FALSE otherwise. An update could fail if there
+     *         was nothing to update.
      */
     public Boolean updateQuestion(Question question) {
-        return null;
+
+        try {
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("UPDATE QUESTIONS SET " +
+                            "ENUNCIATION = ?," +
+                            "REWARD = ?" +
+                            "CHARACTERS_ID = ?," +
+                            "CHAPTER = ?" +
+                            "WHERE QUESTION_ID = ?");
+
+            statement.setString(1, question.getEnunciation());
+            statement.setLong(2, question.getReward());
+            statement.setLong(3, question.getCharacterId());
+            statement.setLong(4, question.getChapterId());
+
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0)
+                return Boolean.FALSE;
+
+            return Boolean.TRUE;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Spaghetti code ftw!
+        return Boolean.FALSE;
     }
 
 }
