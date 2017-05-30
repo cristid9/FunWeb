@@ -52,7 +52,7 @@ public class LoginDataCustomDAO {
      * @param entry The new chapter to be inserted in the database.
      * @return Returns the `id` of the new entry.
      */
-    public Long createChapter(LoginDataCustom entry){
+    public Long createEntry(LoginDataCustom entry){
         Long id = Long.valueOf(-1);
 
         try {
@@ -72,4 +72,40 @@ public class LoginDataCustomDAO {
         }
         return id;
     }
+
+
+    /**
+     * Updates an entry in the database.
+     * @param entry A `LoginDataCustom` object. It should contain the id of the original
+     *                 and the fields that won't be updated should be the same as
+     *                 in the original.
+     * @return TRUE if the update succeeded, FALSE otherwise. An update could fail if there
+     *         was nothing to update.
+     */
+    public boolean updateEntry(LoginDataCustom entry){
+
+        try {
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("UPDATE LoginDataSocial SET " +
+                            "USER_ID = ?," +
+                            "PASSWORD = ? WHERE ID = ?");
+
+
+            statement.setLong(1, entry.getUserId());
+            statement.setString(1, entry.getPassword());
+            statement.setLong(3, entry.getId());
+
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0)
+                return Boolean.FALSE;
+            return Boolean.TRUE;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Boolean.FALSE;
+    }
+
 }
