@@ -108,4 +108,27 @@ public class LoginDataCustomDAO {
         return Boolean.FALSE;
     }
 
+    /**
+     * Deletes an entry from the database.
+     * @param id The `id` of the targeted entry.
+     * @return TRUE if the deletion succeeded, FALSE otherwise.
+     */
+    public boolean removeEntry(Long id){
+        try {
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("DELETE FROM LoginDataSocial WHERE ID = ?");
+            statement.setLong(1, id);
+
+            int affectedRows = statement.executeUpdate();
+
+            if(affectedRows == 0)
+                return Boolean.FALSE;
+            return Boolean.TRUE;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return Boolean.FALSE;
+    }
+
 }
