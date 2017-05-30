@@ -1,7 +1,6 @@
 package serviceResources;
 
 import db.DBConnector;
-import serviceRepresentations.Chapter;
 import serviceRepresentations.LoginDataCustom;
 
 import java.sql.Connection;
