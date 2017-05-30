@@ -1,6 +1,7 @@
 package serviceResources;
 
 import db.DBConnector;
+import serviceRepresentations.Chapter;
 import serviceRepresentations.LoginDataCustom;
 
 import java.sql.Connection;
@@ -46,5 +47,29 @@ public class LoginDataCustomDAO {
         return entry;
     }
 
+    /**
+     * Inserts a new entry in the database with the attributes of `LoginDataCustom`.
+     * @param entry The new chapter to be inserted in the database.
+     * @return Returns the `id` of the new entry.
+     */
+    public Long createChapter(LoginDataCustom entry){
+        Long id = Long.valueOf(-1);
 
+        try {
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("INSERT INTO LoginDataCustom VALUES (?, ?)");
+
+            statement.setLong(1, entry.getUserId());
+            statement.setString(2, entry.getPassword());
+
+            statement.executeUpdate();
+
+            ResultSet rs = statement.getGeneratedKeys();
+            return Long.valueOf(rs.getInt(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
 }
