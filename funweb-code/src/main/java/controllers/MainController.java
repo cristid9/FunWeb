@@ -67,6 +67,12 @@ public class MainController {
         return "main_menu";
     }
 
+    @RequestMapping(value="/chat_room", method = RequestMethod.GET)
+    public String getChatRoomPage(){
+
+        return "chat_room";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/checkUsernameAvailable", method = RequestMethod.POST)
     public String checkValidUsername(@RequestParam String username) {
