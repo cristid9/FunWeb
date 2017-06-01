@@ -2,7 +2,6 @@ package serviceResources;
 
 
 import db.DBConnector;
-import serviceRepresentations.Chapter;
 import serviceRepresentations.LoginDataSocial;
 
 import java.sql.Connection;
