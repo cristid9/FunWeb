@@ -1,12 +1,15 @@
 package serviceResources;
 
 import db.DBConnector;
+import serviceRepresentations.Chapter;
 import serviceRepresentations.LoginDataCustom;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginDataCustomDAO {
 
@@ -130,4 +133,38 @@ public class LoginDataCustomDAO {
         return Boolean.FALSE;
     }
 
+    /**
+     * @param loginUserId The user whose entries we want.
+     * @return Returns a list with all the entries for this user.
+     */
+    public List<LoginDataCustom> getAllEntries(Long loginUserId) {
+        List<LoginDataCustom> entries = null;
+
+        try {
+            entries = new ArrayList<>();
+
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("SELECT " +
+                            "ID, " +
+                            "PASSWORD " +
+                            "FROM LoginDataCustom" +
+                            "WHERE USER_ID = ?");
+
+            statement.setLong(1, loginUserId);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                LoginDataCustom entry = new LoginDataCustom();
+
+                entry.setId(rs.getLong("ID"));
+                entry.setPassword(rs.getString("PASSWORD"));
+                entry.setUserId(loginUserId);
+                entries.add(entry);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return entries;
+    }
 }
