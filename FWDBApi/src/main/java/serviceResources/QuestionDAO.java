@@ -108,7 +108,7 @@ public class QuestionDAO {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
                     connection.prepareStatement("INSERT INTO QUESTIONS VALUES" +
-                            "?, ?, ?, ?");
+                            "(?, ?, ?, ?)");
             statement.setString(1, question.getEnunciation());
             statement.setLong(2, question.getReward());
             statement.setLong(3, question.getCharacterId());
