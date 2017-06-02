@@ -7,10 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import serviceRepresentations.Option;
-import serviceRepresentations.Question;
 import serviceResources.OptionDAO;
-import serviceResources.QuestionDAO;
-import serviceResources.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;

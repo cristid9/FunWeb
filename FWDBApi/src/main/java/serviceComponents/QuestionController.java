@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import serviceRepresentations.Question;
 import serviceResources.QuestionDAO;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/v1/question")
