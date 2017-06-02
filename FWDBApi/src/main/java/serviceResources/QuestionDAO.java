@@ -25,23 +25,24 @@ public class QuestionDAO {
         Question question = null;
 
         try {
-            question = new Question();
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
                     connection.prepareStatement("SELECT " +
                             "ENUNCIATION, " +
                             "REWARD, " +
-                            "CHARCTERS_ID, " +
-                            "CHAPTER FROM QUESTIONS WHERE QUESTION_ID = ?");
+                            "CHARACTERS_ID, " +
+                            "CHAPTER_ID FROM QUESTIONS WHERE QUESTION_ID = ?");
             statement.setLong(1, id);
 
             ResultSet rs = statement.executeQuery();
-            question.setId(id);
-            question.setEnunciation(rs.getString("ENUNCIATION"));
-            question.setChapterId(rs.getLong("CHAPTER"));
-            question.setReward(rs.getLong("REWARD"));
-            question.setCharacterId(rs.getLong("CHARACTERS_ID"));
-
+            if(rs.next()) {
+                question = new Question();
+                question.setId(id);
+                question.setEnunciation(rs.getString("ENUNCIATION"));
+                question.setChapterId(rs.getLong("CHAPTER_ID"));
+                question.setReward(rs.getLong("REWARD"));
+                question.setCharacterId(rs.getLong("CHARACTERS_ID"));
+            }
             return question;
 
         } catch (SQLException e) {
@@ -72,7 +73,7 @@ public class QuestionDAO {
                             "ENUNCIATION, " +
                             "REWARD, " +
                             "CHARACTERS_ID, " +
-                            "CHAPTER FROM QUESTIONS WHERE CHARACTERS_ID = ?");
+                            "CHAPTER_ID FROM QUESTIONS WHERE CHARACTERS_ID = ?");
 
             statement.setLong(1, npcId);
 
@@ -82,9 +83,10 @@ public class QuestionDAO {
                 Question question = new Question();
 
                 question.setId(rs.getLong("QUESTION_ID"));
+                question.setReward(rs.getLong("REWARD"));
                 question.setCharacterId(rs.getLong("CHARACTERS_ID"));
                 question.setEnunciation(rs.getString("ENUNCIATION"));
-                question.setChapterId(rs.getLong("CHAPTER"));
+                question.setChapterId(rs.getLong("CHAPTER_ID"));
 
                 questions.add(question);
             }
@@ -107,18 +109,16 @@ public class QuestionDAO {
         try {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
-                    connection.prepareStatement("INSERT INTO QUESTIONS VALUES" +
+                    connection.prepareStatement("INSERT INTO QUESTIONS(ENUNCIATION, REWARD, CHARACTERS_ID, CHAPTER_ID) VALUES" +
                             "(?, ?, ?, ?)");
             statement.setString(1, question.getEnunciation());
             statement.setLong(2, question.getReward());
             statement.setLong(3, question.getCharacterId());
-            statement.setLong(4, question.getCharacterId());
+            statement.setLong(4, question.getChapterId());
 
             statement.executeUpdate();
 
-            ResultSet rs = statement.getGeneratedKeys();
-            return Long.valueOf(rs.getInt(1));
-
+            return Long.valueOf(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -141,15 +141,17 @@ public class QuestionDAO {
             PreparedStatement statement =
                     connection.prepareStatement("UPDATE QUESTIONS SET " +
                             "ENUNCIATION = ?," +
-                            "REWARD = ?" +
+                            "REWARD = ?," +
                             "CHARACTERS_ID = ?," +
-                            "CHAPTER = ?" +
+                            "CHAPTER_ID = ?" +
                             "WHERE QUESTION_ID = ?");
 
             statement.setString(1, question.getEnunciation());
             statement.setLong(2, question.getReward());
             statement.setLong(3, question.getCharacterId());
             statement.setLong(4, question.getChapterId());
+
+            statement.setLong(5, question.getId());
 
             int affectedRows = statement.executeUpdate();
 
@@ -175,7 +177,7 @@ public class QuestionDAO {
             Connection connection = dbConnector.getDBConnection();
             // TODO: What about foreign keys?!
             PreparedStatement statement =
-                    connection.prepareStatement("DELETE FROM QUESTIONS WHERE ID = ?");
+                    connection.prepareStatement("DELETE FROM QUESTIONS WHERE QUESTION_ID = ?");
             statement.setLong(1, id);
             int affectedRows = statement.executeUpdate();
 
