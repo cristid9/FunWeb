@@ -32,23 +32,24 @@ public class OptionDAO {
         Option option = null;
 
         try{
-            option = new Option();
             Connection connection = dbConnector.getDBConnection();
 
             PreparedStatement statement = connection.prepareStatement("SELECT ENUNCIATION, CORRECTNESS, QUESTIONS_QUESTION_ID FROM OPTIONS where ID = ?");
             statement.setLong(1, id);
 
             ResultSet rs = statement.executeQuery();
-            option.setId(id);
-            option.setEnunciation(rs.getString("ENUNCIATION"));
-            option.setQuestionId(rs.getLong("QUESTIONS_QUESTION_ID"));
+            if(rs.next()) {
+                option = new Option();
+                option.setId(id);
+                option.setEnunciation(rs.getString("ENUNCIATION"));
+                option.setQuestionId(rs.getLong("QUESTIONS_QUESTION_ID"));
 
-            int correct = rs.getInt("CORRECTNESS");
-            if(correct == 1)
-                option.setCorrectness(Boolean.TRUE);
-            else
-                option.setCorrectness(Boolean.FALSE);
-
+                int correct = rs.getInt("CORRECTNESS");
+                if (correct == 1)
+                    option.setCorrectness(Boolean.TRUE);
+                else
+                    option.setCorrectness(Boolean.FALSE);
+            }
             return option;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,6 +83,7 @@ public class OptionDAO {
                     option.setCorrectness(Boolean.TRUE);
                 else
                     option.setCorrectness(Boolean.FALSE);
+                option.setQuestionId(questionId);
                 options.add(option);
             }
 
@@ -102,17 +104,17 @@ public class OptionDAO {
 
         try{
             Connection connection = dbConnector.getDBConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO OPTIONS VALUES ?,?,?");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO OPTIONS(ENUNCIATION, CORRECTNESS, QUESTIONS_QUESTION_ID) VALUES (?,?,?)");
             statement.setString(1, option.getEnunciation());
             if(option.getCorrectness() == true)
                 statement.setInt(2, 1);
             else
                 statement.setInt(2, 0);
             statement.setLong(3, option.getQuestionId());
-            statement.executeUpdate();
 
-            ResultSet rs = statement.getGeneratedKeys();
-            return Long.valueOf(rs.getInt(1));
+
+            statement.executeUpdate();
+            return Long.valueOf(1);
         } catch (SQLException e){
             e.printStackTrace();
         }
