@@ -86,30 +86,7 @@ public class UserController {
         userDAO.removeUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    // TODO: Make it work for all the edge cases.
-    /**
-     * Registers a password for users that chose to sing in with the app's
-     * internal register system.
-     * @param id The id of the desired user.
-     * @param password The password that needs to be registered for this user.
-     * @return OK so far.
-     */
-    @RequestMapping(
-            value = "/password",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<Void> registerPassword(
-            @RequestBody Long id,
-            @RequestBody String password) {
-
-       userDAO = new UserDAO(dbConnector);
-       userDAO.registerPassword(id, password);
-
-       return new ResponseEntity<>(HttpStatus.OK);
-    }
-
+    
     /**
      * Returns a string representing the weakest chapter for the desired user.
      * @param id The is of the desired user.
@@ -172,31 +149,6 @@ public class UserController {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
-    /**
-     * Endpoint for updating the password of an user that chose to register
-     * using the internal registering mechanism.
-     * @param user An object containing the targeted user, only the id field is relevant.
-     * @param password The new password.
-     * @return OK so far.
-     */
-    @RequestMapping(
-            value = "/",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE
-
-    )
-    public ResponseEntity<Boolean> updatePassword(
-            @RequestBody User user,
-            @RequestBody String password) {
-
-        // TODO: Treat edge cases
-        // TODO: What about security
-
-        userDAO = new UserDAO(dbConnector);
-        Boolean status = userDAO.updateUserPassword(user, password);
-
-        return new ResponseEntity<>(status, HttpStatus.OK);
-    }
 
     /**
      * Endpoint for checking the straightness of a password.
