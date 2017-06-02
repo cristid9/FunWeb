@@ -2,7 +2,6 @@ package serviceResources;
 
 import db.DBConnector;
 import serviceRepresentations.GameCharacter;
-import serviceRepresentations.Question;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,6 +64,9 @@ public class CharacterDAO {
             statement.setLong(1, id);
 
             ResultSet rs = statement.executeQuery();
+
+            rs.next();
+
             gameCharacter = new GameCharacter();
             gameCharacter.setId(id);
             gameCharacter.setName(rs.getString("NAME"));
@@ -175,6 +177,8 @@ public class CharacterDAO {
                 character.setQuestionsNumber(rs.getLong("QUESTION_NUMBER"));
 
                 characters.add(character);
+
+                rs.next();
             }
 
         } catch (SQLException e) {
