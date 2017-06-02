@@ -59,7 +59,7 @@ public class UserDAO {
             } catch (SQLException e){
                 e.printStackTrace();
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -247,9 +247,11 @@ public class UserDAO {
             conn = connection.getDBConnection();
             PreparedStatement preparedStatement =
                     conn.prepareStatement("select count(password) as valid from logindatacustom where user_id= ? and password = ?");
-
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.setInt(1, user.getId().intValue());
+            preparedStatement.setString(2, password);
             
+            ResultSet rs = preparedStatement.executeQuery();
+
             if (rs == null) {
                 return false; // the user doesn't even exists
             }
