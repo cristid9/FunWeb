@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Bogdanel on 28.05.2017.
  */
 @RestController
-@RequestMapping("v1/option/")
+@RequestMapping("/v1/option/")
 public class OptionController {
     @Autowired
     DBConnector dbConnector;
@@ -32,7 +32,7 @@ public class OptionController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Option> getQuestion(@PathVariable Long id) {
+    public ResponseEntity<Option> getOption(@PathVariable Long id) {
         optionDAO = new OptionDAO(dbConnector);
         Option option = optionDAO.getOption(id);
 
@@ -118,7 +118,7 @@ public class OptionController {
      * @return OK so far.
      */
     @RequestMapping(
-            value = "/{id}",
+            value = "/all/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
