@@ -27,11 +27,12 @@ public class CharacterDAO {
         try {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
-                    connection.prepareStatement("INSERT INTO CHARACTERS VALUES (?, ?, ?)");
+                    connection.prepareStatement("INSERT INTO CHARACTERS VALUES (?, ?, ?, ?)");
 
-            statement.setString(1, character.getName());
-            statement.setString( 2, character.getPicturePath());
-            statement.setLong(3, character.getQuestionsNumber());
+            statement.setLong(1,character.getId());
+            statement.setString(2, character.getName());
+            statement.setString( 3, character.getPicturePath());
+            statement.setLong(4, character.getQuestionsNumber());
 
             int affectedRowss = statement.executeUpdate();
 
@@ -123,13 +124,14 @@ public class CharacterDAO {
             PreparedStatement statement =
                     connection.prepareStatement("UPDATE CHARACTERS SET " +
                             "NAME = ?," +
-                            "PICTURE_PATH = ?" +
-                            "QUESTION_NUMBER = ?" +
-                            "WHERE ID = ?");
+                            "PICTURE_PATH = ?," +
+                            "QUESTION_NUMBER = ? " +
+                            " WHERE ID = ?");
 
             statement.setString(1, character.getName());
             statement.setString(2, character.getPicturePath());
             statement.setLong(3, character.getQuestionsNumber());
+            statement.setLong(4,character.getId());
 
             int affectedRows = statement.executeUpdate();
 
