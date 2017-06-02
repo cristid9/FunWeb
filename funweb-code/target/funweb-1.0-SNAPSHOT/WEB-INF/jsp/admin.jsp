@@ -34,7 +34,11 @@
                         <li><a href="#" class="">Home</a></li>
 
                         <li><a href="#">Help</a></li>
+<<<<<<< HEAD
                         <li><a href="#">Chat</a></li>
+=======
+                        <li><a href="/chat_room">Chat</a></li>
+>>>>>>> bd3d7baa3c78761710c2e3b6a57c5b2d48bdfb4a
                         <li><a href="#">Notifications</a></li>
 
                     </ul>
