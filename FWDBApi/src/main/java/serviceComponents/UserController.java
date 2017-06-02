@@ -11,6 +11,7 @@ import serviceResources.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/user/")
@@ -86,12 +87,13 @@ public class UserController {
         userDAO.removeUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
     /**
      * Returns a string representing the weakest chapter for the desired user.
      * @param id The is of the desired user.
      * @return A string representing the weakest chapter.
      */
+    @Deprecated
     @RequestMapping(
             value = "/weakestChapter/{id}",
             method = RequestMethod.GET,
@@ -112,6 +114,7 @@ public class UserController {
      * @param name The candidate name.
      * @return An empty string if the name is valid, a suggestion otherwise.
      */
+    @Deprecated
     @RequestMapping(
             value = "/checkValidUsername",
             method = RequestMethod.POST,
@@ -132,13 +135,15 @@ public class UserController {
      * @return Not fully defined yet.
      */
     @RequestMapping(
-            value = "checkPasswordMatch",
+            value = "/checkPasswordMatch",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Boolean> checkIfUserMatchesPassword(
-            @RequestBody String name,
-            @RequestBody String password) {
+            @RequestBody Map<String, String> params) {
+
+        String name = params.get("name");
+        String password = params.get("password");
 
         // TODO: What about password hashing?
         // TODO: What about handling edge cases.
@@ -155,6 +160,7 @@ public class UserController {
      * @param password The candidate password.
      * @return OK so far.
      */
+    @Deprecated
     @RequestMapping(
             value = "/checkPasswordStraightness",
             method = RequestMethod.POST,
