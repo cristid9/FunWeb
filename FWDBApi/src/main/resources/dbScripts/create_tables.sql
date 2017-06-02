@@ -1,23 +1,18 @@
 ----- tabele ------
 
-drop table Chapters;
-/
 create table Chapters (
   id NUMBER (10, 0),
   chapter_name varchar2(200)
 );  
+/
 
-/
-drop table Hints;
-/
 create table Hints(
   id NUMBER (10, 0),
   question_id NUMBER(10, 0),
   text varchar2(200)
 );
 /
-drop table Character;
-/
+
 create table Characters(
   id NUMBER (10, 0),
   name varchar2(200),
@@ -25,24 +20,21 @@ create table Characters(
   question_number NUMBER (10, 0)
 );
 /
-drop table logindatacustom;
-/
+
 create table logindatacustom(
   id NUMBER(10, 0),
   user_id NUMBER(10, 0),
   password varchar2(500)
 );
 /
-drop table logindatasocial;
-/
+
 create table logindatasocial(
   id number(10, 0),
   auto_hash varchar2(500),
   user_id number(10, 0)
 );
 /
-drop table Options;
-/
+
 create table Options(
   id number(10, 0),
   enunciation varchar2(1000),
@@ -50,8 +42,7 @@ create table Options(
   questions_question_id number(10, 0)
 );
 /
-drop table Questions;
-/
+
 create table Questions(
   question_id number(10, 0),
   enunciation varchar2(500),
@@ -60,8 +51,7 @@ create table Questions(
   characters_id number(10, 0)
 );
 /
-drop table USERS;
-/
+
 create table users(
   id number(10, 0),
   name varchar2(200),
