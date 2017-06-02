@@ -121,14 +121,20 @@ public class UserDAO {
 
     public boolean removeUser(User user){
         Connection conn;
-        Statement stmt = null;
 
-        try{
+        try {
             conn = connection.getDBConnection();
-            stmt = conn.createStatement();
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("delete from users where id = ?");
 
-            try{
-                stmt.executeQuery("delete from users where id = " + user.getId());
+            preparedStatement.setInt(1, user.getId().intValue());
+
+            try {
+                int affectedRows = preparedStatement.executeUpdate();
+                if (affectedRows != 0) {
+                    return true;// TODO: Switch to Boolean.TRUE
+                }
+
             } catch (SQLException e){
                 e.printStackTrace();
             }
@@ -136,7 +142,8 @@ public class UserDAO {
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return true;
+
+        return false;
     }
 
 
