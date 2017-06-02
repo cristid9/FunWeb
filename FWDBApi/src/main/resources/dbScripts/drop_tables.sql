@@ -14,7 +14,7 @@ drop table Questions;
 /
 drop table Users;
 /
-drop sequence chapters_id_sq;
+drop sequence chapters_id_seq;
 /
 drop sequence hints_id_seq;
 /
@@ -45,4 +45,6 @@ drop trigger trg_options_id;
 drop trigger trg_questions_id;
 /
 drop trigger trg_users_id;
+/
+commit;
 /

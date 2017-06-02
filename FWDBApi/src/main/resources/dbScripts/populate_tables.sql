@@ -25,3 +25,5 @@ insert into questions(enunciation, reward, chapter_id, characters_id) values ('D
 --- USERS ---
 insert into users(name, user_role, email, login_type, hints_left, gold_left, avatar_path, user_level) values ('Bogdan', 'user', 'bb@yahoo.com', 'custom', 10, 10, '/home', 10);
 insert into users(name, user_role, email, login_type, hints_left, gold_left, avatar_path, user_level) values ('Sefu', 'user', 'sefulinu@yahoo.com', 'social', 10, 10, '/home', 10);
+
+commit;

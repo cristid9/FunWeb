@@ -137,3 +137,4 @@ create or replace trigger trg_users_id
 begin
   select user_id_seq.nextval into :new.id from dual;
 end;
+/
