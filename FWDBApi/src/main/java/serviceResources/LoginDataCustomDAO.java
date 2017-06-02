@@ -60,15 +60,14 @@ public class LoginDataCustomDAO {
         try {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
-                    connection.prepareStatement("INSERT INTO LoginDataCustom VALUES (?, ?)");
+                    connection.prepareStatement("INSERT INTO LoginDataCustom(USER_ID, PASSWORD) VALUES (?, ?)");
 
             statement.setLong(1, entry.getUserId());
             statement.setString(2, entry.getPassword());
 
             statement.executeUpdate();
 
-            ResultSet rs = statement.getGeneratedKeys();
-            return Long.valueOf(rs.getInt(1));
+            return Long.valueOf(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -89,14 +88,11 @@ public class LoginDataCustomDAO {
         try {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
-                    connection.prepareStatement("UPDATE LoginDataSocial SET " +
-                            "USER_ID = ?," +
-                            "PASSWORD = ? WHERE ID = ?");
+                    connection.prepareStatement("UPDATE LoginDataCustom SET " +
+                            "PASSWORD = ? WHERE USER_ID = ?");
 
-
-            statement.setLong(1, entry.getUserId());
             statement.setString(1, entry.getPassword());
-            statement.setLong(3, entry.getId());
+            statement.setLong(2, entry.getUserId());
 
             int affectedRows = statement.executeUpdate();
 
@@ -119,7 +115,7 @@ public class LoginDataCustomDAO {
         try {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
-                    connection.prepareStatement("DELETE FROM LoginDataSocial WHERE ID = ?");
+                    connection.prepareStatement("DELETE FROM LoginDataCustom WHERE ID = ?");
             statement.setLong(1, id);
 
             int affectedRows = statement.executeUpdate();
@@ -148,7 +144,7 @@ public class LoginDataCustomDAO {
                     connection.prepareStatement("SELECT " +
                             "ID, " +
                             "PASSWORD " +
-                            "FROM LoginDataCustom" +
+                            "FROM LoginDataCustom " +
                             "WHERE USER_ID = ?");
 
             statement.setLong(1, loginUserId);
