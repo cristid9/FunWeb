@@ -242,21 +242,19 @@ public class UserDAO {
     public boolean checkIfUserMatchesPassword(String username, String password) {
         User user = getUser(username);
         Connection conn;
-        Statement stmt = null;
 
         try {
             conn = connection.getDBConnection();
-            stmt = conn.createStatement();
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("select count(password) as valid from logindatacustom where user_id= ? and password = ?");
 
-            ResultSet rs = stmt.executeQuery("select count(password) as valid from logindatacustom where user_id= " + user.getId() + " and password = '" + password + "'");
-
-
+            ResultSet rs = preparedStatement.executeQuery();
+            
             if (rs == null) {
                 return false; // the user doesn't even exists
             }
 
             rs.next();
-
 
             Integer matched = rs.getInt("valid");
 
@@ -267,7 +265,6 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         return false;
     }
