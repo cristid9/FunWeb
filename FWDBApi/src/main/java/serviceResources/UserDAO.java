@@ -5,10 +5,7 @@ import db.DBConnector;
 import serviceRepresentations.User;
 
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDAO {
@@ -62,7 +59,7 @@ public class UserDAO {
             } catch (SQLException e){
                 e.printStackTrace();
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -71,39 +68,27 @@ public class UserDAO {
 
     public int createUser(User user){
         Connection conn;
-        Statement stmt = null;
-        int id = 0;
-
         try {
 
             conn  = connection.getDBConnection();
-            stmt = conn.createStatement();
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("INSERT INTO users values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS \"ID\" FROM users");
-            rs.next();
-
-            if (rs != null) {
-                id = rs.getInt("ID") + 1;
-            }
+            preparedStatement.setInt(1, 0);
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, user.getUserRole());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getLoginType());
+            preparedStatement.setInt(6, user.getHintsLeft());
+            preparedStatement.setInt(7, user.getGoldLeft());
+            preparedStatement.setString(8, user.getAvatarPath());
+            preparedStatement.setInt(9, user.getLevel());
 
             try {
-                stmt.executeQuery("INSERT INTO users values " +
-                        "(" + id + ", " +
-                        "'" + user.getName() +  "', " +
-                        "'"  + user.getUserRole() +  "', " +
-                        "'" + user.getUserRole() + "', " +
-                        "'" + user.getLoginType() + "', " +
-                        user.getLevel() +   ", " +
-                        user.getHintsLeft() + ", " +
-                        user.getGoldLeft() + ", " +
-                        "'/home')");
-
-                return id;
-
+                return preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -136,14 +121,20 @@ public class UserDAO {
 
     public boolean removeUser(User user){
         Connection conn;
-        Statement stmt = null;
 
-        try{
+        try {
             conn = connection.getDBConnection();
-            stmt = conn.createStatement();
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("delete from users where id = ?");
 
-            try{
-                stmt.executeQuery("delete from users where id = " + user.getId());
+            preparedStatement.setInt(1, user.getId().intValue());
+
+            try {
+                int affectedRows = preparedStatement.executeUpdate();
+                if (affectedRows != 0) {
+                    return true;// TODO: Switch to Boolean.TRUE
+                }
+
             } catch (SQLException e){
                 e.printStackTrace();
             }
@@ -151,7 +142,8 @@ public class UserDAO {
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return true;
+
+        return false;
     }
 
 
@@ -250,21 +242,21 @@ public class UserDAO {
     public boolean checkIfUserMatchesPassword(String username, String password) {
         User user = getUser(username);
         Connection conn;
-        Statement stmt = null;
 
         try {
             conn = connection.getDBConnection();
-            stmt = conn.createStatement();
+            PreparedStatement preparedStatement =
+                    conn.prepareStatement("select count(password) as valid from logindatacustom where user_id= ? and password = ?");
+            preparedStatement.setInt(1, user.getId().intValue());
+            preparedStatement.setString(2, password);
 
-            ResultSet rs = stmt.executeQuery("select count(password) as valid from logindatacustom where user_id= " + user.getId() + " and password = '" + password + "'");
-
+            ResultSet rs = preparedStatement.executeQuery();
 
             if (rs == null) {
                 return false; // the user doesn't even exists
             }
 
             rs.next();
-
 
             Integer matched = rs.getInt("valid");
 
@@ -275,7 +267,6 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         return false;
     }

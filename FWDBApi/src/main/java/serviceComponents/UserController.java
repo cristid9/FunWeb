@@ -11,6 +11,7 @@ import serviceResources.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/user/")
@@ -87,34 +88,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // TODO: Make it work for all the edge cases.
-    /**
-     * Registers a password for users that chose to sing in with the app's
-     * internal register system.
-     * @param id The id of the desired user.
-     * @param password The password that needs to be registered for this user.
-     * @return OK so far.
-     */
-    @RequestMapping(
-            value = "/password",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<Void> registerPassword(
-            @RequestBody Long id,
-            @RequestBody String password) {
-
-       userDAO = new UserDAO(dbConnector);
-       userDAO.registerPassword(id, password);
-
-       return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     /**
      * Returns a string representing the weakest chapter for the desired user.
      * @param id The is of the desired user.
      * @return A string representing the weakest chapter.
      */
+    @Deprecated
     @RequestMapping(
             value = "/weakestChapter/{id}",
             method = RequestMethod.GET,
@@ -135,6 +114,7 @@ public class UserController {
      * @param name The candidate name.
      * @return An empty string if the name is valid, a suggestion otherwise.
      */
+    @Deprecated
     @RequestMapping(
             value = "/checkValidUsername",
             method = RequestMethod.POST,
@@ -155,13 +135,15 @@ public class UserController {
      * @return Not fully defined yet.
      */
     @RequestMapping(
-            value = "checkPasswordMatch",
+            value = "/checkPasswordMatch",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Boolean> checkIfUserMatchesPassword(
-            @RequestBody String name,
-            @RequestBody String password) {
+            @RequestBody Map<String, String> params) {
+
+        String name = params.get("name");
+        String password = params.get("password");
 
         // TODO: What about password hashing?
         // TODO: What about handling edge cases.
@@ -172,37 +154,13 @@ public class UserController {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
-    /**
-     * Endpoint for updating the password of an user that chose to register
-     * using the internal registering mechanism.
-     * @param user An object containing the targeted user, only the id field is relevant.
-     * @param password The new password.
-     * @return OK so far.
-     */
-    @RequestMapping(
-            value = "/",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE
-
-    )
-    public ResponseEntity<Boolean> updatePassword(
-            @RequestBody User user,
-            @RequestBody String password) {
-
-        // TODO: Treat edge cases
-        // TODO: What about security
-
-        userDAO = new UserDAO(dbConnector);
-        Boolean status = userDAO.updateUserPassword(user, password);
-
-        return new ResponseEntity<>(status, HttpStatus.OK);
-    }
 
     /**
      * Endpoint for checking the straightness of a password.
      * @param password The candidate password.
      * @return OK so far.
      */
+    @Deprecated
     @RequestMapping(
             value = "/checkPasswordStraightness",
             method = RequestMethod.POST,
