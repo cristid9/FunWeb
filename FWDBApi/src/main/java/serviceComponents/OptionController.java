@@ -95,11 +95,11 @@ public class OptionController {
      * @return NOT_FOUND if the deletion failed, OK otherwise.
      */
     @RequestMapping(
-            value = "/",
+            value = "/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> removeOption(@RequestBody Long id) {
+    public ResponseEntity<Void> removeOption(@PathVariable Long id) {
         // TODO: Edge cases and security checks.
 
         optionDAO = new OptionDAO(dbConnector);
