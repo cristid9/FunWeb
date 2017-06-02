@@ -249,7 +249,7 @@ public class UserDAO {
                     conn.prepareStatement("select count(password) as valid from logindatacustom where user_id= ? and password = ?");
             preparedStatement.setInt(1, user.getId().intValue());
             preparedStatement.setString(2, password);
-            
+
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs == null) {
