@@ -27,20 +27,21 @@ public class LoginDataSocialDAO {
     public LoginDataSocial getEntry(Long id) {
         LoginDataSocial entry = null;
         try {
-            entry = new LoginDataSocial();
             Connection connection = dbConnector.getDBConnection();
 
             PreparedStatement statement =
                     connection.prepareStatement("SELECT " +
-                            "USER_ID, " +
-                            "AUTH_HASH FROM LOGIN_DATA_SOCIAL WHERE ID = ?");
+                            "ID, " +
+                            "AUTH_HASH FROM LOGINDATASOCIAL WHERE USER_ID = ?");
             statement.setLong(1, id);
 
             ResultSet rs = statement.executeQuery();
-            entry.setId(id);
-            entry.setAuthHash(rs.getString("AUTH_HASH"));
-            entry.setUserId(rs.getLong("USER_ID"));
-
+            if(rs.next()) {
+                entry = new LoginDataSocial();
+                entry.setId(rs.getLong("ID"));
+                entry.setAuthHash(rs.getString("AUTH_HASH"));
+                entry.setUserId(id);
+            }
             return entry;
 
         } catch (SQLException e) {
@@ -60,14 +61,13 @@ public class LoginDataSocialDAO {
         try {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
-                    connection.prepareStatement("INSERT INTO LOGIN_DATA_SOCIAL VALUES (?, ?)");
+                    connection.prepareStatement("INSERT INTO LOGINDATASOCIAL(AUTO_HASH, USER_ID)  VALUES (?, ?)");
             statement.setString(1, entry.getAuthHash());
             statement.setLong(2, entry.getUserId());
 
             statement.executeUpdate();
 
-            ResultSet rs = statement.getGeneratedKeys();
-            return Long.valueOf(rs.getInt(1));
+            return Long.valueOf(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,12 +87,11 @@ public class LoginDataSocialDAO {
         try {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
-                    connection.prepareStatement("UPDATE LOGIN_DATA_SOCIAL " +
-                            "SET AUTH_HASH = ?, USER_ID = ? WHERE ID = ?");
+                    connection.prepareStatement("UPDATE LOGINDATASOCIAL " +
+                            "SET AUTO_HASH = ? WHERE USER_ID = ?");
 
             statement.setString(1, entry.getAuthHash());
             statement.setLong(2, entry.getUserId());
-            statement.setLong(3, entry.getId());
 
             int affectedRows = statement.executeUpdate();
 
@@ -120,14 +119,14 @@ public class LoginDataSocialDAO {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
                     connection.prepareStatement("SELECT ID," +
-                            " AUTH_HASH FROM LOGIN_DATA_SOCIAL WHERE USER_ID = ?");
-
+                            " AUTO_HASH FROM LOGINDATASOCIAL WHERE USER_ID = ?");
+            statement.setLong(1, userId);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 LoginDataSocial entry = new LoginDataSocial();
 
                 entry.setId(rs.getLong("ID"));
-                entry.setAuthHash(rs.getString("AUTH_HASH"));
+                entry.setAuthHash(rs.getString("AUTO_HASH"));
                 entry.setUserId(userId);
 
                 entries.add(entry);
@@ -140,14 +139,14 @@ public class LoginDataSocialDAO {
 
     /**
      * Deletes an entry from the database.
-     * @param id The `id` of the targeted chapter.
+     * @param id The `id` of the targeted item.
      * @return TRUE if the deletion succeeded, FALSE otherwise.
      */
     public Boolean removeEntry(Long id){
         try {
             Connection connection = dbConnector.getDBConnection();
             PreparedStatement statement =
-                    connection.prepareStatement("DELETE FROM LOGIN_DATA_SOCIAL WHERE ID = ?");
+                    connection.prepareStatement("DELETE FROM LOGINDATASOCIAL WHERE ID = ?");
             statement.setLong(1, id);
 
             int affectedRows = statement.executeUpdate();
