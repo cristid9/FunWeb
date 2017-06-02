@@ -1,6 +1,7 @@
 package serviceComponents;
 
 import db.DBConnector;
+import javafx.scene.media.Media;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -8,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import serviceRepresentations.Question;
 import serviceResources.QuestionDAO;
+
+import java.util.List;
 
 
 @RestController
@@ -90,11 +93,11 @@ public class QuestionController {
      * @return NOT_FOUND if the deletion failed, OK otherwise.
      */
     @RequestMapping(
-            value = "/",
+            value = "/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> removeQuestion(@RequestBody Long id) {
+    public ResponseEntity<Void> removeQuestion(@PathVariable Long id) {
         // TODO: Edge cases and security checks.
 
         questionDAO = new QuestionDAO(dbConnector);
@@ -106,5 +109,19 @@ public class QuestionController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/npc/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<Question>> getNpcQuestions(@PathVariable Long id){
+        questionDAO = new QuestionDAO(dbConnector);
+
+        List<Question> questions = questionDAO.getNPCQuestions(id);
+
+
+        return new ResponseEntity<List<Question>>(questions, HttpStatus.OK);
     }
 }
