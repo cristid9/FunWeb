@@ -120,7 +120,7 @@ public class ChapterController {
      */
     @RequestMapping(
             value = "/all",
-            method = RequestMethod.POST,
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<Chapter>> getAllChapters() {
