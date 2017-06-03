@@ -25,20 +25,18 @@ public class ChapterDAO {
     public Chapter getChapter(Long id) {
         Chapter chapter = null;
         try {
-            chapter = new Chapter();
             Connection connection = dbConnector.getDBConnection();
 
             PreparedStatement statement = connection.prepareStatement("SELECT CHAPTER_NAME from CHAPTERS where ID = ?");
-            statement.setInt(1, id.intValue());
+            statement.setLong(1, id);
 
             ResultSet rs = statement.executeQuery();
 
-            if (!rs.next()) {
-                return chapter;
+            if (rs.next()) {
+                chapter = new Chapter();
+                chapter.setId(id);
+                chapter.setChapterName(rs.getString("CHAPTER_NAME"));
             }
-
-            chapter.setId(id);
-            chapter.setChapterName(rs.getString("CHAPTER_NAME"));
 
             return chapter;
 
