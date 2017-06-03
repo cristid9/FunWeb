@@ -1,6 +1,8 @@
 package serviceComponents;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import db.DBConnector;
+import org.springframework.batch.core.jsr.launch.support.BatchPropertyBeanPostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +12,7 @@ import serviceRepresentations.LoginDataCustom;
 import serviceResources.LoginDataCustomDAO;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/custom")
@@ -27,7 +30,7 @@ public class LoginDataCustomController {
     @RequestMapping(
             value = "/{userId}",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
     public ResponseEntity<String> getPassword(
             @PathVariable(name = "userId") Long userId) {
@@ -54,14 +57,13 @@ public class LoginDataCustomController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Void> updatePassword(
-            @RequestBody Long userId,
-            @RequestBody String newPassword) {
+            @RequestBody Map<String, String> params) {
 
         loginDataCustomDAO = new LoginDataCustomDAO(dbConnector);
 
         LoginDataCustom loginDataCustom = new LoginDataCustom();
-        loginDataCustom.setUserId(userId);
-        loginDataCustom.setPassword(newPassword);
+        loginDataCustom.setUserId(Long.parseLong(params.get("userId")));
+        loginDataCustom.setPassword(params.get("newPassword"));
 
         Boolean status = loginDataCustomDAO.updateEntry(loginDataCustom);
 
@@ -74,8 +76,7 @@ public class LoginDataCustomController {
 
     /**
      * Rest endpoint for creating a password. Usually used when an user registers.
-     * @param userId
-     * @param password
+     * @param params : userid and the password
      * @return
      */
     @RequestMapping(
@@ -84,14 +85,13 @@ public class LoginDataCustomController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Void> createPassword(
-            @RequestBody Long userId,
-            @RequestBody String password) {
+            @RequestBody Map<String, String> params) {
 
         loginDataCustomDAO = new LoginDataCustomDAO(dbConnector);
 
         LoginDataCustom loginDataCustom = new LoginDataCustom();
-        loginDataCustom.setPassword(password);
-        loginDataCustom.setUserId(userId);
+        loginDataCustom.setPassword(params.get("password"));
+        loginDataCustom.setUserId(Long.parseLong(params.get("userId")));
 
         Long id = loginDataCustomDAO.createEntry(loginDataCustom);
 
@@ -108,16 +108,19 @@ public class LoginDataCustomController {
      * @return
      */
     @RequestMapping(
-            value = "/",
+            value = "/{userId}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> deletePassword(@RequestBody Long userId) {
+    public ResponseEntity<Void> deletePassword(@PathVariable Long userId) {
         loginDataCustomDAO = new LoginDataCustomDAO(dbConnector);
 
         // TODO: boundaries check
-        Boolean status = loginDataCustomDAO.removeEntry(
-                loginDataCustomDAO.getAllEntries(userId).get(0).getId());
+        List<LoginDataCustom> logins = loginDataCustomDAO.getAllEntries(userId);
+        if(logins.size() == 0)
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+
+        Boolean status = loginDataCustomDAO.removeEntry(logins.get(0).getId());
 
         if (status == Boolean.FALSE) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
