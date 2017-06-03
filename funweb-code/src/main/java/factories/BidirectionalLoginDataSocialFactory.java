@@ -3,6 +3,8 @@ package factories;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import pojos.LoginDataSocial;
 
 import static factories.FactoryConfig.*;
@@ -36,14 +38,43 @@ public class BidirectionalLoginDataSocialFactory {
 
     public static void main(String[] args) {
         try {
-            getAuthHash("2");
+
+            LoginDataSocial loginDataSocial = new LoginDataSocial(2l , "mariusautohash" , 1l);
+            BidirectionalLoginDataSocialFactory.persist(loginDataSocial);
+
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
 
-    public static Boolean persist(LoginDataSocial loginDataSocial) {
-        return null;
+    public static Boolean persist(LoginDataSocial loginDataSocial) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/social/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_ID, loginDataSocial.getId());
+            jsonObject.put(FIELD_AUTH_HASH, loginDataSocial.getAuthHash());
+            jsonObject.put(FIELD_USER_ID , loginDataSocial.getUserId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+
+
+        HttpResponse<String> httpResponse = Unirest.post(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asString();
+
+        if (httpResponse.getStatus() == 201) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
     }
 }
 
