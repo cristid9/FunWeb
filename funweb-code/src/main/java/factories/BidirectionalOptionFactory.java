@@ -54,14 +54,44 @@ public class BidirectionalOptionFactory {
 
     public static void main(String[] args) {
         try {
-            newInstance("1");
+
+            Option option = new Option(7l , "Asta nu-i corect" , false , 3l);
+            BidirectionalOptionFactory.persist(option);
+
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
 
-    public static Boolean persist(Option option) {
-        return null;
+    public static Boolean persist(Option option) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/option/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_ID, option.getId());
+            jsonObject.put(FIELD_ENUNCIATION, option.getEnunciation());
+            jsonObject.put(FIELD_CORRECTNESS, option.getCorrectness());
+            jsonObject.put(FIELD_QUESTION_ID, option.getQuestionId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+
+
+        HttpResponse<String> httpResponse = Unirest.post(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asString();
+
+        if (httpResponse.getStatus() == 201) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
     }
 }
 
