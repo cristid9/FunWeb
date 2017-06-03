@@ -34,7 +34,7 @@ public class CharacterController {
         GameCharacter character = characterDAO.getCharacter(id);
 
         if (character == null) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(character, HttpStatus.OK);

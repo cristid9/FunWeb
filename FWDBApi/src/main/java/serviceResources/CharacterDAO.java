@@ -66,14 +66,13 @@ public class CharacterDAO {
 
             ResultSet rs = statement.executeQuery();
 
-            rs.next();
-
-            gameCharacter = new GameCharacter();
-            gameCharacter.setId(id);
-            gameCharacter.setName(rs.getString("NAME"));
-            gameCharacter.setPicturePath(rs.getString("PICTURE_PATH"));
-            gameCharacter.setQuestionsNumber(rs.getLong("QUESTION_NUMBER"));
-
+            if(rs.next()) {
+                gameCharacter = new GameCharacter();
+                gameCharacter.setId(id);
+                gameCharacter.setName(rs.getString("NAME"));
+                gameCharacter.setPicturePath(rs.getString("PICTURE_PATH"));
+                gameCharacter.setQuestionsNumber(rs.getLong("QUESTION_NUMBER"));
+            }
             return gameCharacter;
 
         } catch (SQLException e) {
