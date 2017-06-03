@@ -35,11 +35,14 @@ public class HintDAO {
             statement.setLong(1, id);
 
             ResultSet rs = statement.executeQuery();
+
+            if (!rs.next()) {
+                return hint;
+            }
+
             hint.setId(id);
             hint.setQuestionId(rs.getLong("QUESTION_ID"));
             hint.setText(rs.getString("TEXT"));
-
-            return hint;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,14 +60,19 @@ public class HintDAO {
 
         try {
             Connection connection = dbConnector.getDBConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO HINTS VALUES (?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO HINTS VALUES (0, ?, ?)");
             statement.setLong(1, hint.getQuestionId());
             statement.setString(2, hint.getText());
 
             statement.executeUpdate();
 
-            ResultSet rs = statement.getGeneratedKeys();
-            return Long.valueOf(rs.getInt(1));
+//            ResultSet rs = statement.getGeneratedKeys();
+            return Long.valueOf(1); // TODO: Patch dirty fix
+
+
+//            if (rs.next()) {
+//                return Long.valueOf(rs.getInt(1));
+//            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,8 +118,9 @@ public class HintDAO {
                     "QUESTION_ID = ?," +
                     "TEXT = ? WHERE ID = ?");
 
-            statement.setLong(1, hint.getId());
+            statement.setLong(1, hint.getQuestionId());
             statement.setString(2, hint.getText());
+            statement.setLong(3, hint.getId());
 
             int affectedRows = statement.executeUpdate();
 
