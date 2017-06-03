@@ -49,16 +49,39 @@ public class BidirectionalChapterFactory {
     }
 
     public static void main(String[] args) {
+        Chapter chapter = new Chapter(Long.valueOf(10), "Hi");
         try {
-            newInstance(Long.valueOf(1));
+            persist(chapter);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
 
-    public static Boolean persist(Chapter chapter) {
-        return null;
-    }
+    public static Boolean persist(Chapter chapter) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/chapter/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
 
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_ID, chapter.getId().toString());
+            jsonObject.put(FIELD_CHAPTER_NAME, chapter.getChapterName());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+
+        HttpResponse<String> httpResponse = Unirest.post(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asString();
+
+        if (httpResponse.getStatus() == 201) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
+    }
 }
 
