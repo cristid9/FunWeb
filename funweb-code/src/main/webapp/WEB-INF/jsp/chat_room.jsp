@@ -98,35 +98,10 @@
 
         </nav>
     </div>
-    <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-grid chat-content">
-            <div class="mdl-cell mdl-cell--12-col mdl-grid">
-                <div class="chat-user mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col"><img src="/resources/images/mariusolaru.jpg"></div>
-                <div class="chat-message mdl-cell mdl-color--white mdl-shadow--2dp mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone">
-                    <h4>mariusolaru<span>Sep 7, 2:22PM</span></h4>
-                    <p>Teeext</p>
-                </div>
-            </div>
+    <main class="mdl-layout__content mdl-color--grey-100" >
+        <div class="mdl-grid chat-content" id="para">
 
-            <div class="mdl-cell mdl-cell--12-col mdl-grid">
-                <div class="chat-user mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col"><img src="http://famelocker.com.au/front_media/images/user.jpg"></div>
-                <div class="chat-message mdl-cell mdl-color--white mdl-shadow--2dp mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone">
-                    <h4>bogdanboca<span>Sep 7, 2:22PM</span></h4>
-                    <p>Teeext</p>
-                </div>
-            </div>
-
-            <div class="mdl-cell mdl-cell--12-col mdl-grid">
-                <div class="chat-user mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col">
-                    <img src="http://famelocker.com.au/front_media/images/user.jpg">
-                </div>
-                <div class="chat-message mdl-cell mdl-color--white mdl-shadow--2dp mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone">
-                    <h4>cristidanila<span>Sep 7, 2:22PM</span></h4>
-                    <p>Teeext</p>
-                </div>
-
-
-
+            
             </div>
 
             <div class="chat-write-box mdl-color--white mdl-shadow--2dp mdl-cell--12-col mdl-grid">
@@ -134,10 +109,13 @@
                     <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">camera_alt</i>
                 </div>
                 <div class="mdl-cell--2-col-phone mdl-cell--6-col-tablet mdl-cell--10-col">
-                    <input type="text" name="message">
+                    <input type="text" name="message" id="words" onKeyPress="return checkSubmit(event)">
                 </div>
                 <div class="chat-icon right mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col">
                     <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">tag_faces</i>
+                    <form>
+                        <input type="button" onclick="getwords()" value="Send" />
+                    </form>
                 </div>
             </div>
         </div>
@@ -191,6 +169,30 @@
     </defs>
 </svg>
 
+<script type="text/javascript">
+    function getwords() {
+        text = words.value;
+
+        var currentdate = new Date();
+        var datetime =
+            currentdate.getHours() + ":"
+            + currentdate.getMinutes();
+
+
+        document.getElementById("para").innerHTML += '<div class="mdl-cell mdl-cell--12-col mdl-grid"> <div class="chat-user mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col"> <img src="http://famelocker.com.au/front_media/images/user.jpg"> </div>  <div class="chat-message mdl-cell mdl-color--white mdl-shadow--2dp mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone"> <h4>cristidanila<span>' + datetime + '</span></h4> <p>'+ text + '</p> </div>'
+        document.getElementById("words").value = " "
+        document.getElementById( 'para' ).scrollIntoView();
+    }
+
+    function checkSubmit(e) {
+        if(e && e.keyCode == 13) {
+            getwords();
+        }
+    }
+
+
+
+</script>
+
 </body>
 </html>
-
