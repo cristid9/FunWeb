@@ -90,7 +90,7 @@ public class LoginDataCustomController {
         loginDataCustomDAO = new LoginDataCustomDAO(dbConnector);
 
         LoginDataCustom loginDataCustom = new LoginDataCustom();
-        loginDataCustom.setPassword(params.get("password"));
+        loginDataCustom.setPassword(params.get("newPassword"));
         loginDataCustom.setUserId(Long.parseLong(params.get("userId")));
 
         Long id = loginDataCustomDAO.createEntry(loginDataCustom);
