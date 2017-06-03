@@ -22,16 +22,21 @@ public class ChapterDAO {
      * @param id The Chapter it's selected by it's id
      * @return  the chapter with the id `id`
      */
-    public Chapter getChapter(Long id){
+    public Chapter getChapter(Long id) {
         Chapter chapter = null;
         try {
             chapter = new Chapter();
             Connection connection = dbConnector.getDBConnection();
 
             PreparedStatement statement = connection.prepareStatement("SELECT CHAPTER_NAME from CHAPTERS where ID = ?");
-            statement.setLong(1, id);
+            statement.setInt(1, id.intValue());
 
             ResultSet rs = statement.executeQuery();
+
+            if (!rs.next()) {
+                return chapter;
+            }
+
             chapter.setId(id);
             chapter.setChapterName(rs.getString("CHAPTER_NAME"));
 
@@ -51,15 +56,14 @@ public class ChapterDAO {
     public Long createChapter(Chapter chapter){
         Long id = Long.valueOf(-1);
 
-        try{
+        try {
             Connection connection = dbConnector.getDBConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO CHAPTERS VALUES ?");
-            statement.setString(1, chapter.getChapterName());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO CHAPTERS VALUES (?, ?)");
+            statement.setInt(1, 0); // dummy index
+            statement.setString(2, chapter.getChapterName());
 
-            statement.executeUpdate();
+            return Long.valueOf(statement.executeUpdate());
 
-            ResultSet rs = statement.getGeneratedKeys();
-            return Long.valueOf(rs.getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();
         }
