@@ -54,15 +54,41 @@ public class BidirectionalGameCharacterFactory {
     }
 
     public static void main(String[] args) {
+        GameCharacter character = new GameCharacter(10L, "Bongo", "/home", 10L);
         try {
-            newInstance(Long.valueOf(1));
+            persist(character);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
 
-    public static Boolean persist(GameCharacter gameCharacter) {
-        return null;
+    public static Boolean persist(GameCharacter gameCharacter) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/character/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_ID, gameCharacter.getId().toString());
+            jsonObject.put(FIELD_NAME, gameCharacter.getName());
+            jsonObject.put(FIELD_PICTURE_PATH, gameCharacter.getPicturePath());
+            jsonObject.put(FIELD_QUESTIONS_NUMBER, gameCharacter.getQuestionsNumber());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+
+        HttpResponse<JsonNode> httpResponse = Unirest.post(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asJson();
+
+        if (httpResponse.getStatus() == 201) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
     }
 
 
