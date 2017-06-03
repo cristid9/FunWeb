@@ -10,6 +10,9 @@ import serviceRepresentations.Chapter;
 import serviceResources.ChapterDAO;
 
 import java.util.List;
+import java.util.Map;
+
+// TODO: What if an user adds duplicate chapters? Plm
 
 @RestController
 @RequestMapping("/v1/chapter/")
@@ -84,6 +87,7 @@ public class ChapterController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     /**
      * Endpoint for removing a chapter.
      * @param id The id of the targeted chapter.
@@ -94,8 +98,10 @@ public class ChapterController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> removeChapter(@RequestBody Long id) {
+    public ResponseEntity<Void> removeChapter(@RequestBody Map<String, Long> params) {
         // TODO: Edge cases and security checks.
+
+        Long id = params.get("id"); // TODO: Some check may be added here
 
         chapterDAO = new ChapterDAO(dbConnector);
 
@@ -114,7 +120,7 @@ public class ChapterController {
      */
     @RequestMapping(
             value = "/all",
-            method = RequestMethod.POST,
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<Chapter>> getAllChapters() {
