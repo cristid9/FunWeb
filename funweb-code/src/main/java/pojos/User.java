@@ -5,12 +5,14 @@ package pojos;
  */
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * POJO for a game's user.
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class User {
