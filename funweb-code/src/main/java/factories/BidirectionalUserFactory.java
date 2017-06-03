@@ -62,14 +62,57 @@ public class BidirectionalUserFactory {
 
     public static void main(String[] args) {
         try {
-            newInstance("Bogdan");
+
+            User user = new User();
+            user.setId(1l);
+            user.setAvatarPath("/home");
+            user.setGoldLeft(100);
+            user.setHintsLeft(10);
+            user.setLevel(0);
+            user.setLoginType("custom");
+            user.setEmail("bossdeboss@mafiotunr1.xxx");
+            user.setUserRole("user");
+            user.setName("Geovani");
+
+            persist(user);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
 
-    public static Boolean persist(User user) {
-        return null;
+    public static Boolean persist(User user) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/user/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_ID, user.getId());
+            jsonObject.put(FIELD_NAME, user.getName());
+            jsonObject.put(FIELD_EMAIL, user.getEmail());
+            jsonObject.put(FIELD_USER_ROLE, user.getUserRole());
+            jsonObject.put(FIELD_LOGIN_TYPE, user.getLoginType());
+            jsonObject.put(FIELD_LEVEL, user.getHintsLeft());
+            jsonObject.put(FIELD_HINTS_LEFT, user.getHintsLeft());
+            jsonObject.put(FIELD_GOLD_LEFT, user.getGoldLeft());
+            jsonObject.put(FIELD_AVATAR_PATH, user.getAvatarPath());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+
+
+        HttpResponse<JsonNode> httpResponse = Unirest.post(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asJson();
+
+        if (httpResponse.getStatus() == 201) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
     }
 
 }
