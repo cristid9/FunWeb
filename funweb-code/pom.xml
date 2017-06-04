@@ -40,6 +40,13 @@
             <artifactId>spring-webmvc</artifactId>
             <version>4.3.7.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+
         <dependency>
             <groupId>com.vaadin.external.google</groupId>
             <artifactId>android-json</artifactId>

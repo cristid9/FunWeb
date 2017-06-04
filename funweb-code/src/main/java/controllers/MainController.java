@@ -1,10 +1,8 @@
 package controllers;
 
-import daos.QuestionDAO;
-import daos.UserDAO;
-import db.DBConnection;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import factories.BidirectionalUserFactory;
 import funWebMailer.FunWebMailer;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -13,19 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import user.User;
+import pojos.User;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+
+
 
 @Controller
 public class MainController {
 
-    private DBConnection connection = new DBConnection();
-    private UserDAO dao = new UserDAO(connection);
-    private QuestionDAO qDao = new QuestionDAO(connection);
+
     User loggedInUser = null;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -38,26 +34,27 @@ public class MainController {
                           @RequestParam(name = "username") String username,
                           @RequestParam(name = "password") String password) {
 
-        User user = dao.getUser(username);
-
-        if (dao.getUser(username) != null && dao.checkIfUserMatchesPassword(username, password)) {
-
-            Cookie loggedIn = new Cookie("username", username);
-            response.addCookie(loggedIn);
-            ModelAndView mainMenu = new ModelAndView();
-
-            mainMenu.setViewName("main_menu");
-            mainMenu.addObject("Username", username);
-            mainMenu.addObject("Level", user.getLevel());
-            mainMenu.addObject("Title", user.getLoginType());
-            mainMenu.addObject("Gold", user.getGoldLeft());
-
-            this.loggedInUser = user;
-
-            return mainMenu;
-        } else {
-            return new ModelAndView("register") ;
-        }
+//        User user = dao.getUser(username);
+//
+//        if (dao.getUser(username) != null && dao.checkIfUserMatchesPassword(username, password)) {
+//
+//            Cookie loggedIn = new Cookie("username", username);
+//            response.addCookie(loggedIn);
+//            ModelAndView mainMenu = new ModelAndView();
+//
+//            mainMenu.setViewName("main_menu");
+//            mainMenu.addObject("Username", username);
+//            mainMenu.addObject("Level", user.getLevel());
+//            mainMenu.addObject("Title", user.getLoginType());
+//            mainMenu.addObject("Gold", user.getGoldLeft());
+//
+//            this.loggedInUser = user;
+//
+//            return mainMenu;
+//        } else {
+//            return new ModelAndView("register") ;
+//        }
+        return null;
     }
 
 
@@ -76,50 +73,53 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value = "/checkUsernameAvailable", method = RequestMethod.POST)
     public String checkValidUsername(@RequestParam String username) {
-        JSONObject json = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-
-        String suggestion = dao.checkIfValidUsername(username);
-        if (suggestion != null) {
-            try {
-                json.put("status", "taken");
-                json.put("suggestion", suggestion);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return json.toString();
-        } else {
-            try {
-                json.put("status", "ok");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return json.toString();
-        }
+//        JSONObject json = new JSONObject();
+//        JSONArray jsonArray = new JSONArray();
+//
+//        String suggestion = dao.checkIfValidUsername(username);
+//        if (suggestion != null) {
+//            try {
+//                json.put("status", "taken");
+//                json.put("suggestion", suggestion);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            return json.toString();
+//        } else {
+//            try {
+//                json.put("status", "ok");
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            return json.toString();
+//        }
+        return null;
     }
 
     @ResponseBody
     @RequestMapping(value = "/checkPasswordStrength", method = RequestMethod.POST)
     public String checkPasswordStrength(@RequestParam String password) {
-        JSONObject json = new JSONObject();
-
-        int strength = dao.checkPasswordStrengthness(password);
-
-        try {
-            json.put("strength", strength);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return json.toString();
+//        JSONObject json = new JSONObject();
+//
+//        int strength = dao.checkPasswordStrengthness(password);
+//
+//        try {
+//            json.put("strength", strength);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return json.toString();
+        return null;
     }
 
     @RequestMapping(value = "/validateRegistration", method = RequestMethod.POST)
-    public ModelAndView validateRegistration(@RequestParam(name = "email") String email,
-                                       @RequestParam(name = "username") String username,
-                                       @RequestParam(name = "password") String password) {
+    public ModelAndView validateRegistration(
+            @RequestParam(name = "email") String email,
+            @RequestParam(name = "username") String username,
+            @RequestParam(name = "password") String password) {
 
         if (email.equals("") || username.equals("") || password.equals("")) {
             return new ModelAndView("redirect:/register");
@@ -127,19 +127,34 @@ public class MainController {
 
         FunWebMailer.sendTextRegisterNotification(username, email);
 
-        User registeredUser = new User(0,
-            username,
-            "user",
-            email,
-            "normal",
-            1,
-            2,
-            300,
-            "/home");
+        try {
+            // display errors
+            if (BidirectionalUserFactory.newInstance(username) == null) {
+                return new ModelAndView("redirect:/register");
+            }
 
-        // missing error check
-        int id = dao.createUser(registeredUser);
-        dao.registerPassword(Long.valueOf(id), password);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        User user = new User();
+
+        user.setName(username);
+        user.setUserRole("user");
+        user.setEmail(email);
+        user.setLoginType("custom");
+        user.setLevel(0);
+        user.setHintsLeft(0);
+        user.setGoldLeft(0);
+        user.setAvatarPath("/home");
+        user.setId(0l);
+
+        try {
+            BidirectionalUserFactory.persist(user);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
 
         return new ModelAndView("redirect:/");
     }
@@ -147,37 +162,41 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value = "/weakestChapter", method = RequestMethod.POST)
     public String getWeakestChapter() {
-        JSONObject json = new JSONObject();
+//        JSONObject json = new JSONObject();
+//
+//        try {
+//            json.put("weakestChapter", dao.weakestChapter((int) loggedInUser.getId()));
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return json.toString();
 
-        try {
-            json.put("weakestChapter", dao.weakestChapter((int) loggedInUser.getId()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return json.toString();
+        return null;
     }
 
     @ResponseBody
     @RequestMapping(value = "/isRelevant", method = RequestMethod.POST)
     public String getRelevance(@RequestParam(name ="id") Long id){
-        JSONObject json = new JSONObject();
+//        JSONObject json = new JSONObject();
+//
+//        try{
+//            json.put("relevance", qDao.isRelevant(id));
+//
+//            if (qDao.getError() != null) {
+//                json.put("error", "yes");
+//                json.put("errorMessage", qDao.getError());
+//            } else {
+//                json.put("error", "no");
+//            }
+//
+//        } catch (JSONException e){
+//            e.printStackTrace();
+//        }
+//
+//        return json.toString();
 
-        try{
-            json.put("relevance", qDao.isRelevant(id));
-
-            if (qDao.getError() != null) {
-                json.put("error", "yes");
-                json.put("errorMessage", qDao.getError());
-            } else {
-                json.put("error", "no");
-            }
-
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        return json.toString();
+        return null;
     }
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
@@ -192,47 +211,53 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value="/getUsersList" , method = RequestMethod.POST)
     public String getUsersList(){
-        JSONArray jsonArray = new JSONArray();
+//        JSONArray jsonArray = new JSONArray();
+//
+//        ArrayList<String> users = dao.getAllUsers();
+//
+//        for (String user : users) {
+//            JSONObject jsonUser = new JSONObject();
+//            try {
+//                jsonUser.put("username", user);
+//                jsonArray.put(jsonUser);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        return jsonArray.toString();
 
-        ArrayList<String> users = dao.getAllUsers();
-
-        for (String user : users) {
-            JSONObject jsonUser = new JSONObject();
-            try {
-                jsonUser.put("username", user);
-                jsonArray.put(jsonUser);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return jsonArray.toString();
+        return null;
     }
 
     @ResponseBody
     @RequestMapping(value="/banUser" , method = RequestMethod.POST)
     public String banUser(@RequestParam(name = "username") String username) {
 
-        User targetedForBan = dao.getUser(username);
-        dao.removeUser(targetedForBan);
+//        User targetedForBan = dao.getUser(username);
+//        dao.removeUser(targetedForBan);
+//
+//        return "dummy";
 
-        return "dummy";
+        return null;
     }
 
     @ResponseBody
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     public String updatePassword(@RequestParam(name = "newPassword") String newPassword) {
-        JSONObject json = new JSONObject();
+//        JSONObject json = new JSONObject();
+//
+//        dao.updateUserPassword(loggedInUser, newPassword);
+//
+//        try {
+//            json.put("status", "success");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return json.toString();
 
-        dao.updateUserPassword(loggedInUser, newPassword);
-
-        try {
-            json.put("status", "success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return json.toString();
+        return null;
     }
 
     @ResponseBody
