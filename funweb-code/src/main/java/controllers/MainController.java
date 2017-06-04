@@ -7,6 +7,7 @@ import funWebMailer.FunWebMailer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,31 +33,35 @@ public class MainController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView doLogin(HttpServletRequest request, HttpServletResponse response,
-                          @RequestParam(name = "username") String username,
-                          @RequestParam(name = "password") String password) {
+    public ModelAndView doLogin(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestParam(name = "username") String username,
+            @RequestParam(name = "password") String password) {
 
-//        User user = dao.getUser(username);
-//
-//        if (dao.getUser(username) != null && dao.checkIfUserMatchesPassword(username, password)) {
-//
-//            Cookie loggedIn = new Cookie("username", username);
-//            response.addCookie(loggedIn);
-//            ModelAndView mainMenu = new ModelAndView();
-//
-//            mainMenu.setViewName("main_menu");
-//            mainMenu.addObject("Username", username);
-//            mainMenu.addObject("Level", user.getLevel());
-//            mainMenu.addObject("Title", user.getLoginType());
-//            mainMenu.addObject("Gold", user.getGoldLeft());
-//
-//            this.loggedInUser = user;
-//
-//            return mainMenu;
-//        } else {
-//            return new ModelAndView("register") ;
-//        }
-        return null;
+
+        User user = null;
+        try {
+            user = BidirectionalUserFactory.newInstance(username);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+
+        String actualPassword = null; // That's not the way it supposed to be
+
+        try {
+            actualPassword = BidirectionalLoginDataCustomFactory.getPassword(user.getId());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        if (String.valueOf(password.hashCode()).equals(actualPassword)) {
+            request.getSession().setAttribute("loggedIn", Boolean.TRUE);
+
+        }
+
+        return new ModelAndView("redirect:/main_menu");
     }
 
 
