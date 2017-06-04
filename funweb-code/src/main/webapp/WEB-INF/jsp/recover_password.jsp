@@ -1,5 +1,7 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+
 <head>
     <title>FunWeb </title>
     <meta charset="utf-8">
@@ -23,41 +25,33 @@
 <div class ="container-fluid" id="login">
     <div class="text-center">
         <h1> <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> &lt; Fun Web  &#47; &gt;</span></h1>
-        <h3 class = "bounce" >A new and exciting game!</h3>
-    </div >
+        <h3 class="bounce">A new and exciting game!</h3>
+    </div>
 
 
-    <form action = "/login" method="POST" class = "items" >
+    <h2 class ="text-center"> Recover Password </h2>
+
+
+    <form class="items" action="/recoverPassword" method="post">
 
         <div class="col-md-3"> </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="username">Your name</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder=" Enter UserName">
-            </div>
-            <div class="form-group">
-                <label for="password">Your password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder=" Enter password">
+                <label for="email"> E-mail </label>
+                <input type="text" class="form-control" id="email" name="email" placeholder=" Enter your e-mail">
             </div>
 
-            <div class="checkbox">
-                <label><input type="checkbox"> Remember me</label>
-            </div>
 
-            <button type="submit" class="btn btn-success">Login</button>
-            <button type="submit" class="btn btn-primary">Login with FaceBook</button>
+            <button type="submit" class="btn btn-success">Recover Password</button>
 
-            <p> Don't have an account? Register <a href= "register.html"> here! </a> </p>
-
-            <p> Forgot your password? Click <a href ="recover_password.html"> here !</a></p>
 
         </div>
     </form>
 </div>
-
+<br><br><br><br>
 <footer id = "footer">
     <div class="container">
-        <p class="text-center" > FunWeb &#9400; 2017 </p>
+        <p class="text-center">Contact | FunWeb &#9400; 2017 <p>
     </div>
 </footer>
 

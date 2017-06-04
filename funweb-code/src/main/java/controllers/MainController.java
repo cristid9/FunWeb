@@ -31,6 +31,9 @@ public class MainController {
         return "register";
     }
 
+    @RequestMapping(value = "/recover_password", method = RequestMethod.GET)
+    public String getRecoverPasswordPage() { return "recover_password";}
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView doLogin(HttpServletRequest request, HttpServletResponse response,
                           @RequestParam(name = "username") String username,
