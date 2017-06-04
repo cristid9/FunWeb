@@ -58,7 +58,6 @@
             </div>
         </div>
 
-        <script src="/resources/js/game_tutorial/bootState.js"></script>
         <script src="/resources/js/game_tutorial/loadingState.js"></script>
         <script src="/resources/js/game_tutorial/questionState.js"> </script>
         <script src="/resources/js/game_tutorial/mainState.js"> </script>
