@@ -26,6 +26,9 @@ public class MainController {
 
     User loggedInUser = null;
 
+    @RequestMapping(value ="statistics", method = RequestMethod.GET)
+    public String getStatistics() {return "statistics";}
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage() {
         return "register";
