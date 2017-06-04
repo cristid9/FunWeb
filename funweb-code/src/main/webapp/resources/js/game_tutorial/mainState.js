@@ -2,18 +2,18 @@ var mainState = {
 
     preload: function preload() {
 
-        this.game.load.image('mainPlayer', '/resources/assets/mainPlayer.png');
-        this.game.load.image('backendQuestioner', '/resources/assets/backendQuestioner.png');
-        this.game.load.image('frontendQuestioner', '/resources/assets/frontendQuestioner.png');
-        this.game.load.image('sqlQuestioner', '/resources/assets/sqlQuestioner.png');
-        this.game.load.spritesheet('trotinel', '/resources/assets/playerSprite.png', 80, 110, 24);
-        this.game.load.image('noSqlQuestioner', '/resources/assets/noSqlQuestioner.png');
-        this.game.load.image('acceptButton', '/resources/assets/accept.png');
-        this.game.load.image('dismissButton', '/resources/assets/dismiss.png');
-        this.game.load.image('questionerDialogPanel', '/resources/assets/questionerDialogPanel.png');
-        this.game.load.tilemap('map', '/resources/assets/map.json', null, Phaser.Tilemap.TILED_JSON);
-        this.game.load.image('tiles', '/resources/assets/terrain.png');
-        this.game.load.image('tiles1', '/resources/assets/trees.png');
+       // this.game.load.image('mainPlayer', '/resources/assets/mainPlayer.png');
+       //  this.game.load.image('backendQuestioner', '/resources/assets/backendQuestioner.png');
+       //  this.game.load.image('frontendQuestioner', '/resources/assets/frontendQuestioner.png');
+       //  this.game.load.image('sqlQuestioner', '/resources/assets/sqlQuestioner.png');
+       //  this.game.load.spritesheet('trotinel', '/resources/assets/playerSprite.png', 80, 110, 24);
+       //  this.game.load.image('noSqlQuestioner', '/resources/assets/noSqlQuestioner.png');
+       //  this.game.load.image('acceptButton', '/resources/assets/accept.png');
+       //  this.game.load.image('dismissButton', '/resources/assets/dismiss.png');
+       //  this.game.load.image('questionerDialogPanel', '/resources/assets/questionerDialogPanel.png');
+       //  this.game.load.tilemap('map', '/resources/assets/map.json', null, Phaser.Tilemap.TILED_JSON);
+       //  this.game.load.image('tiles', '/resources/assets/terrain.png');
+       //  this.game.load.image('tiles1', '/resources/assets/trees.png');
 
     },
 

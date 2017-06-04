@@ -27,10 +27,16 @@ public class MainController {
 
     User loggedInUser = null;
 
+    @RequestMapping(value ="statistics", method = RequestMethod.GET)
+    public String getStatistics() {return "statistics";}
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegisterPage() {
         return "register";
     }
+
+    @RequestMapping(value = "/recover_password", method = RequestMethod.GET)
+    public String getRecoverPasswordPage() { return "recover_password";}
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView doLogin(
