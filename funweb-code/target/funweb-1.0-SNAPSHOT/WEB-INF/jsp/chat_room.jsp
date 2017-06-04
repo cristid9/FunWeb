@@ -101,25 +101,27 @@
     <main class="mdl-layout__content mdl-color--grey-100" >
         <div class="mdl-grid chat-content" id="para">
 
-            
+
             </div>
 
-            <div class="chat-write-box mdl-color--white mdl-shadow--2dp mdl-cell--12-col mdl-grid">
-                <div class="chat-icon mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col">
-                    <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">camera_alt</i>
-                </div>
-                <div class="mdl-cell--2-col-phone mdl-cell--6-col-tablet mdl-cell--10-col">
-                    <input type="text" name="message" id="words" onKeyPress="return checkSubmit(event)">
-                </div>
-                <div class="chat-icon right mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col">
-                    <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">tag_faces</i>
-                    <form>
-                        <input type="button" onclick="getwords()" value="Send" />
-                    </form>
-                </div>
+        <div class="chat-write-box mdl-color--white mdl-shadow--2dp mdl-cell--12-col mdl-grid">
+            <div class="chat-icon mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col">
+                <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">camera_alt</i>
             </div>
+            <div class="mdl-cell--2-col-phone mdl-cell--6-col-tablet mdl-cell--10-col">
+                <input type="text" name="message" id="words" onKeyPress="return checkSubmit(event)">
+
+            </div>
+            <!--div class="chat-icon right mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col"-->
+            <!--i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">tag_faces</i-->
+            <form>
+                <img src="/resources/images/flat-send.png" width="36" height="34" style="padding:6px;" onclick="getwords()" >
+
+            </form>
+            <!--/div-->
         </div>
-    </main>
+</div>
+</main>
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="position: fixed; left: -1000px; height: -1000px;">
     <defs>
