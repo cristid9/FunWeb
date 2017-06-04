@@ -56,13 +56,44 @@ public class BidirectionalQuestionFactory {
 
     public static void main(String[] args) {
         try {
-            newInstance("1");
+
+            Question question = new Question(3l, "Vrei sa stii TW ?" , 10l , 1l , 3l);
+            BidirectionalQuestionFactory.persist(question);
+
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
 
-    public static Boolean persist(Question question) {
-        return null;
+    public static Boolean persist(Question question) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/question/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_QUESTION_ID, question.getId());
+            jsonObject.put(FIELD_ENUNCIATION, question.getEnunciation());
+            jsonObject.put(FIELD_REWARD, question.getReward());
+            jsonObject.put(FIELD_CHAPTER_ID, question.getChapterId());
+            jsonObject.put(FIELD_CHARACTERS_ID , question.getCharacterId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+
+
+        HttpResponse<String> httpResponse = Unirest.post(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asString();
+
+        if (httpResponse.getStatus() == 201) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
     }
 }
