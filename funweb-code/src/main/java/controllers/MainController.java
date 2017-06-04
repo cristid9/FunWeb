@@ -1,6 +1,7 @@
 package controllers;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import factories.BidirectionalLoginDataCustomFactory;
 import factories.BidirectionalUserFactory;
 import funWebMailer.FunWebMailer;
 import org.json.JSONException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import pojos.LoginDataCustom;
 import pojos.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -122,15 +124,18 @@ public class MainController {
             @RequestParam(name = "password") String password) {
 
         if (email.equals("") || username.equals("") || password.equals("")) {
-            return new ModelAndView("redirect:/register");
+            ModelAndView modelAndView = new ModelAndView("redirect:/register");
+            modelAndView.addObject("error", "Invalid credentials");
+            return modelAndView;
         }
 
         FunWebMailer.sendTextRegisterNotification(username, email);
 
         try {
-            // display errors
             if (BidirectionalUserFactory.newInstance(username) == null) {
-                return new ModelAndView("redirect:/register");
+                ModelAndView modelAndView = new ModelAndView("redirect:/register");
+                modelAndView.addObject("error", "Username already taken");
+                return modelAndView;
             }
 
         } catch (UnirestException e) {
@@ -153,8 +158,31 @@ public class MainController {
             BidirectionalUserFactory.persist(user);
         } catch (UnirestException e) {
             e.printStackTrace();
+
+            ModelAndView modelAndView = new ModelAndView("redirect:/register");
+            modelAndView.addObject("error", "Error storing the new user");
+
+        }
+        try {
+            user = BidirectionalUserFactory.newInstance(username);
+        } catch (UnirestException e) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/register");
+            modelAndView.addObject("error", "Error accessing the db service");
+            e.printStackTrace();
         }
 
+        LoginDataCustom loginDataCustom = new LoginDataCustom();
+        loginDataCustom.setPassword(String.valueOf(password.hashCode()));
+        loginDataCustom.setId(0l);
+        loginDataCustom.setUserId(user.getId());
+
+        try {
+            BidirectionalLoginDataCustomFactory.persist(loginDataCustom);
+        } catch (UnirestException e) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/register");
+            modelAndView.addObject("error", "Error accesing the db service");
+            e.printStackTrace();
+        }
 
         return new ModelAndView("redirect:/");
     }
