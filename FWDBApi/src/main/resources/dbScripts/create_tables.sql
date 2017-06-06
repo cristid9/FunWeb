@@ -70,12 +70,11 @@ create table PendingPasswordReset(
   token varchar(500),
   username varchar(200)
 );
-
-create table LOGGED_USERS(
+/
+create table logged_users(
 	id number(10, 0),
-	USER_NAME varchar2(200);
+	USER_NAME varchar2(200)
 );
-
 /
 create sequence chapters_id_seq;
 /

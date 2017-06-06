@@ -52,7 +52,7 @@ drop trigger trg_questions_id;
 /
 drop trigger trg_users_id;
 /
-drop sequence ending_password_reset_seq;
+drop sequence pending_password_reset_seq;
 /
 drop trigger trg_logged_id;
 
