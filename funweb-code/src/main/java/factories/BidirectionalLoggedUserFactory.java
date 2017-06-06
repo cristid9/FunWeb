@@ -51,7 +51,23 @@ public class BidirectionalLoggedUserFactory {
     }
 
     public static void main(String[] args) {
+        LoggedUser user = new LoggedUser(1L, "Cristi");
 
+        try {
+            remove(user);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Boolean remove(LoggedUser loggedUser) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/loggeduser/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, loggedUser.getUserName());
+        HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+
+        if(response.getStatus() == 200)
+            return Boolean.TRUE;
+        return Boolean.FALSE;
     }
 
     public static Boolean persist( LoggedUser loggedUser) throws UnirestException {
