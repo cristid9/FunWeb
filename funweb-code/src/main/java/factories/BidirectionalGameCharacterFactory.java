@@ -54,12 +54,23 @@ public class BidirectionalGameCharacterFactory {
     }
 
     public static void main(String[] args) {
-        GameCharacter character = new GameCharacter(10L, "Bongo", "/home", 10L);
+        GameCharacter character = new GameCharacter(Long.valueOf(2), "Bongo", "/home", 10L);
         try {
-            persist(character);
+            remove(character);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Boolean remove(GameCharacter gameCharacter) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/character/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, gameCharacter.getId().toString());
+
+        HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+
+        if(response.getStatus() == 200)
+            return Boolean.TRUE;
+        return Boolean.FALSE;
     }
 
     public static Boolean persist(GameCharacter gameCharacter) throws UnirestException {
