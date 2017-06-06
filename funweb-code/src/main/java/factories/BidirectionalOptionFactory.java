@@ -4,9 +4,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import pojos.Option;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static factories.FactoryConfig.*;
 
@@ -54,13 +58,37 @@ public class BidirectionalOptionFactory {
 
     public static void main(String[] args) {
         try {
-
-            Option option = new Option(7l , "Asta nu-i corect" , false , 3l);
-            BidirectionalOptionFactory.persist(option);
+            List<Option> options = getAllOptions(1l);
+            for(Option o : options){
+                System.out.println(o.getEnunciation());
+            }
 
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<Option> getAllOptions(Long questionId) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/option/all/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, questionId.toString());
+        List<Option> options = new ArrayList<Option>();
+        HttpResponse<JsonNode> response = Unirest.get(url).asJson();
+
+        try {
+            JSONArray jsons = new JSONArray(response.getBody().getArray().toString());
+            for(int i = 0; i < jsons.length(); i++){
+                JSONObject jsonObject = jsons.getJSONObject(i);
+                Option option = new Option();
+                option.setId(jsonObject.getLong(FIELD_ID));
+                option.setEnunciation(jsonObject.getString(FIELD_ENUNCIATION));
+                option.setCorrectness(jsonObject.getBoolean(FIELD_CORRECTNESS));
+                option.setQuestionId(jsonObject.getLong(FIELD_QUESTION_ID));
+                options.add(option);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return options;
     }
 
     public static Boolean persist(Option option) throws UnirestException {
