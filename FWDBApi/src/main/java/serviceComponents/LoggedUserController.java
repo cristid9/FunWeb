@@ -30,7 +30,7 @@ public class LoggedUserController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<LoggedUser> getHint(@PathVariable String name) {
+    public ResponseEntity<LoggedUser> getLoggedUser(@PathVariable String name) {
         loggedUserDAO = new LoggedUserDAO(dbConnector);
         LoggedUser loggedUser = loggedUserDAO.getLoggedUser(name);
 
@@ -51,7 +51,7 @@ public class LoggedUserController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> createHint(@RequestBody LoggedUser loggedUser) {
+    public ResponseEntity<Void> createLoggedUser(@RequestBody LoggedUser loggedUser) {
         loggedUserDAO = new LoggedUserDAO(dbConnector);
         Long id = loggedUserDAO.createEntry(loggedUser);
 
@@ -74,7 +74,7 @@ public class LoggedUserController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> removeHint(@PathVariable String name) {
+    public ResponseEntity<Void> removeLoggedUser(@PathVariable String name) {
         // TODO: check edge cases
         loggedUserDAO = new LoggedUserDAO(dbConnector);
 
@@ -98,7 +98,7 @@ public class LoggedUserController {
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> updateHint(@RequestBody LoggedUser loggedUser) {
+    public ResponseEntity<Void> updateLoggedUser(@RequestBody LoggedUser loggedUser) {
         loggedUserDAO = new LoggedUserDAO(dbConnector);
         Boolean status = loggedUserDAO.updateEntry(loggedUser);
 
