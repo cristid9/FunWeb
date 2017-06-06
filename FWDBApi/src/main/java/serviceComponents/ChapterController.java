@@ -42,7 +42,8 @@ public class ChapterController {
         if (id == -1) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
+        System.out.println(chapter.getId());
+        System.out.println(chapter.getChapterName());
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -98,14 +99,14 @@ public class ChapterController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Void> removeChapter(@RequestBody Map<String, Long> params) {
+    public ResponseEntity<Void> removeChapter(@RequestBody Map<String, String> params) {
         // TODO: Edge cases and security checks.
 
-        Long id = params.get("id"); // TODO: Some check may be added here
+        Long id = Long.parseLong(params.get("id")); // TODO: Some check may be added here
 
         chapterDAO = new ChapterDAO(dbConnector);
 
-        Boolean status = chapterDAO.removeChapter(id);
+       Boolean status = chapterDAO.removeChapter(id);
 
         if (status == Boolean.FALSE) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
