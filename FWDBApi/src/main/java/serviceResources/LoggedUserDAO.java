@@ -24,31 +24,28 @@ public class LoggedUserDAO {
      */
 
     public LoggedUser getLoggedUser(String name){
-        LoggedUser loggedUser = null;
-        Connection conn;
-        Statement stmt;
+        LoggedUser entry = null;
+        try {
+            Connection conn = connection.getDBConnection();
 
-        try{
-            conn = connection.getDBConnection();
-            stmt = conn.createStatement();
+            PreparedStatement statement =
+                    conn.prepareStatement("SELECT " +
+                            "ID, " +
+                            "USER_NAME FROM LOGGED_USERS WHERE USER_NAME = ?");
+            statement.setString(1, name);
 
-            try{
-                ResultSet rs = stmt.executeQuery("SELECT ID, USER_NAME FROM LOGGED_USERS WHERE USER_NAME = " + name);
-
-                if(rs.next()){
-                    loggedUser = new LoggedUser();
-                    loggedUser.setId(rs.getLong("ID"));
-                    loggedUser.setUserName(name);
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()) {
+                entry = new LoggedUser();
+                entry.setId(rs.getLong(1));
+                entry.setUserName(name);
             }
+            return entry;
 
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return loggedUser;
+        return entry;
     }
 
     /**
