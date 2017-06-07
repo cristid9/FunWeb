@@ -8,7 +8,6 @@ import funWebMailer.FunWebMailer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +17,6 @@ import pojos.LoginDataCustom;
 import pojos.PendingPasswordReset;
 import pojos.User;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
@@ -73,7 +71,7 @@ public class MainController {
             e.printStackTrace();
         }
 
-        FunWebMailer.setResetPasswordLink(user.getName(), user.getEmail(), recoverUrl);
+        //FunWebMailer.setResetPasswordLink(user.getName(), user.getEmail(), recoverUrl);
 
         return new ModelAndView("success_recover");
     }
@@ -367,6 +365,17 @@ public class MainController {
     @RequestMapping(value = "/arena", method = RequestMethod.GET)
     public ModelAndView getArena() {
         return new ModelAndView("arena");
+    }
+
+    @RequestMapping(value = "quick_chat", method = RequestMethod.GET)
+    public ModelAndView quickChatPage(HttpServletRequest request, HttpServletResponse response) {
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        ModelAndView modelAndView = new ModelAndView("quick_chat");
+        modelAndView.addObject("username", username);
+
+        return modelAndView;
     }
 }
 
