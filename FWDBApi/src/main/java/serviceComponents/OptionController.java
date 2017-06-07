@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Bogdanel on 28.05.2017.
  */
 @RestController
-@RequestMapping("/v1/option/")
+@RequestMapping("/v1/option")
 public class OptionController {
     @Autowired
     DBConnector dbConnector;
@@ -91,7 +91,7 @@ public class OptionController {
 
     /**
      * Endpoint for removing an option.
-     * @param id The id of the targeted option
+     * @param id The id of the targeted question with the options
      * @return NOT_FOUND if the deletion failed, OK otherwise.
      */
     @RequestMapping(
@@ -104,7 +104,7 @@ public class OptionController {
 
         optionDAO = new OptionDAO(dbConnector);
 
-        Boolean status = optionDAO.removeOption(id);
+        Boolean status = optionDAO.deleteOption(id);
 
         if (status == Boolean.FALSE) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
