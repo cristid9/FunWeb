@@ -54,12 +54,22 @@ public class BidirectionalQuestionFactory {
         return question;
     }
 
+    public static boolean remove (Question question) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/question/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, question.getId().toString());
+        HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+
+        if(response.getStatus() == 200)
+            return Boolean.TRUE;
+        return Boolean.FALSE;
+    }
+
     public static void main(String[] args) {
+        Question q = new Question();
+        q.setId(1l);
+
         try {
-
-            Question question = new Question(3l, "Vrei sa stii TW ?" , 10l , 1l , 3l);
-            BidirectionalQuestionFactory.persist(question);
-
+            remove(q);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
