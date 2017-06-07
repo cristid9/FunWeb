@@ -9,10 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pojos.LoginDataCustom;
 import pojos.PendingPasswordReset;
@@ -25,6 +22,7 @@ import java.util.UUID;
 
 
 @Controller
+@SessionAttributes(value = "username")
 public class MainController {
 
 
@@ -87,7 +85,7 @@ public class MainController {
     public ModelAndView postResetPassword() {
         return null;
     }
-
+    
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView doLogin(
             HttpServletRequest request,
@@ -114,6 +112,7 @@ public class MainController {
 
         if (String.valueOf(password.hashCode()).equals(actualPassword)) {
             request.getSession().setAttribute("loggedIn", Boolean.TRUE);
+            request.getSession().setAttribute("username", user.getName());
 
         }
 
