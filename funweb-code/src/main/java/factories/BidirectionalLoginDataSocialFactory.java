@@ -1,6 +1,7 @@
 package factories;
 
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONException;
@@ -36,12 +37,22 @@ public class BidirectionalLoginDataSocialFactory {
         return authHash;
     }
 
+    public static boolean remove (LoginDataSocial loginDataSocial) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/social/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, loginDataSocial.getUserId().toString());
+        HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+
+        if(response.getStatus() == 200)
+            return Boolean.TRUE;
+        return Boolean.FALSE;
+    }
+
     public static void main(String[] args) {
+        LoginDataSocial lds = new LoginDataSocial();
+        lds.setUserId(2l);
+
         try {
-
-            LoginDataSocial loginDataSocial = new LoginDataSocial(2l , "mariusautohash" , 1l);
-            BidirectionalLoginDataSocialFactory.persist(loginDataSocial);
-
+            remove(lds);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
