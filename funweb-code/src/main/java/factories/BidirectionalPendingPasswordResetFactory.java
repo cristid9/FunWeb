@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import pojos.PendingPasswordReset;
 import pojos.Question;
-import pojos.User;
 
 import static factories.FactoryConfig.API_VERSION;
 import static factories.FactoryConfig.REQUEST_ADDRESS;
@@ -53,12 +52,7 @@ public class BidirectionalPendingPasswordResetFactory {
     public static void main(String[] args) {
         try {
 
-            PendingPasswordReset pendingPasswordReset = new PendingPasswordReset();
-            pendingPasswordReset.setUsername("Bar");
-            pendingPasswordReset.setToken("hfddsfdssf");
-            pendingPasswordReset.setId(1l);
-
-            persist(pendingPasswordReset);
+            remove(5l);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -94,4 +88,27 @@ public class BidirectionalPendingPasswordResetFactory {
         return Boolean.FALSE;
     }
 
+    public static boolean remove (Long id) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/pendingpasswordreset/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_ID, String.valueOf(id));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+        HttpResponse<String> httpResponse = Unirest.delete(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asString();
+        if (httpResponse.getStatus() == 200) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
+    }
 }
