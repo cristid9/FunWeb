@@ -29,7 +29,8 @@ public class PendingPasswordResetDAO {
 
             PreparedStatement statement =
                     connection.prepareStatement("SELECT ID, " +
-                            "USERNAME, " +
+                            "USERNAME," +
+                            "TOKEN " +
                             "FROM PENDINGPASSWORDRESET where TOKEN = ?");
             statement.setString(1, token);
             ResultSet rs = statement.executeQuery();

@@ -7,9 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import serviceRepresentations.PendingPasswordReset;
-import serviceRepresentations.Question;
 import serviceResources.PendingPasswordResetDAO;
-import serviceResources.QuestionDAO;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("v1/pendingpasswordreset")
@@ -47,7 +47,7 @@ public class PendingPasswordResetController {
 
     /**
      * Endpoint for deleting an existing  entry.
-     * @param id The id of the targeted entry.
+     * @param params The id of the targeted entry.
      * @return BAD_REQUEST if the question is invalid, OK otherwise.
      */
     @RequestMapping(
@@ -56,9 +56,10 @@ public class PendingPasswordResetController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Void> deleteEntry(
-            @RequestBody Long id) {
+            @RequestBody Map<String, String> params) {
 
         pendingPasswordResetDAO = new PendingPasswordResetDAO(dbConnector);
+        Long id = Long.parseLong(params.get("id"));
 
         // TODO: fields check
         // TODO: security
@@ -85,7 +86,6 @@ public class PendingPasswordResetController {
 
         pendingPasswordResetDAO = new PendingPasswordResetDAO(dbConnector);
         PendingPasswordReset pendingPasswordReset = pendingPasswordResetDAO.getEntry(username);
-
 
         // TODO: fields check
         // TODO: security
