@@ -7,6 +7,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import pojos.PendingPasswordReset;
+import pojos.Question;
 import pojos.User;
 
 import static factories.FactoryConfig.API_VERSION;
@@ -51,9 +52,46 @@ public class BidirectionalPendingPasswordResetFactory {
 
     public static void main(String[] args) {
         try {
-            newInstance("dshkfgsdkfhsfj");
+
+            PendingPasswordReset pendingPasswordReset = new PendingPasswordReset();
+            pendingPasswordReset.setUsername("Bar");
+            pendingPasswordReset.setToken("hfddsfdssf");
+            pendingPasswordReset.setId(1l);
+
+            persist(pendingPasswordReset);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
+
+    public static Boolean persist(PendingPasswordReset pendingPasswordReset) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/pendingpasswordreset/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_USERNAME, pendingPasswordReset.getUsername());
+            jsonObject.put(FIELD_TOKEN, pendingPasswordReset.getToken());
+            jsonObject.put(FIELD_ID, pendingPasswordReset.getId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+
+        HttpResponse<String> httpResponse = Unirest.post(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asString();
+
+        if (httpResponse.getStatus() == 200) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
+    }
+
 }
