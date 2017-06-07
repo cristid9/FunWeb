@@ -33,9 +33,15 @@ socket.on('send message', function(data){
   io.sockets.emit('new message', {msg: data, user: socket.username});
 });
 
+<<<<<<< HEAD
  //new User
 
 socket.on('new user', function(data,callback){
+=======
+ // new User
+
+socket.on('new user', function(data, callback) {
+>>>>>>> a43163b6e75086a306c7140044b00995fe444727
   callback(true);
   socket.username = data;
   users.push(socket.username);
@@ -45,4 +51,8 @@ socket.on('new user', function(data,callback){
  function updateUsernames(){
   io.sockets.emit('get users', users)
  }
+<<<<<<< HEAD
 });﻿
+=======
+});
+>>>>>>> a43163b6e75086a306c7140044b00995fe444727

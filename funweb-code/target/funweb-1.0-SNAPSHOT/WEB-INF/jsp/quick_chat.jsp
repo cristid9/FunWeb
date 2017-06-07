@@ -16,6 +16,7 @@
 <div class = "container">
 
     <%--<div id = "userFormArea" class= "row">--%>
+<<<<<<< HEAD
         <%--<div class = "col-md-12">--%>
             <%--<form id = "userForm">--%>
                 <%--<div class = "form-group">--%>
@@ -27,6 +28,19 @@
             <%--</form>--%>
 
         <%--</div>--%>
+=======
+    <%--<div class = "col-md-12">--%>
+    <%--<form id = "userForm">--%>
+    <%--<div class = "form-group">--%>
+    <%--<label>Enter Username</label>--%>
+    <%--<input class = "form-control" id = "username">--%>
+    <%--<br/>--%>
+    <%--<input type="submit" class = "btn btn-primary" value = " Login"/>--%>
+    <%--</div>--%>
+    <%--</form>--%>
+
+    <%--</div>--%>
+>>>>>>> a43163b6e75086a306c7140044b00995fe444727
     <%--</div>--%>
     <div class = "row" id = "messageArea">
         <div class = "col-md-4">

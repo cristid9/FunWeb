@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "localhost",
   "version": "1.0.0",
   "description": "web sockets",
   "main": "server.js",
@@ -7,9 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "deadcodder",
+  "license": "MIT",
   "dependencies": {
     "socket.io": "^2.0.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "power"
+  ]
 }
