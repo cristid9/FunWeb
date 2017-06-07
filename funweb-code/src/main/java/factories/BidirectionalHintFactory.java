@@ -59,12 +59,24 @@ public class BidirectionalHintFactory {
 
     public static void main(String[] args) {
         try {
-            Hint hint = new Hint(1l, 1l, "am valuta");
-            BidirectionalHintFactory.persist(hint);
+            Hint hint = new Hint(2l, 2l, "am valuta");
+           BidirectionalHintFactory.remove(hint);
+        //persist(hint);
 
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Boolean remove(Hint hint) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/hint/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, hint.getId().toString());
+
+        HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+
+        if(response.getStatus() == 200)
+            return Boolean.TRUE;
+        return Boolean.FALSE;
     }
 
     public static Boolean persist(Hint hint) throws UnirestException {

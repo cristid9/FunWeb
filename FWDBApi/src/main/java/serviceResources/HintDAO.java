@@ -26,7 +26,6 @@ public class HintDAO {
     public Hint getHint(Long id){
         Hint hint = null;
         try {
-            hint = new Hint();
             Connection connection = dbConnector.getDBConnection();
 
             PreparedStatement statement = connection.prepareStatement("SELECT " +
@@ -39,7 +38,7 @@ public class HintDAO {
             if (!rs.next()) {
                 return hint;
             }
-
+            hint = new Hint();
             hint.setId(id);
             hint.setQuestionId(rs.getLong("QUESTION_ID"));
             hint.setText(rs.getString("TEXT"));

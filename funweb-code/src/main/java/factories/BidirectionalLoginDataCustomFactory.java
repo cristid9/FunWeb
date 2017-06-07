@@ -42,13 +42,24 @@ public class BidirectionalLoginDataCustomFactory {
 
     public static void main(String[] args) {
 
-        LoginDataCustom l = new LoginDataCustom(Long.valueOf(2), Long.valueOf(10), "test");
+        LoginDataCustom l = new LoginDataCustom();
+        l.setUserId(1l);
 
         try {
-            persist(l);
+            remove(l);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean remove (LoginDataCustom loginDataCustom) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/custom/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, loginDataCustom.getUserId().toString());
+        HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+
+        if(response.getStatus() == 200)
+            return Boolean.TRUE;
+        return Boolean.FALSE;
     }
 
     public static Boolean persist(LoginDataCustom login) throws UnirestException{

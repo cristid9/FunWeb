@@ -8,6 +8,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import pojos.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static factories.FactoryConfig.*;
 
 public class BidirectionalUserFactory {
@@ -60,24 +67,25 @@ public class BidirectionalUserFactory {
         return user;
     }
 
-    public static void main(String[] args) {
-        try {
+    public static List<String> getAll() throws UnirestException{
+        String url = String.format("http://%s:%s/%s/user/all",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
 
-            User user = new User();
-            user.setId(1l);
-            user.setAvatarPath("/home");
-            user.setGoldLeft(100);
-            user.setHintsLeft(10);
-            user.setLevel(0);
-            user.setLoginType("custom");
-            user.setEmail("bossdeboss@mafiotunr1.xxx");
-            user.setUserRole("user");
-            user.setName("Geovani");
+        HttpResponse<String> httpResponse = Unirest.post(url)
+                .header("Content-Type", "application/json").asString();
 
-            persist(user);
-        } catch (UnirestException e) {
-            e.printStackTrace();
+        Pattern listAsString = Pattern.compile("^\\[?([^\\[\\]]*)\\]?$");
+        Matcher matcher = listAsString.matcher((String) httpResponse.getBody().replaceAll("[\"]", ""));
+
+        if(matcher.matches()){
+            String[] split = matcher.group(matcher.groupCount()).split("\\s*,\\s*");
+            return new ArrayList<String> (Arrays.asList(split));
         }
+        return Collections.emptyList();
+    }
+
+    public static void main(String[] args) {
+
     }
 
     public static Boolean persist(User user) throws UnirestException {

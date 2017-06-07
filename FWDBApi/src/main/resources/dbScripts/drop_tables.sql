@@ -15,7 +15,10 @@ drop table Questions;
 drop table Users;
 /
 drop table PendingPasswordReset;
-
+/
+drop table LOGGED_USERS;
+/
+drop sequence logged_users_id_seq;
 /
 drop sequence chapters_id_seq;
 /
@@ -49,7 +52,9 @@ drop trigger trg_questions_id;
 /
 drop trigger trg_users_id;
 /
-drop pending_password_reset_seq;
+drop sequence pending_password_reset_seq;
+/
+drop trigger trg_logged_id;
 
 /
 commit;

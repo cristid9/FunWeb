@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.json.JSONException;
 import org.json.JSONObject;
 import pojos.Chapter;
@@ -49,13 +50,42 @@ public class BidirectionalChapterFactory {
     }
 
     public static void main(String[] args) {
-        Chapter chapter = new Chapter(Long.valueOf(10), "Hi");
+        Chapter chapter = new Chapter(Long.valueOf(6), "Hi");
         try {
-            persist(chapter);
+           //b =  persist(chapter);
+           // newInstance(10L);
+            remove(chapter);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
+
+    public static Boolean remove(Chapter chapter) throws  UnirestException{
+        String url = String.format("http://%s:%s/%s/chapter/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_ID, chapter.getId().toString());
+            jsonObject.put(FIELD_CHAPTER_NAME, chapter.getChapterName());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+        HttpResponse<String> httpResponse = Unirest.delete(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asString();
+        if (httpResponse.getStatus() == 201) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
+
+    }
+
+
 
     public static Boolean persist(Chapter chapter) throws UnirestException {
         String url = String.format("http://%s:%s/%s/chapter/",
@@ -72,11 +102,11 @@ public class BidirectionalChapterFactory {
             return Boolean.FALSE;
         }
 
+
         HttpResponse<String> httpResponse = Unirest.post(url)
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
                 .asString();
-
         if (httpResponse.getStatus() == 201) {
             return Boolean.TRUE;
         }

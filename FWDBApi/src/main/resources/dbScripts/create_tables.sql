@@ -70,7 +70,11 @@ create table PendingPasswordReset(
   token varchar(500),
   username varchar(200)
 );
-
+/
+create table logged_users(
+	id number(10, 0),
+	USER_NAME varchar2(200)
+);
 /
 create sequence chapters_id_seq;
 /
@@ -89,6 +93,17 @@ create sequence questions_id_seq;
 create sequence user_id_seq;
 /
 create sequence pending_password_reset_seq;
+/
+create sequence logged_users_id_seq;
+/
+
+
+create or replace trigger trg_logged_id
+before insert on LOGGED_USERS
+for each row
+begin
+	select logged_users_id_seq.nextval into :new.id from dual;
+end;
 /
 create or replace trigger trg_chapters_pass_reset
 before insert on PendingPasswordReset
