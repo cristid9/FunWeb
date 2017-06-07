@@ -2,6 +2,7 @@ package controllers;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import factories.BidirectionalLoginDataCustomFactory;
+import factories.BidirectionalPendingPasswordResetFactory;
 import factories.BidirectionalUserFactory;
 import funWebMailer.FunWebMailer;
 import org.json.JSONException;
@@ -14,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pojos.LoginDataCustom;
+import pojos.PendingPasswordReset;
 import pojos.User;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.util.UUID;
 
 
 @Controller
@@ -36,7 +39,54 @@ public class MainController {
     }
 
     @RequestMapping(value = "/recover_password", method = RequestMethod.GET)
-    public String getRecoverPasswordPage() { return "recover_password";}
+    public String getRecoverPasswordPage() {
+        return "recover_password";
+    }
+
+    @RequestMapping(
+            value = "/recoverPassword",
+            method = RequestMethod.POST
+    )
+    public ModelAndView postRecoverPassword(
+            @RequestParam(name = "username") String username) {
+
+        User user = null;
+
+        try {
+            user = BidirectionalUserFactory.newInstance(username);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        String recoverUrlToken = UUID.randomUUID().toString();
+        // send mail with reset link for the password
+        String recoverUrl = String.format("localhost:8089/reset/%s", recoverUrlToken);
+
+        PendingPasswordReset pendingPasswordReset = new PendingPasswordReset();
+        pendingPasswordReset.setId(0l); // Dummy
+        pendingPasswordReset.setToken(recoverUrlToken);
+        pendingPasswordReset.setUsername(user.getName());
+
+        try {
+            BidirectionalPendingPasswordResetFactory.persist(pendingPasswordReset);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        FunWebMailer.setResetPasswordLink(user.getName(), user.getEmail(), recoverUrl);
+
+        return new ModelAndView("success_recover");
+    }
+
+    @RequestMapping(value = "reset_password/{token}", method = RequestMethod.GET)
+    public ModelAndView getResetPassword() {
+        return null;
+    }
+
+    @RequestMapping(value = "reset_password/{token}", method = RequestMethod.POST)
+    public ModelAndView postResetPassword() {
+        return null;
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView doLogin(
