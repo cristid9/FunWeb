@@ -56,13 +56,22 @@ public class BidirectionalOptionFactory {
         return option;
     }
 
-    public static void main(String[] args) {
-        try {
-            List<Option> options = getAllOptions(1l);
-            for(Option o : options){
-                System.out.println(o.getEnunciation());
-            }
+    public static boolean remove (Option option) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/option/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, option.getId().toString());
+        HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
 
+        if(response.getStatus() == 200)
+            return Boolean.TRUE;
+        return Boolean.FALSE;
+    }
+
+    public static void main(String[] args) {
+        Option op = new Option();
+        op.setId(23l);
+
+        try {
+            remove(op);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
