@@ -84,7 +84,25 @@ public class BidirectionalUserFactory {
         return Collections.emptyList();
     }
 
+    public static boolean remove (User user) throws UnirestException{
+        String url = String.format("http://%s:%s/%s/user/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, user.getName());
+        HttpResponse<JsonNode> response = Unirest.delete(url).asJson();
+
+        if(response.getStatus() == 200)
+            return Boolean.TRUE;
+        return Boolean.FALSE;
+    }
+
     public static void main(String[] args) {
+        User u = new User();
+        u.setName("Sefu");
+
+        try {
+            remove(u);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
 
     }
 
