@@ -8,15 +8,12 @@ import funWebMailer.FunWebMailer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
 import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-=======
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
->>>>>>> a43163b6e75086a306c7140044b00995fe444727
 import org.springframework.web.servlet.ModelAndView;
 import pojos.LoginDataCustom;
 import pojos.PendingPasswordReset;
