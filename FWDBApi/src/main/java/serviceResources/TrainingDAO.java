@@ -50,7 +50,7 @@ public class TrainingDAO {
     public int getAvgScore(String userName){
         try{
             Connection conn = connection.getDBConnection();
-            PreparedStatement statement = conn.prepareStatement("SELECT NVL(AVG(SCORE), 0) FROM TRAINING WHERE USER_NAME = ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT NVL(AVG(SCORE), -1) FROM TRAINING WHERE USER_NAME = ?");
             statement.setString(1, userName);
 
             ResultSet rs = statement.executeQuery();
