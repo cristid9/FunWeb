@@ -8,15 +8,12 @@ import funWebMailer.FunWebMailer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
 import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-=======
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
->>>>>>> a43163b6e75086a306c7140044b00995fe444727
 import org.springframework.web.servlet.ModelAndView;
 import pojos.LoginDataCustom;
 import pojos.PendingPasswordReset;
@@ -83,13 +80,55 @@ public class MainController {
     }
 
     @RequestMapping(value = "reset_password/{token}", method = RequestMethod.GET)
-    public ModelAndView getResetPassword() {
-        return null;
+    public ModelAndView getResetPassword(@PathVariable String token) {
+
+        PendingPasswordReset pendingPasswordReset = null;
+
+        try {
+            pendingPasswordReset = BidirectionalPendingPasswordResetFactory.newInstance(token);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        if (pendingPasswordReset == null) {
+            return null; // some error page
+        }
+
+        return new ModelAndView("reset_password");
     }
 
     @RequestMapping(value = "reset_password/{token}", method = RequestMethod.POST)
-    public ModelAndView postResetPassword() {
-        return null;
+    public ModelAndView postResetPassword(
+            @PathVariable String token,
+            @RequestParam(name = "new_password1") String newPassword1,
+            @RequestParam(name = "new_password2") String newPassword2) {
+
+        if (!newPassword1.equals(newPassword2)) {
+            return null;
+        }
+
+        PendingPasswordReset pendingPasswordReset = null;
+        try {
+            pendingPasswordReset = BidirectionalPendingPasswordResetFactory.newInstance(token);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        User user = null;
+
+        try {
+            user = BidirectionalUserFactory.newInstance(pendingPasswordReset.getUsername());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BidirectionalLoginDataCustomFactory.update(user.getId(), String.valueOf(newPassword1.hashCode()));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        return new ModelAndView("reset_password_success");
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
