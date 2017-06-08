@@ -34,8 +34,8 @@
         <div class="col-md-3"> </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="new_password"> New password </label>
-                <input type="text" class="form-control" id="new_password" name="new_password" placeholder="Enter the new password">
+                <label for="new_password1"> New password </label>
+                <input type="text" class="form-control" id="new_password1" name="new_password1" placeholder="Enter the new password">
 
                 <label for="new_password2"> New password </label>
                 <input type="text" class="form-control" id="new_password2" name="new_password2" placeholder="Retype the new password">

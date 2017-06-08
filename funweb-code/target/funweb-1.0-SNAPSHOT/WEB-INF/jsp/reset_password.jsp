@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 
@@ -28,33 +27,32 @@
         <h3 class="bounce">A new and exciting game!</h3>
     </div>
 
+    <h2 class ="text-center"> Reset your password </h2>
 
-    <h2 class ="text-center"> Recover Password </h2>
-
-
-    <form class="items" action="/recoverPassword" method="post">
+    <form class="items" action="" method="post">
 
         <div class="col-md-3"> </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="username"> Username </label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+                <label for="new_password"> New password </label>
+                <input type="text" class="form-control" id="new_password" name="new_password" placeholder="Enter the new password">
+
+                <label for="new_password2"> New password </label>
+                <input type="text" class="form-control" id="new_password2" name="new_password2" placeholder="Retype the new password">
             </div>
 
+            <button type="submit" class="btn btn-success">Recover Password</button>
 
-            <button type="submit" class="btn btn-success">
-                Recover Password
-            </button>
         </div>
     </form>
 </div>
 <br><br><br><br>
+
 <footer id = "footer">
     <div class="container">
         <p class="text-center">Contact | FunWeb &#9400; 2017 <p>
     </div>
 </footer>
-
 
 </body>
 </html>

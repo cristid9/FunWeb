@@ -29,12 +29,12 @@ public class PendingPasswordResetDAO {
 
             PreparedStatement statement =
                     connection.prepareStatement("SELECT ID, " +
-                            "USERNAME," +
-                            "TOKEN " +
-                            "FROM PENDINGPASSWORDRESET where TOKEN = ?");
+                            "USERNAME " +
+                            "FROM PendingPasswordReset where TOKEN = ?");
             statement.setString(1, token);
             ResultSet rs = statement.executeQuery();
 
+//            rs.next();
             if(rs.next()) {
                 entry = new PendingPasswordReset();
                 entry.setId(rs.getLong("ID"));
