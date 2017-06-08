@@ -56,7 +56,7 @@ public class MainController {
 
         String recoverUrlToken = UUID.randomUUID().toString();
         // send mail with reset link for the password
-        String recoverUrl = String.format("localhost:8089/reset/%s", recoverUrlToken);
+        String recoverUrl = String.format("localhost:8089/reset_password/%s", recoverUrlToken);
 
         PendingPasswordReset pendingPasswordReset = new PendingPasswordReset();
         pendingPasswordReset.setId(0l); // Dummy
@@ -69,7 +69,7 @@ public class MainController {
             e.printStackTrace();
         }
 
-        //FunWebMailer.setResetPasswordLink(user.getName(), user.getEmail(), recoverUrl);
+        FunWebMailer.setResetPasswordLink(user.getName(), user.getEmail(), recoverUrl);
 
         return new ModelAndView("success_recover");
     }
