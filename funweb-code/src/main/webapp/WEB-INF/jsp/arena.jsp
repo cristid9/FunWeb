@@ -40,7 +40,7 @@
                                 <li class="active"><a href="#" class="">Home</a></li>
 
                                 <li><a href="#">Help</a></li>
-                                <li><a href="#">Chat</a></li>
+                                <li><a href="/quick_chat">Chat</a></li>
                                 <li><a href="#">Notifications</a></li>
 
                             </ul>
