@@ -65,21 +65,34 @@ public class FunWebMailer {
      * @param email The email address of this use.
      */
     // TODO: Externalize hardcoded mail string to specified templates
-    // MYBE TODO: refactor this method to get an `user` as argument
+    // MAYBE TODO: refactor this method to get an `user` as argument
     public static void sendTextRegisterNotification(String name, String email) {
         List<String> recipients = new ArrayList<String>();
         recipients.add(email);
 
-        String mailContentUnformated = "Salut %s," +
-                "Am inregistrat o tentativa de logare de pe aceasta adresa de mail\n" +
-                " pentru a-ti activa contul da click pe acest link %s.\n" +
-                "Multumesc mult\n," +
-                "Echipa FunWeb";
+        String mailContentUnformated = "Salut %s, \n" +
+                "Bine ai venit la FunWeb.";
 
         // really really bad practice, but it will be allowed for the moment
-        String resetPasswordUrl = "localhost:8083/reset/" + UUID.randomUUID().toString();
 
-        String mailContent = String.format(mailContentUnformated, name, resetPasswordUrl);
+        String mailContent = String.format(mailContentUnformated, name);
+
+        String subject = "Confirm your registration attempt at FunWeb";
+
+        sendTextMail(recipients, subject, mailContent);
+    }
+
+    public static void setResetPasswordLink(String name, String email, String url) {
+
+        List<String> recipients = new ArrayList<String>();
+        recipients.add(email);
+
+        String mailContentUnformated = "Salut %s, \n" +
+                "Am vazut ca ti-ai uitat parola. Intra aici ca sa o resetezi: %s";
+
+        // really really bad practice, but it will be allowed for the moment
+
+        String mailContent = String.format(mailContentUnformated, name, url);
 
         String subject = "Confirm your registration attempt at FunWeb";
 
