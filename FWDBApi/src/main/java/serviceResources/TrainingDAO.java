@@ -47,7 +47,7 @@ public class TrainingDAO {
      * @return avg value scored in the db
      */
 
-    public int getAvgScore(String userName){
+    public double getAvgScore(String userName){
         try{
             Connection conn = connection.getDBConnection();
             PreparedStatement statement = conn.prepareStatement("SELECT NVL(AVG(SCORE), -1) FROM TRAINING WHERE USER_NAME = ?");
@@ -55,7 +55,7 @@ public class TrainingDAO {
 
             ResultSet rs = statement.executeQuery();
             if(rs.next()){
-                return rs.getInt(1);
+                return rs.getDouble(1);
             }
 
         } catch(SQLException e){

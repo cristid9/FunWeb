@@ -56,10 +56,10 @@ public class TrainingController {
     public ResponseEntity<String> getScoreOf(@PathVariable String userName){
         trainingDAO = new TrainingDAO(dbConnector);
 
-        int score = trainingDAO.getAvgScore(userName);
+        double score = trainingDAO.getAvgScore(userName);
         if(score == -1){
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<String>(Integer.toString(score), HttpStatus.OK);
+        return new ResponseEntity<String>(Double.toString(score), HttpStatus.OK);
     }
 }
