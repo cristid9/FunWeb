@@ -1,5 +1,5 @@
 <%@ page import="daos.UserDAO" %>
-<%@ page import="user.User" %>
+<%@ page import="factories.BidirectionalLoggedUserFactory" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -104,8 +104,6 @@
 
         </div>
         <div class="col-sm-2"> </div>
-
-
 
     </div>
 

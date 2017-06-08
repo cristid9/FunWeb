@@ -94,7 +94,7 @@
                         <img src="/resources/assets/sqlQuestioner.png" width="30%" height="30%"/>
                     </div>
                     <div class="row">
-                        <a id="arenaPlay" href="#"> Join Arena </a>
+                        <a id="arenaPlay" href="/pvp"> Join Arena </a>
                     </div>
                 </div>
             </div>

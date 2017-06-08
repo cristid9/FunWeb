@@ -21,4 +21,6 @@ public class Question {
     public Long reward;
     public Long characterId;
     public Long chapterId;
+
+
 }
