@@ -4,9 +4,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import pojos.Question;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static factories.FactoryConfig.*;
 
@@ -54,6 +58,42 @@ public class BidirectionalQuestionFactory {
         return question;
     }
 
+    public static List<Question> newInstance(Long npcId) throws UnirestException {
+
+        String url = String.format("http://%s:%s/%s/question/npc/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, npcId);
+
+        HttpResponse<String> response = Unirest.get(url).asString();
+        JSONArray jsonArray = null;
+
+        try {
+            jsonArray = new JSONArray(response.getBody());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        List<Question> questions = new ArrayList<Question>();
+
+        for (int i = 0; i < jsonArray.length(); ++i) {
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                Question question = new Question();
+                question.setId(jsonObject.getLong(FIELD_QUESTION_ID));
+                question.setReward(jsonObject.getLong(FIELD_REWARD));
+                question.setChapterId(jsonObject.getLong(FIELD_CHAPTER_ID));
+                question.setEnunciation(jsonObject.getString(FIELD_ENUNCIATION));
+                question.setCharacterId(jsonObject.getLong(FIELD_CHARACTERS_ID));
+
+                questions.add(question);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return questions;
+    }
+
     public static boolean remove (Question question) throws UnirestException{
         String url = String.format("http://%s:%s/%s/question/%s",
                 REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, question.getId().toString());
@@ -65,11 +105,9 @@ public class BidirectionalQuestionFactory {
     }
 
     public static void main(String[] args) {
-        Question q = new Question();
-        q.setId(1l);
 
         try {
-            remove(q);
+            newInstance(1l);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
