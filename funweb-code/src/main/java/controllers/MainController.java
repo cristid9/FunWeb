@@ -162,6 +162,10 @@ public class MainController {
         return new ModelAndView("redirect:/main_menu");
     }
 
+    @RequestMapping(value="/pvp", method = RequestMethod.GET)
+    public String getPvpPage(){
+        return "pvp";
+    }
 
     @RequestMapping(value="/main_menu", method = RequestMethod.GET)
     public String getMainMenuPage(){
