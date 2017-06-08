@@ -60,7 +60,7 @@ public class BidirectionalLoginDataCustomFactory {
         return Boolean.FALSE;
     }
 
-    public static Boolean persist(LoginDataCustom login) throws UnirestException{
+    public static Boolean persist(LoginDataCustom login) throws UnirestException {
         String url = String.format("http://%s:%s/%s/custom/",
                 REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
 
