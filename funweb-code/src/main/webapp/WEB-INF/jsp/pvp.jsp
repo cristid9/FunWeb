@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <tile>FunWeb</tile>
     <link rel="stylesheet" type="text/css" href="/resources/css/pvp.css">
     <link href='https://fonts.googleapis.com/css?family=Lobster|Muli' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -37,7 +38,7 @@
             </ul>
         </div>
         <div class="row">
-            <img src = "Swords.png" class="img-responsive" alt="swords" width="250" height="250">
+            <img src = "/resources/images/Swords.png" class="img-responsive" alt="swords" width="250" height="250">
         </div>
     </div>
     <div class = "col-sm-2">
