@@ -5,6 +5,7 @@ import factories.BidirectionalLoginDataCustomFactory;
 import factories.BidirectionalPendingPasswordResetFactory;
 import factories.BidirectionalUserFactory;
 import funWebMailer.FunWebMailer;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import pojos.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -329,9 +332,9 @@ public class MainController {
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
     public ModelAndView getAdminPannel() {
-        if (!loggedInUser.getUserRole().equals("admin")) {
-            return new ModelAndView("redirect:/main_menu");
-        }
+       // if (!loggedInUser.getUserRole().equals("admin")) {
+         //   return new ModelAndView("redirect:/main_menu");
+        //}
             return new ModelAndView("admin");
 
     }
@@ -339,34 +342,39 @@ public class MainController {
     @ResponseBody
     @RequestMapping(value="/getUsersList" , method = RequestMethod.POST)
     public String getUsersList(){
-//        JSONArray jsonArray = new JSONArray();
-//
-//        ArrayList<String> users = dao.getAllUsers();
-//
-//        for (String user : users) {
-//            JSONObject jsonUser = new JSONObject();
-//            try {
-//                jsonUser.put("username", user);
-//                jsonArray.put(jsonUser);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return jsonArray.toString();
+           JSONArray jsonArray = new JSONArray();
+        List<String> users = new ArrayList<String>();
+        try {
+             users = BidirectionalUserFactory.getAll();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
 
-        return null;
+        for (String user : users) {
+            JSONObject jsonUser = new JSONObject();
+            try {
+                jsonUser.put("username", user);
+                jsonArray.put(jsonUser);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+       return jsonArray.toString();
     }
 
     @ResponseBody
     @RequestMapping(value="/banUser" , method = RequestMethod.POST)
     public String banUser(@RequestParam(name = "username") String username) {
 
-//        User targetedForBan = dao.getUser(username);
-//        dao.removeUser(targetedForBan);
-//
-//        return "dummy";
-
+        User toBan = new User();
+        toBan.setName(username);
+        System.out.println(toBan.getName());
+        try {
+            BidirectionalUserFactory.remove(toBan);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
