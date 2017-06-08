@@ -8,12 +8,7 @@ import funWebMailer.FunWebMailer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pojos.LoginDataCustom;
 import pojos.PendingPasswordReset;
@@ -371,7 +366,7 @@ public class MainController {
         return new ModelAndView("arena");
     }
 
-    @RequestMapping(value = "quick_chat", method = RequestMethod.GET)
+    @RequestMapping(value = "/quick_chat", method = RequestMethod.GET)
     public ModelAndView quickChatPage(HttpServletRequest request, HttpServletResponse response) {
 
         String username = (String) request.getSession().getAttribute("username");
