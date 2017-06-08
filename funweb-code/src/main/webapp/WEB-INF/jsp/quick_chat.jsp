@@ -1,49 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>IO chat</title>
+    <title>Chat</title>
     <link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
-    <style >
-        body{
-            margin-top: 30px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/resources/css/qchat_style.css">
 </head>
 <body>
+
+<center><h4><b>Share your Web Technologies knowledge</b></h4></center>
+<br>
 <div class = "container">
 
-    <%--<div id = "userFormArea" class= "row">--%>
-        <%--<div class = "col-md-12">--%>
-            <%--<form id = "userForm">--%>
-                <%--<div class = "form-group">--%>
-                    <%--<label>Enter Username</label>--%>
-                    <%--<input class = "form-control" id = "username">--%>
-                    <%--<br/>--%>
-                    <%--<input type="submit" class = "btn btn-primary" value = " Login"/>--%>
-                <%--</div>--%>
-            <%--</form>--%>
-
-        <%--</div>--%>
-    <%--</div>--%>
     <div class = "row" id = "messageArea">
         <div class = "col-md-4">
             <div class = "well">
-                <h3> Online users </h3>
+                <h4><b> Online users </b></h4>
                 <ul class = "list-group" id = "users"> </ul>
 
             </div>
 
         </div>
         <div class = "col-md-8">
-            <div class="chat" id = "chat"> </div>
+            <div class="chat" id = "chat">
+
+            </div>
 
             <form id = "messageForm">
                 <div class = "form-group">
                     <label>Enter Message</label>
-                    <textarea class = "form-control" id = "message"> </textarea>
+                    <textarea class = "form-control" id = "message" name="styled-textarea" autofocus> </textarea>
                     <br/>
                     <input type="submit" class = "btn btn-primary" value = "Send Message"/>
                 </div>
@@ -74,12 +61,23 @@
 
         $messageForm.submit(function(e){
             e.preventDefault();
-            socket.emit('send message', $message.val());
-            $message.val('');
+            if($message.val() != "" ){
+                socket.emit('send message', $message.val());
+                $message.val('');
+            }
         });
 
         socket.on('new message', function(data){
-            $chat.append('<div class = "well"><strong>'+data.user+'</strong>:' + data.msg + '<div>');
+            var currentdate = new Date();
+            var datetime =
+                currentdate.getHours() + ":"
+                + currentdate.getMinutes();
+
+            $chat.append('<div class = "well"><strong> '+ data.user +'</strong> (<b>' + datetime + '</b>) : ' + data.msg + '<div>');
+            //$chat.scrollTop($chat.height())
+            var objDiv = document.getElementById("chat");
+            objDiv.scrollTop = objDiv.scrollHeight;
+
         });
 
 //        $userForm.submit(function(e){
@@ -95,12 +93,35 @@
         socket.on('get users', function(data){
             var html = '';
             for (var i = 0; i < data.length; i++){
-                html +='<li class = "list-group-item" >' + data[i]+ '</li>';
+                html +='<li ><span>' + data[i]+ '</span></li>';
             }
             $users.html(html);
         });
+
+        $('#message').on('keypress', function (e) {
+            if(e.which === 13){
+
+                $(this).attr("disabled", "disabled");
+
+                socket.emit('send message', $message.val());
+                $message.val('');
+                $(this).removeAttr("disabled");
+                $("#message").focus();
+            }
+        });
+
+        $('#message').keydown(function(e) {
+            if(e.keyCode == 13) {
+                e.preventDefault(); // Makes no difference
+                $(this).parent().submit(); // Submit form it belongs to
+            }
+        });
+
     });
 
+
 </script>
+
+
 </body>
 </html>
