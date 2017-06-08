@@ -46,35 +46,6 @@ public class LoginDataCustomController {
     }
 
     /**
-     * Rest endpoint for updating the password of an user.
-     * @param userId
-     * @param newPassword
-     * @return
-     */
-    @RequestMapping(
-            value = "/",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<Void> updatePassword(
-            @RequestBody Map<String, String> params) {
-
-        loginDataCustomDAO = new LoginDataCustomDAO(dbConnector);
-
-        LoginDataCustom loginDataCustom = new LoginDataCustom();
-        loginDataCustom.setUserId(Long.parseLong(params.get("userId")));
-        loginDataCustom.setPassword(params.get("newPassword"));
-
-        Boolean status = loginDataCustomDAO.updateEntry(loginDataCustom);
-
-        if (status == Boolean.FALSE) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    /**
      * Rest endpoint for creating a password. Usually used when an user registers.
      * @param params : userid and the password
      * @return
@@ -129,4 +100,32 @@ public class LoginDataCustomController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Rest endpoint for updating the password of an user.
+     * @param userId
+     * @param newPassword
+     * @return
+     */
+    @RequestMapping(
+            value = "/",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Void> updatePassword(
+            @RequestBody Map<String, String> params) {
+
+        loginDataCustomDAO = new LoginDataCustomDAO(dbConnector);
+
+        LoginDataCustom loginDataCustom = new LoginDataCustom();
+        loginDataCustom.setUserId(Long.parseLong(params.get("userId")));
+        loginDataCustom.setPassword(params.get("newPassword"));
+
+        Boolean status = loginDataCustomDAO.updateEntry(loginDataCustom);
+
+        if (status == Boolean.FALSE) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
