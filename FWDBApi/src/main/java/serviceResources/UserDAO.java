@@ -119,31 +119,27 @@ public class UserDAO {
         return true;
     }
 
-    public boolean removeUser(User user){
-        Connection conn;
+    public Boolean removeUser(String name) {
 
         try {
-            conn = connection.getDBConnection();
-            PreparedStatement preparedStatement =
-                    conn.prepareStatement("delete from users where id = ?");
+            Connection conn = connection.getDBConnection();
+            // TODO: What about foreign keys?!
+            PreparedStatement statement =
+                    conn.prepareStatement("DELETE FROM USERS WHERE NAME = ?");
+            statement.setString(1 , name);
 
-            preparedStatement.setInt(1, user.getId().intValue());
 
-            try {
-                int affectedRows = preparedStatement.executeUpdate();
-                if (affectedRows != 0) {
-                    return true;// TODO: Switch to Boolean.TRUE
-                }
+            int affectedRows = statement.executeUpdate();
 
-            } catch (SQLException e){
-                e.printStackTrace();
+            if (affectedRows == 0) {
+                return Boolean.FALSE;
             }
 
-        } catch(SQLException e) {
+            return Boolean.TRUE;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;
+        return Boolean.TRUE;
     }
 
 

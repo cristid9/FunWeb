@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/user/")
+@RequestMapping("/v1/user")
 public class UserController {
 
     @Autowired
@@ -78,13 +78,12 @@ public class UserController {
     public ResponseEntity<Void> removeUser(@PathVariable String name) {
         // TODO: check edge cases
         userDAO = new UserDAO(dbConnector);
-        User user = userDAO.getUser(name);
+        Boolean status = userDAO.removeUser(name);
 
-        if (user == null) {
+        if (status == Boolean.FALSE) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        userDAO.removeUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -130,8 +129,8 @@ public class UserController {
     /**
      * Checks if a password matches a name. This endpoint is available only for
      * users that chose to register using the internal register system.
-     * @param name The name of the candidate user.
-     * @param password The candidate password.
+     * name The name of the candidate user.
+     * password The candidate password.
      * @return Not fully defined yet.
      */
     @RequestMapping(
