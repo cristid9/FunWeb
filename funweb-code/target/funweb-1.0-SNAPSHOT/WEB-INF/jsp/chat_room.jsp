@@ -39,7 +39,7 @@
 <div class="chat-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="chat-header mdl-layout__header mdl-color-text--white">
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">#general <span class="users-count"><i class="material-icons">person</i>16</span></span>
+            <span class="mdl-layout-title">#general <span class="users-count"><i class="material-icons">person</i>3</span></span>
             <div class="mdl-layout-spacer"></div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable is-upgraded" data-upgraded=",MaterialTextfield">
                 <div class="mdl-textfield__expandable-holder">
@@ -56,7 +56,7 @@
                 <li class="mdl-menu__item">Legal information</li>
             </ul>
         </div>
-        <p class="header-subtitle">set your channel topic<p>
+        <p class="header-subtitle">Share your knowledge about Web Tehnologies<p>
         <div class="chat-notifications mdl-color--white">
             <button class="show-options mdl-button">
                 <i class="material-icons" role="presentation">keyboard_arrow_down</i>
@@ -79,71 +79,17 @@
         <nav class="chat-navigation mdl-navigation">
             <div class="menu-subtitle">
                 CHANNELS
-                <a class="mdl-navigation__link chat-navigation-link" href="">#Catazine</a>
-                <a class="mdl-navigation__link chat-navigation-link" href="">#Design</a>
-                <a class="mdl-navigation__link chat-navigation-link" href="">#Meetings</a>
-                <a class="mdl-navigation__link chat-navigation-link" href="">#Web-circle <span class="mdl-badge mdl-badge--no-background" data-badge="4"></span></a>
+                <a class="mdl-navigation__link chat-navigation-link" href="">#general</a>
+
             </div>
             <div class="menu-subtitle">
-                DIRRECT MESSAGES
-                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>Jhon</a>
-                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons away-icon">fiber_manual_record</i>Karl</a>
-                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>Homer</a>
-                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>MrRobot<span class="mdl-badge mdl-badge--no-background" data-badge="3"></span></a>
-                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>Dawkins</a>
-                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>Smith</a>
-                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>Hawking</a>
-                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>Aida</a>
+                ONLINE USERS
+                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>bogdanboca</a>
+                <a class="mdl-navigation__link chat-navigation-link" href=""><i class="material-icons online-icon">fiber_manual_record</i>cristidanila</a>
             </div>
 
         </nav>
     </div>
-<<<<<<< HEAD
-    <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-grid chat-content">
-            <div class="mdl-cell mdl-cell--12-col mdl-grid">
-                <div class="chat-user mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col"><img src="/resources/images/mariusolaru.jpg"></div>
-                <div class="chat-message mdl-cell mdl-color--white mdl-shadow--2dp mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone">
-                    <h4>mariusolaru<span>Sep 7, 2:22PM</span></h4>
-                    <p>Teeext</p>
-                </div>
-            </div>
-
-            <div class="mdl-cell mdl-cell--12-col mdl-grid">
-                <div class="chat-user mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col"><img src="http://famelocker.com.au/front_media/images/user.jpg"></div>
-                <div class="chat-message mdl-cell mdl-color--white mdl-shadow--2dp mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone">
-                    <h4>bogdanboca<span>Sep 7, 2:22PM</span></h4>
-                    <p>Teeext</p>
-                </div>
-            </div>
-
-            <div class="mdl-cell mdl-cell--12-col mdl-grid">
-                <div class="chat-user mdl-cell mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col">
-                    <img src="http://famelocker.com.au/front_media/images/user.jpg">
-                </div>
-                <div class="chat-message mdl-cell mdl-color--white mdl-shadow--2dp mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone">
-                    <h4>cristidanila<span>Sep 7, 2:22PM</span></h4>
-                    <p>Teeext</p>
-                </div>
-
-
-
-            </div>
-
-            <div class="chat-write-box mdl-color--white mdl-shadow--2dp mdl-cell--12-col mdl-grid">
-                <div class="chat-icon mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col">
-                    <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">camera_alt</i>
-                </div>
-                <div class="mdl-cell--2-col-phone mdl-cell--6-col-tablet mdl-cell--10-col">
-                    <input type="text" name="message">
-                </div>
-                <div class="chat-icon right mdl-cell--1-col-phone mdl-cell--1-col-tablet mdl-cell--1-col">
-                    <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">tag_faces</i>
-                </div>
-            </div>
-        </div>
-    </main>
-=======
     <main class="mdl-layout__content mdl-color--grey-100" >
         <div class="mdl-grid chat-content" id="para">
 
@@ -168,7 +114,6 @@
         </div>
 </div>
 </main>
->>>>>>> f4c4a16b7e6c9e9b426524783cfc722c15b7e60b
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="position: fixed; left: -1000px; height: -1000px;">
     <defs>
@@ -218,11 +163,6 @@
     </defs>
 </svg>
 
-<<<<<<< HEAD
-</body>
-</html>
-
-=======
 <script type="text/javascript">
     function getwords() {
         text = words.value;
@@ -250,4 +190,3 @@
 
 </body>
 </html>
->>>>>>> f4c4a16b7e6c9e9b426524783cfc722c15b7e60b

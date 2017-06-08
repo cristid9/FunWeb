@@ -35,8 +35,10 @@ var loadingState = {
     },
 
     update: function() {
-        if(ready === true) {
+
+        setTimeout(function () {
             this.state.start('mainState');
-        }
+        }, 1500);
+    
     }
 };
