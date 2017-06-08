@@ -104,7 +104,7 @@ public class OptionController {
 
         optionDAO = new OptionDAO(dbConnector);
 
-        Boolean status = optionDAO.deleteOption(id);
+        Boolean status = optionDAO.removeOption(id);
 
         if (status == Boolean.FALSE) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
