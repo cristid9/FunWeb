@@ -76,6 +76,13 @@ create table logged_users(
 	USER_NAME varchar2(200)
 );
 /
+CREATE TABLE TRAINING(
+  id NUMBER(10, 0),
+  USER_NAME varchar2(200),
+  SCORE NUMBER(10, 0)
+);
+
+/
 create sequence chapters_id_seq;
 /
 create sequence hints_id_seq;
@@ -96,8 +103,16 @@ create sequence pending_password_reset_seq;
 /
 create sequence logged_users_id_seq;
 /
+create sequence training_id_seq;
+/
 
-
+create or replace trigger trg_training_id
+before insert on TRAINING
+for each row
+begin
+	select training_id_seq.nextval into :new.id from dual;
+end;
+/
 create or replace trigger trg_logged_id
 before insert on LOGGED_USERS
 for each row

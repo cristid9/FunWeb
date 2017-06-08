@@ -11,9 +11,10 @@
         <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Teko:400,700" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"> </script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
         <link href="/resources/css/arena_style.css" rel="stylesheet" />
@@ -57,6 +58,43 @@
                 </nav>
             </div>
         </div>
+
+        <div class="container">
+
+            <!-- Trigger the modal with a button -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h1 id="title">Test your Web Technologies skills!</h1>
+
+                            <ul class = "question"> What is HTML?
+                                <li class = "answer"> Lorem ipsum </li>
+                                <li class = "answer"> Lorem ipsum </li>
+                                <li class = "answer"> Lorem ipsum </li>
+                            </ul>
+
+                            <div id="yourscore"><p>Score: <span id="score"></span></p></div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+            $(window).on('load',function(){
+                $('#myModal').modal('show');
+            });
+        </script>
 
         <script src="/resources/js/game_tutorial/loadingState.js"></script>
         <script src="/resources/js/game_tutorial/questionState.js"> </script>

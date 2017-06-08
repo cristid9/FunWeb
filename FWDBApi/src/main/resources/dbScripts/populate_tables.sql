@@ -30,5 +30,10 @@ insert into users(name, user_role, email, login_type, hints_left, gold_left, ava
 insert into LOGGED_USERS(USER_NAME) values ('Bogdan');
 insert into LOGGED_USERS(USER_NAME) values ('Cristi');
 
+--- TRAINING ----
+insert into TRAINING values (1, 'Bogdan', 7);
+insert into TRAINING values (2, 'Bogdan', 6);
+insert into TRAINING values (3, 'Cristi', 8);
+insert into TRAINING values (4, 'Cristi', 7);
 
 commit;

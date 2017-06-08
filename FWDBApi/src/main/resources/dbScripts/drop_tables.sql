@@ -18,6 +18,10 @@ drop table PendingPasswordReset;
 /
 drop table LOGGED_USERS;
 /
+drop table TRAINING;
+/
+drop sequence training_id_seq;
+/
 drop sequence logged_users_id_seq;
 /
 drop sequence chapters_id_seq;
@@ -55,7 +59,8 @@ drop trigger trg_users_id;
 drop sequence pending_password_reset_seq;
 /
 drop trigger trg_logged_id;
-
+/
+drop trigger trg_training_id;
 /
 commit;
 /
