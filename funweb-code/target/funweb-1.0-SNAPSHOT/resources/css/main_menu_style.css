@@ -1,0 +1,283 @@
+p.detail { color:#4C4C4C;font-weight:bold;font-family:Comic;font-size:19 }
+span.name { color:#696969;font-weight:bold;font-family:Tahoma;font-size:18 }
+span.title { color:#00061a;font-weight:bold;font-family:Tahoma;font-size:30 }
+p.gold { color:#EAC117;font-weight:bold;font-family:Comic;font-size:19 }
+
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+body {
+    background-color: #66CD00;
+}
+
+.p1_box {
+    position: relative;
+    padding: 1px;
+    margin-bottom: 36px;
+    border: 2px solid #ff6765;
+}
+
+.p1_box a.bot {
+    margin-top: 1px;
+    padding: 22px 0 20px 42px;
+    border: 2px solid #ff6765;
+    display: block;
+    position: relative;
+    background-color: #ff6765;
+    color: #2a394e;
+    font: 27px/27px 'Economica', sans-serif;
+}
+
+.p1_box a.bot:hover {
+    background-color: #fff;
+}
+
+.p1_box.left {
+    margin-right: 23px;
+}
+
+.p1_box.right {
+    margin-left: 23px;
+}
+
+.p1_box.right:after {
+    top: 126px;
+    left: -12px;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 10px 12px 10px 0;
+    border-color: transparent #ff6360 transparent transparent;
+
+}
+
+.cl4 {
+    border-color: #2a394e;
+}
+
+.cl4 a.bot {
+    background-color: #f3f6f8;
+    border-color: #f3f6f8;
+    padding-left: 70px;
+    padding-top: 75px;
+    margin-top: 0;
+    padding-bottom: 59px;
+    font-size: 36px;
+    line-height: 36px;
+
+}
+
+/*#arena{*/
+    /*background-image: url("http://i.imgur.com/OT41iNM.jpg");*/
+    /*background-size: 500px 180px;*/
+
+/*}*/
+
+#tutorial{
+    background-image: url("http://i.imgur.com/B2mqEZb.jpg");
+    background-size: 525px 200px;
+}
+
+.cl4 a.bot:hover {
+    color: #fff;
+    background-color: #2a394e;
+    border-color: #2a394e;
+}
+
+.cl4:before {
+    top: 57px !important;
+    background-color: #2a394e;
+
+}
+
+.cl4.right:after {
+    top: 52px;
+    border-color: transparent #2a394e transparent transparent;
+}
+
+
+.navbar, .dropdown-menu{
+    background:rgba(255,255,255,0.25);
+    border: none;
+
+}
+
+.nav>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a, .dropdown-menu>li{
+    border-bottom: 3px solid transparent;
+}
+.nav>li>a:focus, .nav>li>a:hover,.nav .open>a, .nav .open>a:focus, .nav .open>a:hover, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+    border-bottom: 3px solid transparent;
+    background: none;
+}
+.navbar a, .dropdown-menu>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .navbar-toggle{
+    color: black;
+}
+.dropdown-menu{
+    -webkit-box-shadow: none;
+    box-shadow:none;
+}
+
+.nav li:hover:nth-child(8n+1), .nav li.active:nth-child(8n+1){
+    border-bottom: #C4E17F 3px solid;
+}
+.nav li:hover:nth-child(8n+2), .nav li.active:nth-child(8n+2){
+    border-bottom: #F7FDCA 3px solid;
+}
+.nav li:hover:nth-child(8n+3), .nav li.active:nth-child(8n+3){
+    border-bottom: #FECF71 3px solid;
+}
+.nav li:hover:nth-child(8n+4), .nav li.active:nth-child(8n+4){
+    border-bottom: #F0776C 3px solid;
+}
+.nav li:hover:nth-child(8n+5), .nav li.active:nth-child(8n+5){
+    border-bottom: #DB9DBE 3px solid;
+}
+.nav li:hover:nth-child(8n+6), .nav li.active:nth-child(8n+6){
+    border-bottom: #C49CDE 3px solid;
+}
+.nav li:hover:nth-child(8n+7), .nav li.active:nth-child(8n+7){
+    border-bottom: #669AE1 3px solid;
+}
+.nav li:hover:nth-child(8n+8), .nav li.active:nth-child(8n+8){
+    border-bottom: #62C2E4 3px solid;
+}
+
+.navbar-toggle .icon-bar{
+    color: #fff;
+    background: #fff;
+}
+
+#atributes{
+    margin-top: 80px;
+}
+
+body{
+    width: 95%;
+}
+
+a {
+    font-size: 19px;
+    color: #808080;
+}
+
+a.navbar-brand {
+    font-size: 27px;
+    font-weight:bold;
+    font-family:Times;
+    color: #2F4F4F;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    margin-top: 80px;
+}
+
+
+
+html {
+    font:12pt Lato, sans-serif;
+    min-height:100%;
+}
+
+.notifications .messages {
+    display:block;
+    position:absolute;
+    left:-40px;
+    width:300px;
+    max-height:240px;
+}
+
+.notifications .messages:before {
+    content:'.';
+    display:block;
+    position:absolute;
+    margin-left:-10px;
+    left:50%;
+    top:-18px;
+    width:0;
+    height:0;
+    color:transparent;
+    border:10px solid black;
+    border-color:transparent transparent white;
+}
+
+.notifications .messages .message {
+    display:block;
+    position:relative;
+    padding:10px;
+    background-color:#FAFAD2;
+    color:black;
+    text-decoration:none;
+}
+
+.notifications .messages .message + .message {
+    border-top:1px solid #e0e0e0;
+}
+
+.verticalLine {
+    border-left: thick solid #ff0000;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 300%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+   /* width: 30%; */ /* Could be more or less, depending on screen size */
+    height: 40%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@font-face {
+    font-family: 'arcadeFont';
+    src: url('/resources/custom_fonts/PressStart2P.ttf');
+}
+
+#arenaPlay {
+    font-family: 'arcadeFont';
+    text-decoration: none;
+}
+
+#training {
+    font-family: 'arcadeFont';
+    text-decoration: none;
+}
+
+#footer {
+    position: absolute;
+    bottom: 20px;
+}
