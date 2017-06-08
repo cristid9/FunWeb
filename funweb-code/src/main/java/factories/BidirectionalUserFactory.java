@@ -103,7 +103,6 @@ public class BidirectionalUserFactory {
         } catch (UnirestException e) {
             e.printStackTrace();
         }
-
     }
 
     public static Boolean persist(User user) throws UnirestException {
