@@ -56,7 +56,7 @@ public class MainController {
 
         String recoverUrlToken = UUID.randomUUID().toString();
         // send mail with reset link for the password
-        String recoverUrl = String.format("localhost:8089/reset/%s", recoverUrlToken);
+        String recoverUrl = String.format("localhost:8089/reset_password/%s", recoverUrlToken);
 
         PendingPasswordReset pendingPasswordReset = new PendingPasswordReset();
         pendingPasswordReset.setId(0l); // Dummy
@@ -69,19 +69,61 @@ public class MainController {
             e.printStackTrace();
         }
 
-        //FunWebMailer.setResetPasswordLink(user.getName(), user.getEmail(), recoverUrl);
+        FunWebMailer.setResetPasswordLink(user.getName(), user.getEmail(), recoverUrl);
 
         return new ModelAndView("success_recover");
     }
 
     @RequestMapping(value = "reset_password/{token}", method = RequestMethod.GET)
-    public ModelAndView getResetPassword() {
-        return null;
+    public ModelAndView getResetPassword(@PathVariable String token) {
+
+        PendingPasswordReset pendingPasswordReset = null;
+
+        try {
+            pendingPasswordReset = BidirectionalPendingPasswordResetFactory.newInstance(token);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        if (pendingPasswordReset == null) {
+            return null; // some error page
+        }
+
+        return new ModelAndView("reset_password");
     }
 
     @RequestMapping(value = "reset_password/{token}", method = RequestMethod.POST)
-    public ModelAndView postResetPassword() {
-        return null;
+    public ModelAndView postResetPassword(
+            @PathVariable String token,
+            @RequestParam(name = "new_password1") String newPassword1,
+            @RequestParam(name = "new_password2") String newPassword2) {
+
+        if (!newPassword1.equals(newPassword2)) {
+            return null;
+        }
+
+        PendingPasswordReset pendingPasswordReset = null;
+        try {
+            pendingPasswordReset = BidirectionalPendingPasswordResetFactory.newInstance(token);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        User user = null;
+
+        try {
+            user = BidirectionalUserFactory.newInstance(pendingPasswordReset.getUsername());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            BidirectionalLoginDataCustomFactory.update(user.getId(), String.valueOf(newPassword1.hashCode()));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        return new ModelAndView("reset_password_success");
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)

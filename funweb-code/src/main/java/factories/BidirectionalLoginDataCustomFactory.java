@@ -21,6 +21,7 @@ public class BidirectionalLoginDataCustomFactory {
     private static final String FIELD_ID = "id";
     private static final String FIELD_USER_ID = "userId";
     private static final String FIELD_PASSWORD = "password";
+    private static final String FIELD_NEW_PASSWORD = "newPassword";
 
     /**
      * Gets the password of an user.
@@ -42,11 +43,8 @@ public class BidirectionalLoginDataCustomFactory {
 
     public static void main(String[] args) {
 
-        LoginDataCustom l = new LoginDataCustom();
-        l.setUserId(1l);
-
         try {
-            remove(l);
+            update(1l, "asddsa1");
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -62,7 +60,7 @@ public class BidirectionalLoginDataCustomFactory {
         return Boolean.FALSE;
     }
 
-    public static Boolean persist(LoginDataCustom login) throws UnirestException{
+    public static Boolean persist(LoginDataCustom login) throws UnirestException {
         String url = String.format("http://%s:%s/%s/custom/",
                 REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
 
@@ -90,5 +88,30 @@ public class BidirectionalLoginDataCustomFactory {
         return Boolean.FALSE;
     }
 
+    public static Boolean update(Long userId, String newPassword) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/custom/",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
 
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+
+            jsonObject.put(FIELD_USER_ID, userId);
+            jsonObject.put(FIELD_NEW_PASSWORD, newPassword);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return Boolean.FALSE;
+        }
+
+        HttpResponse<JsonNode> httpResponse = Unirest.put(url)
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .asJson();
+
+        if (httpResponse.getStatus() == 200) {
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
+    }
 }
