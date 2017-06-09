@@ -37,7 +37,7 @@ public class QuestionController {
 
         // TODO: fields check
         // TODO: security
-
+        System.out.println(id);
         if (id == -1) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

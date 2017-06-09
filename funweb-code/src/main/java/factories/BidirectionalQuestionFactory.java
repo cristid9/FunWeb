@@ -88,14 +88,16 @@ public class BidirectionalQuestionFactory {
 
     public static void main(String[] args) {
 
+        Question question = new Question(1l, "Ana", 10l, 10l, 10l);
+
         try {
-            newInstance(1l);
+            System.out.println(persist(question));
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
 
-    public static Boolean persist(Question question) throws UnirestException {
+    public static Long persist(Question question) throws UnirestException {
         String url = String.format("http://%s:%s/%s/question/",
                 REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
 
@@ -111,7 +113,7 @@ public class BidirectionalQuestionFactory {
             jsonObject.put(FIELD_CHARACTERS_ID , question.getCharacterId());
         } catch (JSONException e) {
             e.printStackTrace();
-            return Boolean.FALSE;
+            return Long.valueOf(-1);
         }
 
 
@@ -120,10 +122,10 @@ public class BidirectionalQuestionFactory {
                 .body(jsonObject.toString())
                 .asString();
 
-        if (httpResponse.getStatus() == 201) {
-            return Boolean.TRUE;
+        if (httpResponse.getStatus() == 200) {
+            return Long.parseLong(httpResponse.getBody());
         }
 
-        return Boolean.FALSE;
+        return Long.valueOf(-1);
     }
 }

@@ -108,17 +108,27 @@ public class QuestionDAO {
         Long id = Long.valueOf(-1);
         try {
             Connection connection = dbConnector.getDBConnection();
+
+            String[] returnId = {"QUESTION_ID"};
+
             PreparedStatement statement =
                     connection.prepareStatement("INSERT INTO QUESTIONS(ENUNCIATION, REWARD, CHARACTERS_ID, CHAPTER_ID) VALUES" +
-                            "(?, ?, ?, ?)");
+                            "(?, ?, ?, ?)", returnId);
             statement.setString(1, question.getEnunciation());
             statement.setLong(2, question.getReward());
             statement.setLong(3, question.getCharacterId());
             statement.setLong(4, question.getChapterId());
 
-            statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
 
-            return Long.valueOf(1);
+            if(affectedRows == 0){
+                return Long.valueOf(-1);
+            }
+            try(ResultSet rs = statement.getGeneratedKeys()){
+                if(rs.next()){
+                    return Long.valueOf(rs.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
