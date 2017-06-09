@@ -43,7 +43,7 @@
                                 </li>
 
                                 <li>
-                                    <a class="glyphicon glyphicon-comment" href="#"></a>
+                                    <a class="glyphicon glyphicon-comment" href="/quick_chat"></a>
                                 </li>
 
                                 <li class="notifications">
@@ -113,11 +113,6 @@
         <div id="footer">
             <div class="row">
                 <br><br><br>
-                <div class="col-lg-3">
-                    <div id="userAvatar">
-                        <span class="glyphicon glyphicon-user"> </span> Username, 16
-                    </div>
-                </div>
                 &nbsp; &nbsp; &nbsp;
                 &nbsp; &nbsp; &nbsp;
                 &nbsp; &nbsp; &nbsp;
@@ -131,12 +126,6 @@
                 &nbsp; &nbsp; &nbsp;
                 &nbsp; &nbsp; &nbsp;
                 &nbsp; &nbsp; &nbsp;
-
-                <div class="col-lg-2">
-                    <div id="userMoney">
-                        <span class="glyphicon glyphicon-usd"> </span> 500
-                    </div>
-                </div>
 
             </div>
         </div>

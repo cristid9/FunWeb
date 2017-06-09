@@ -52,6 +52,33 @@ public class QuestionDAO {
         return question;
     }
 
+
+    public List<Question> getAllQuestions(){
+        List<Question> questions = null;
+
+        try{
+            questions = new ArrayList<>();
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("SELECT QUESTION_ID, " +
+                            "ENUNCIATION, REWARD, CHARACTERS_ID, CHAPTER_ID FROM QUESTIONS");
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()){
+                Question question = new Question();
+                question.setId(rs.getLong("QUESTION_ID"));
+                question.setReward(rs.getLong("REWARD"));
+                question.setCharacterId(rs.getLong("CHARACTERS_ID"));
+                question.setEnunciation(rs.getString("ENUNCIATION"));
+                question.setChapterId(rs.getLong("CHAPTER_ID"));
+                questions.add(question);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return questions;
+    }
+
     /**
      * Returns the list with all the questions registered to a particular NPC.
      * @param npcId The NPC whose questions we want.
@@ -108,17 +135,27 @@ public class QuestionDAO {
         Long id = Long.valueOf(-1);
         try {
             Connection connection = dbConnector.getDBConnection();
+
+            String[] returnId = {"QUESTION_ID"};
+
             PreparedStatement statement =
                     connection.prepareStatement("INSERT INTO QUESTIONS(ENUNCIATION, REWARD, CHARACTERS_ID, CHAPTER_ID) VALUES" +
-                            "(?, ?, ?, ?)");
+                            "(?, ?, ?, ?)", returnId);
             statement.setString(1, question.getEnunciation());
             statement.setLong(2, question.getReward());
             statement.setLong(3, question.getCharacterId());
             statement.setLong(4, question.getChapterId());
 
-            statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
 
-            return Long.valueOf(1);
+            if(affectedRows == 0){
+                return Long.valueOf(-1);
+            }
+            try(ResultSet rs = statement.getGeneratedKeys()){
+                if(rs.next()){
+                    return Long.valueOf(rs.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

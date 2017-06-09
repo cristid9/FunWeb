@@ -37,13 +37,14 @@ public class QuestionController {
 
         // TODO: fields check
         // TODO: security
-
+        System.out.println(id);
         if (id == -1) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
 
     /**
      * Endpoint for getting a question based on it's id in the database.
@@ -124,4 +125,18 @@ public class QuestionController {
 
         return new ResponseEntity<List<Question>>(questions, HttpStatus.OK);
     }
+
+
+    @RequestMapping(
+            value = "/all",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<Question>> getAllQuestions(){
+        questionDAO = new QuestionDAO(dbConnector);
+        List<Question> questions = questionDAO.getAllQuestions();
+
+        return new ResponseEntity<List<Question>>(questions, HttpStatus.OK);
+    }
+
 }

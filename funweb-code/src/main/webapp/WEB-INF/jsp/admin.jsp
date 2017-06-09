@@ -40,7 +40,7 @@
                     <ul class="dropdown-menu forAnimate" role="menu">
                         <li><a href="/add_question">Add new Question</a></li>
                         <li class="divider"></li>
-                        <li><a href="edit_character.html">Edit Character</a></li>
+                        <li><a href="/edit_question">Edit Character</a></li>
 
                     </ul>
                 </li>
