@@ -96,6 +96,9 @@
             });
         </script>
 
+        <script src="/resources/js/generic/question.js"></script>
+        <script src="/resources/js/game_tutorial/questionPool.js"> </script>
+        <script src="/resources/js/game_tutorial/initLogic.js"></script>
         <script src="/resources/js/game_tutorial/loadingState.js"></script>
         <script src="/resources/js/game_tutorial/questionState.js"> </script>
         <script src="/resources/js/game_tutorial/mainState.js"> </script>
