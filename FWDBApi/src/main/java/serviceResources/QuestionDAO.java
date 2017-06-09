@@ -52,6 +52,33 @@ public class QuestionDAO {
         return question;
     }
 
+
+    public List<Question> getAllQuestions(){
+        List<Question> questions = null;
+
+        try{
+            questions = new ArrayList<>();
+            Connection connection = dbConnector.getDBConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement("SELECT QUESTION_ID, " +
+                            "ENUNCIATION, REWARD, CHARACTERS_ID, CHAPTER_ID FROM QUESTIONS");
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()){
+                Question question = new Question();
+                question.setId(rs.getLong("QUESTION_ID"));
+                question.setReward(rs.getLong("REWARD"));
+                question.setCharacterId(rs.getLong("CHARACTERS_ID"));
+                question.setEnunciation(rs.getString("ENUNCIATION"));
+                question.setChapterId(rs.getLong("CHAPTER_ID"));
+                questions.add(question);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return questions;
+    }
+
     /**
      * Returns the list with all the questions registered to a particular NPC.
      * @param npcId The NPC whose questions we want.
