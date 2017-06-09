@@ -32,11 +32,16 @@ var loadingState = {
         this.guy.animations.add('idle', [0, 23] , 3, true);
         this.guy.animations.play('idle');
 
+
+        qPool.initPool([1, 2]);
     },
 
     update: function() {
-        if(ready === true) {
-            this.state.start('mainState');
-        }
+
+        var self = this;
+        setTimeout(function () {
+            self.state.start('mainState');
+        }, 1500);
+
     }
 };

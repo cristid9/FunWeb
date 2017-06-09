@@ -56,6 +56,23 @@ public class BidirectionalOptionFactory {
         return option;
     }
 
+    public static JSONArray newInstance(Long qid) throws UnirestException {
+        String url = String.format("http://%s:%s/%s/option/all/%s",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, qid);
+
+        HttpResponse<String> response = Unirest.get(url).asString();
+        JSONArray jsonArray = null;
+
+        try {
+            jsonArray = new JSONArray(response.getBody());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return jsonArray;
+    }
+
     public static boolean remove (Option option) throws UnirestException{
         String url = String.format("http://%s:%s/%s/option/%s",
                 REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, option.getId().toString());
@@ -67,11 +84,9 @@ public class BidirectionalOptionFactory {
     }
 
     public static void main(String[] args) {
-        Option op = new Option();
-        op.setId(23l);
 
         try {
-            remove(op);
+            newInstance(1l);
         } catch (UnirestException e) {
             e.printStackTrace();
         }

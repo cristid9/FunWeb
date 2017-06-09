@@ -1,4 +1,4 @@
-$(document).ready(function(){
+    $(document).ready(function(){
     $('.content-header').textillate({
         in: {
             shuffle: false,
