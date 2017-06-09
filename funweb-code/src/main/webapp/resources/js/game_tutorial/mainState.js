@@ -104,21 +104,41 @@ var mainState = {
             this.player.y -= 2;
             downFlag = true;
             this.player.animations.play("up");
+
+            // $('#modalNPC1').modal('hide');
+            // $('#modalNPC2').modal('hide');
+            // $('#modalNPC3').modal('hide');
+            // $('#modalNPC4').modal('hide');
+
         }
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             this.player.y += 2;
             downFlag = true;
+
+            // $('#modalNPC1').modal('hide');
+            // $('#modalNPC2').modal('hide');
+            // $('#modalNPC3').modal('hide');
+            // $('#modalNPC4').modal('hide');
         }
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
             this.player.x -= 2;
             downFlag = true;
             this.player.animations.play("walk");
+            //
+            // $('#modalNPC1').modal('hide');
+            // $('#modalNPC2').modal('hide');
+            // $('#modalNPC3').modal('hide');
+            // $('#modalNPC4').modal('hide');
         }
         else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
             downFlag = true;
             this.player.x += 2;
             this.player.animations.play("walk");
 
+            // $('#modalNPC1').modal('hide');
+            // $('#modalNPC2').modal('hide');
+            // $('#modalNPC3').modal('hide');
+            // $('#modalNPC4').modal('hide');
         }
         else {
             downFlag = false;
@@ -138,7 +158,6 @@ var mainState = {
             this.game.camera.y += 2;
         }
 
-
         this.game.physics.arcade.overlap(this.player, this.questioner1, collisionHandler, null, this);
         this.game.physics.arcade.overlap(this.player, this.questioner2, collisionHandler2, null, this);
         this.game.physics.arcade.overlap(this.player, this.sqlQuestioner, collisionHandler3, null, this);
@@ -147,59 +166,34 @@ var mainState = {
         // needs a refactor, to much boilerplate code
 
         function collisionHandler(player, questionare) {
-            this.currentNpc = 'backendQuestioner';
-            this.questioner1BitmapText.visible = true;
 
-            this.questionerDialogPanel.x = 0;
-            this.questionerDialogPanel.y = 100;
-            this.questionerDialogPanel.visible = true;
-
-            this.acceptButton.x = 60;
-            this.acceptButton.y = 160;
-            this.acceptButton.visible = true;
-
-            this.dismissButton.x = 10;
-            this.dismissButton.y = 160;
-            this.dismissButton.visible = true;
-
-            var self = this;
-            setTimeout(function () {
-                self.questioner1BitmapText.visible = false;
-                self.acceptButton.visible = false;
-                self.dismissButton.visible = false;
-                self.questionerDialogPanel.visible = false;
-            }, 1000);
+            $('#modalNPC1').modal('show');
+            player.x += 5;
+            player.y += 5;
         }
 
         function collisionHandler2(player, questionare2) {
             this.currentNpc = 'frontendQuestioner';
-            this.questioner2BitmapText.visible = true;
 
-            var self = this;
-            setTimeout(function () {
-                self.questioner2BitmapText.visible = false
-            }, 1000);
-
+            $('#modalNPC2').modal('show');
+            player.x += 5;
+            player.y += 5;
         }
 
         function collisionHandler3(player, sqlQuestioner) {
             this.currentNpc = 'sqlQuestioner';
-            this.sqlQuestionerText.visible = true;
 
-            var self = this;
-            setTimeout(function () {
-                self.sqlQuestionerText.visible = false;
-            }, 1000);
+            $('#modalNPC3').modal('show');
+            player.x += 5;
+            player.y += 5;
         }
 
         function collisionHandler4(player, noSqlQuestioner) {
             this.currentNpc = 'noSqlQuestioner';
-            this.noSqlQuestionerText.visible = true;
 
-            var self = this;
-            setTimeout(function() {
-                self.noSqlQuestionerText.visible = false;
-            }, 1000);
+            $('#modalNPC4').modal('show');
+            player.x += 5;
+            player.y += 5;
         }
     }
 };

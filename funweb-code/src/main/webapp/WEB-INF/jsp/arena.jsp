@@ -6,6 +6,12 @@
                 src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.0/phaser.js">
         </script>
 
+        <style type="text/css">
+            #nextQuestion {
+                display: none;
+            }
+        </style>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700" rel="stylesheet">
@@ -72,22 +78,32 @@
             <!-- Trigger the modal with a button -->
 
             <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal fade" id="questionsPane" role="dialog">
                 <div class="modal-dialog">
 
                     <!-- Modal content-->
                     <div class="modal-content">
 
                         <div class="modal-body">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h1 id="title">Test your Web Technologies skills!</h1>
+                            <button type="button" id="questionPaneClose" class="close" data-dismiss="modal">&times;</button>
+                            <h1 id="questionsPaneTopic">Test your Web Technologies skills!</h1>
 
-                            <ul class = "question"> What is HTML?
-                                <li class = "answer"> Lorem ipsum </li>
-                                <li class = "answer"> Lorem ipsum </li>
-                                <li class = "answer"> Lorem ipsum </li>
+                            <ul class = "question">
+                                <h1 id="questionsPaneQuestion"> replace me </h1>
+                                <li id="questionsPaneOption1" class="answer">
+                                    replace me
+                                </li>
+                                <li id="questionsPaneOption2" class="answer">
+                                    replace me
+                                </li>
+                                <li id="questionsPaneOption3" class="answer">
+                                    replace me
+                                </li>
                             </ul>
 
+                            <button type="button" id="nextQuestion">
+                                next
+                            </button>
                             <div id="yourscore"><p>Score: <span id="score"></span></p></div>
                         </div>
 
@@ -96,12 +112,115 @@
                 </div>
             </div>
 
+
+            <div class="modal fade" id="scorePane" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <h1 id="scorePaneMain">  </h1>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <div id="npcsModal">
+
+            <div class="modal fade" id="modalNPC1" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="NPC1Start" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalNPC2" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="NPC2Start" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalNPC3" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="NPC3Start" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalNPC4" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="NPC4Start" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
         <script type="text/javascript">
-            $(window).on('load',function(){
-                $('#myModal').modal('show');
-            });
+//            $(window).on('load',function(){
+//                $('#myModal').modal('show');
+//            });
         </script>
 
         <script src="/resources/js/generic/question.js"></script>
@@ -110,8 +229,131 @@
         <script src="/resources/js/game_tutorial/loadingState.js"></script>
         <script src="/resources/js/game_tutorial/questionState.js"> </script>
         <script src="/resources/js/game_tutorial/mainState.js"> </script>
-        <script type="text/javascript" src="/resources/js/game_tutorial/gameMain.js">
-        </script>
+        <script type="text/javascript" src="/resources/js/game_tutorial/gameMain.js"></script>
+        <script src="/resources/js/misc/questionLoader.js"></script>
+        <script type="text/javascript">
+            // questions answering logic required here
 
+            var selectedNPC = null;
+            var selectedNPCQuestion = null;
+            var currentScore = 0;
+
+            $(document).ready(function() {
+                $('#NPC1Start').on('click', function() {
+                    selectedNPC = 1;
+                    selectedNPCQuestion = 0;
+                    loadNpcQuestions(selectedNPC, selectedNPCQuestion);
+                });
+
+                $('#NPC2Start').on('click', function() {
+                    selectedNPC = 2;
+                    selectedNPCQuestion = 0;
+                    loadNpcQuestions(selectedNPC, selectedNPCQuestion);
+                });
+
+                $('#NPC3Start').on('click', function() {
+                    selectedNPC = 3;
+                    selectedNPCQuestion = 0;
+                    loadNpcQuestions(selectedNPC, selectedNPCQuestion);
+                });
+
+                $('#NPC4Start').on('click', function() {
+                    selectedNPC = 4;
+                    selectedNPCQuestion = 0;
+                    loadNpcQuestions(selectedNPC, selectedNPCQuestion);
+                });
+
+                $('#questionsPaneOption1').on('click', function() {
+
+                    console.log('Question 1');
+
+                    if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 0)) {
+                        $('#questionsPaneOption1').css({'color': 'green'});
+                        $('#questionsPaneOption2').css({'color': 'red'});
+                        $('#questionsPaneOption3').css({'color': 'red'});
+                        currentScore += 1;
+                    } else if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 1)) {
+                        $('#questionsPaneOption1').css({'color': 'red'});
+                        $('#questionsPaneOption2').css({'color': 'green'});
+                        $('#questionsPaneOption3').css({'color': 'red'});
+                    } else if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 2)) {
+                        $('#questionsPaneOption1').css({'color': 'red'});
+                        $('#questionsPaneOption2').css({'color': 'red'});
+                        $('#questionsPaneOption3').css({'color': 'green'});
+                    }
+                    $('#nextQuestion').show();
+                });
+
+                $('#questionsPaneOption2').on('click', function() {
+
+                    console.log('question 2');
+
+                    if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 0)) {
+                        $('#questionsPaneOption1').css({'color': 'green'});
+                        $('#questionsPaneOption2').css({'color': 'red'});
+                        $('#questionsPaneOption3').css({'color': 'red'});
+                    } else if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 1)) {
+                        $('#questionsPaneOption1').css({'color': 'red'});
+                        $('#questionsPaneOption2').css({'color': 'green'});
+                        $('#questionsPaneOption3').css({'color': 'red'});
+                        currentScore += 1;
+
+                    } else if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 2)) {
+                        $('#questionsPaneOption1').css({'color': 'red'});
+                        $('#questionsPaneOption2').css({'color': 'red'});
+                        $('#questionsPaneOption3').css({'color': 'green'});
+                    }
+                    $('#nextQuestion').show();
+                });
+
+                $('#questionsPaneOption3').on('click', function() {
+
+                    console.log('question 3');
+
+                    if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 0)) {
+                        $('#questionsPaneOption1').css({'color': 'green'});
+                        $('#questionsPaneOption2').css({'color': 'red'});
+                        $('#questionsPaneOption3').css({'color': 'red'});
+                    } else if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 1)) {
+                        $('#questionsPaneOption1').css({'color': 'red'});
+                        $('#questionsPaneOption2').css({'color': 'green'});
+                        $('#questionsPaneOption3').css({'color': 'red'});
+                    } else if (isOptionCorrect(selectedNPC, selectedNPCQuestion, 2)){
+                        $('#questionsPaneOption1').css({'color': 'red'});
+                        $('#questionsPaneOption2').css({'color': 'red'});
+                        $('#questionsPaneOption3').css({'color': 'green'});
+                        currentScore += 1;
+                    }
+                    $('#nextQuestion').show();
+                });
+
+                $('#questionPaneClose').on('click', function() {
+                    $('#questionsPaneOption1').css({'color': 'black'});
+                    $('#questionsPaneOption2').css({'color': 'black'});
+                    $('#questionsPaneOption3').css({'color': 'black'});
+                    currentScore = 0;
+                });
+
+                $('#nextQuestion').on('click', function() {
+                    selectedNPCQuestion += 1;
+                    if (hasNextQuestion(selectedNPC, selectedNPCQuestion)) {
+                        loadNpcQuestions(selectedNPC, selectedNPCQuestion);
+                        $('#nextQuestion').hide();
+                    } else {
+
+                        $('#scorePaneMain').text(currentScore);
+
+                        $('#scorePane').modal('show');
+                        $('#questionsPane').modal('hide');
+                    }
+
+                    $('#questionsPaneOption1').css({'color': 'black'});
+                    $('#questionsPaneOption2').css({'color': 'black'});
+                    $('#questionsPaneOption3').css({'color': 'black'});
+
+                });
+
+            });
+        </script>
     </body>
 </html>
