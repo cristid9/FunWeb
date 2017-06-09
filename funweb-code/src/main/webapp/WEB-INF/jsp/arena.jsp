@@ -37,15 +37,23 @@
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#" class="">Home</a></li>
+                                <li class="active">
+                                    <a href="/main_menu" class="glyphicon glyphicon-home"></a>
+                                </li>
 
-                                <li><a href="#">Help</a></li>
-                                <li><a href="/quick_chat">Chat</a></li>
-                                <li><a href="#">Notifications</a></li>
+                                <li id="myBtn" >
+                                    <a class="glyphicon glyphicon-question-sign" href="#"></a>
+                                </li>
+                                <li>
+                                    <a class="glyphicon glyphicon-comment" href="/quick_chat"></a>
+                                </li>
+                                <li class="notifications">
+                                    <a class="glyphicon glyphicon-exclamation-sign" href="#"></a>
+                                </li>
 
                             </ul>
                             <ul class="nav navbar-nav pull-right">
-                                <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Options <span class="caret"></span></a>
+                                <li class=" dropdown"><a href="#" class="dropdown-toggle active glyphicon glyphicon-wrench" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">Change Password</a></li>
                                         <li><a href="#">Admin Menu</a></li>
