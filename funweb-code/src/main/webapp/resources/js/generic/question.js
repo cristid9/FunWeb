@@ -12,7 +12,7 @@ Question.prototype.initFields = function(fields) {
     this.chapterId = fields['chapterId'];
     this.enunciation = fields['enunciation'];
     this.characterId = fields['characterId'];
-    this.questionId = fields['questionId'];
+    this.questionId = fields['id'];
 };
 
 Question.prototype.getReward = function () {
