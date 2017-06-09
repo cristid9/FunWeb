@@ -41,7 +41,7 @@ var loadingState = {
         var self = this;
         setTimeout(function () {
             self.state.start('mainState');
-        }, 1500);
+        }, 7000);
 
     }
 };
