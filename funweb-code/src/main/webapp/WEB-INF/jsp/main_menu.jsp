@@ -43,7 +43,7 @@
                                 </li>
 
                                 <li>
-                                    <a class="glyphicon glyphicon-comment" href="#"></a>
+                                    <a class="glyphicon glyphicon-comment" href="/quick_chat"></a>
                                 </li>
 
                                 <li class="notifications">
