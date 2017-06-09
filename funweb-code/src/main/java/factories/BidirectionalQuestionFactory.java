@@ -58,7 +58,7 @@ public class BidirectionalQuestionFactory {
         return question;
     }
 
-    public static List<Question> newInstance(Long npcId) throws UnirestException {
+    public static JSONArray newInstance(Long npcId) throws UnirestException {
 
         String url = String.format("http://%s:%s/%s/question/npc/%s",
                 REQUEST_ADDRESS, REQUEST_PORT, API_VERSION, npcId);
@@ -72,26 +72,8 @@ public class BidirectionalQuestionFactory {
             e.printStackTrace();
         }
 
-        List<Question> questions = new ArrayList<Question>();
 
-        for (int i = 0; i < jsonArray.length(); ++i) {
-            try {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                Question question = new Question();
-                question.setId(jsonObject.getLong(FIELD_QUESTION_ID));
-                question.setReward(jsonObject.getLong(FIELD_REWARD));
-                question.setChapterId(jsonObject.getLong(FIELD_CHAPTER_ID));
-                question.setEnunciation(jsonObject.getString(FIELD_ENUNCIATION));
-                question.setCharacterId(jsonObject.getLong(FIELD_CHARACTERS_ID));
-
-                questions.add(question);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return questions;
+        return jsonArray;
     }
 
     public static boolean remove (Question question) throws UnirestException{
