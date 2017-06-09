@@ -17,6 +17,12 @@ import java.util.Map;
 @Controller
 @SessionAttributes(value = "username")
 public class AdminController {
+
+    @RequestMapping(value="/edit_question", method = RequestMethod.GET)
+    public String getPvpPage(){
+        return "edit_question";
+    }
+
     @ResponseBody
     @RequestMapping(value="/addQuestion" , method = RequestMethod.POST)
     public String addQuestion(@RequestParam (name = "value") String param){
