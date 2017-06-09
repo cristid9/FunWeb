@@ -183,6 +183,11 @@ public class MainController {
         return "chat_room";
     }
 
+    @RequestMapping(value="/add_question", method = RequestMethod.GET)
+    public String getAddQuestionPage(){
+        return "add_question";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/checkUsernameAvailable", method = RequestMethod.POST)
     public String checkValidUsername(@RequestParam String username) {

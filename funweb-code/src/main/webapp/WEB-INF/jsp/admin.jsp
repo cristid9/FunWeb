@@ -38,7 +38,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Map Editor<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
                     <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="add_character.html">Add new Character</a></li>
+                        <li><a href="/add_question">Add new Question</a></li>
                         <li class="divider"></li>
                         <li><a href="edit_character.html">Edit Character</a></li>
 
