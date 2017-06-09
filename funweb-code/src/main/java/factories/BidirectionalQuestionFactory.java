@@ -91,7 +91,7 @@ public class BidirectionalQuestionFactory {
         Question question = new Question(1l, "Ana", 10l, 10l, 10l);
 
         try {
-            System.out.println(persist(question));
+            getAll();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -128,4 +128,18 @@ public class BidirectionalQuestionFactory {
 
         return Long.valueOf(-1);
     }
+
+    public static JSONArray getAll() throws UnirestException {
+        String url = String.format("http://%s:%s/%s/question/all",
+                REQUEST_ADDRESS, REQUEST_PORT, API_VERSION);
+        HttpResponse<String> response = Unirest.get(url).asString();
+        JSONArray array = null;
+        try {
+            array = new JSONArray(response.getBody());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
 }
