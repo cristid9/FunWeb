@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="JS.js"> </script>
     <link rel="stylesheet" href="/resources/css/admin_style.css">
     <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700" rel="stylesheet">
+    <script src="https://rawgit.com/makeusabrew/bootbox/f3a04a57877cab071738de558581fbc91812dce9/bootbox.js"></script>
 
 </head>
 
@@ -56,42 +56,65 @@
 
     <div class="col-sm-2"> </div>
     <div class="col-sm-8">
-        <form>
+        <form id="myForm">
             <div class="form-group">
                 <label for="inputEnunciation">Enunciation</label>
-                <input type="enunciation" class="form-control" id="inputEnunciation" >
+                <input type="enunciation" name="enunciation" value = "" class="form-control" id="inputEnunciation" >
             </div>
             <div class="form-group">
                 <label for="inputChapter">Chapter</label>
-                <input type="chapter" class="form-control" id="inputChapter">
+                <input type="chapter" name="chapter"  value = "" class="form-control" id="inputChapter">
             </div>
             <div class="form-group">
                 <label for="inputOptionA"> Option A </label>
-                <input type="optionA" class="form-control" id="inputOptionA">
+                <input type="optionA" name="optionA"  value = ""class="form-control" id="inputOptionA">
             </div>
             <div class="form-group">
                 <label for="inputOptionB"> Option B </label>
-                <input type="optionB" class="form-control" id="inputOptionB">
+                <input type="optionB" name="optionB" value = "" class="form-control" id="inputOptionB">
             </div>
             <div class="form-group">
                 <label for="inputOptionC"> Option C </label>
-                <input type="optionC" class="form-control" id="inputOptionC">
+                <input type="optionC" name="optionC" value = "" class="form-control" id="inputOptionC">
             </div>
 
             <div class="form-group">
                 <label for="selector"> Correct Answer </label>
-                <select class="selectpicker" id="selector">
-                    <option>Option A</option>
-                    <option>Option B</option>
-                    <option>Option C</option>
+                <select class="selectpicker" name ="correct" id="selector">
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" id="submit" class="btn btn-primary">Submit</button>
 
         </form>
     </div>
     <div class="col-sm-2"> </div>
 
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', "#submit", function () {
+            var frm = $("#myForm").serializeArray();
+            var obj = {};
+            for(var a = 0; a < frm.length; a++){
+                console.log(frm[a].value);
+                obj[frm[a].name] = frm[a].value;
+            }
+            var jsonData = JSON.stringify(obj);
+            console.log(jsonData);
+
+            $.post("/addQuestion", {value : jsonData}, function (data) {
+                $("#myForm")[0].reset();
+                bootbox.alert("Question added!");
+            })
+        })
+    });
+
+</script>
+
 </body>
 </html>
