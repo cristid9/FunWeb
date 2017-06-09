@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <link rel="stylesheet" href="/resources/css/admin_style.css">
     <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700" rel="stylesheet">
 
@@ -48,16 +49,55 @@
     <h2 class="text-center" id="main-text"> Statistics </h2>
 
 
-    <br><br><br>
-    <div class = "row">
-        <div class = "col-sm-6">
-            <img src="chart1.png">
-        </div>
+    <canvas id="line-chart" width="800" height="400"></canvas>
 
-        <div class = "col-sm-6">
-            <img src="chart2.png">
-        </div>
-    </div>
 </div>
+
+<script>
+
+    function Last7Days () {
+        var result = [];
+        for (var i=0; i<7; i++) {
+            var d = new Date();
+            d.setDate(d.getDate() - i);
+            result.push( formatDate(d) )
+        }
+
+        return(result.join(','));
+    }
+    var d = new Date();
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+
+    new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+
+            labels: [weekday[d.getDay()-6] , weekday[d.getDay()-5] , weekday[d.getDay()-4] , weekday[d.getDay()-3] , weekday[d.getDay()-2] , weekday[d.getDay()-1] , weekday[d.getDay()]],
+            datasets: [{
+                data: [1,5,10,20,40,80,160],
+                label: "Users",
+                borderColor: "#8e5ea2",
+                fill: false
+            }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Users who joined FunWeb in last 7 days'
+            }
+        }
+    });
+
+</script>
+
+
 </body>
 </html>
