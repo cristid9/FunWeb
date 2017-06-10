@@ -55,17 +55,7 @@
 
 <script>
 
-    function Last7Days () {
-        var result = [];
-        for (var i=0; i<7; i++) {
-            var d = new Date();
-            d.setDate(d.getDate() - i);
-            result.push( formatDate(d) )
-        }
-
-        return(result.join(','));
-    }
-    var d = new Date();
+   /* var d = new Date();
     var weekday = new Array(7);
     weekday[0] = "Sunday";
     weekday[1] = "Monday";
@@ -73,7 +63,9 @@
     weekday[3] = "Wednesday";
     weekday[4] = "Thursday";
     weekday[5] = "Friday";
-    weekday[6] = "Saturday";
+    weekday[6] = "Saturday"; */
+
+
 
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
