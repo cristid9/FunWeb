@@ -1,11 +1,12 @@
-var express =require('express'),
+var express = require('express'),
  http = require('http');
-var app= express();
+var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
 users = [];
 connections = [];
+pvpPlayers = [];
 
 // Not that modular yet
 
@@ -17,32 +18,53 @@ app.get('/', function(req, res) {
 });
 
 io.sockets.on('connection', function(socket){
- connections.push(socket);
- console.log('Connected: %s sockets connected', connections.length);
+  connections.push(socket);
+  console.log('Connected: %s sockets connected', connections.length);
 
-socket.on('disconnect',function(data){
- users.splice(users.indexOf(socket.username),1);
- updateUsernames();
- connections.splice(connections.indexOf(socket),1);
- console.log('Disconnected: %s sockets conected', connections.length);
-});
+  socket.on('disconnect',function(data){
+   users.splice(users.indexOf(socket.username),1);
+   updateUsernames();
+   connections.splice(connections.indexOf(socket),1);
+   console.log('Disconnected: %s sockets conected', connections.length);
+  });
 
-//send message
-socket.on('send message', function(data){
-  console.log(data)
-  io.sockets.emit('new message', {msg: data, user: socket.username});
-});
+  //send message
+  socket.on('send message', function(data){
+    console.log(data)
+    io.sockets.emit('new message', {msg: data, user: socket.username});
+  });
 
-// new User
+  // new User
+  socket.on('new user', function(data, callback) {
+    callback(true);
+    socket.username = data;
+    users.push(socket.username);
+    updateUsernames();
+  });
 
-socket.on('new user', function(data, callback) {
-  callback(true);
-  socket.username = data;
-  users.push(socket.username);
-  updateUsernames();
-});
+  socket.on('newPVPPlayer', function(data, callback) {
+    callback(true);
+    // mhmmm
+    console.log('new pvp player has come');
+    console.log(data);
 
-function updateUsernames(){
-  io.sockets.emit('get users', users)
- }
+    pvpPlayers.push(data);
+
+    if (pvpPlayers.length >= 2) {
+      io.sockets.emit('foundOponents', pvpPlayers);
+    }
+
+  });
+
+  socket.on('PVPScoreUpdate', function(data, callback) {
+    // mhmmmm
+    // callback(true);s
+    console.log(data);
+
+    io.sockets.emit('newScores', data);
+  });
+
+  function updateUsernames(){
+    io.sockets.emit('get users', users)
+  }
 });
