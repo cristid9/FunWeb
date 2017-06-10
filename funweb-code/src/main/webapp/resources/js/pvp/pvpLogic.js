@@ -1,0 +1,3 @@
+function initLogic(username) {
+
+}
