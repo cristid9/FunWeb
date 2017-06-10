@@ -5,7 +5,7 @@ Descriere
 ---------
 
 FunWeb este un joc online ce le permite userilor sa rezolve intrebari
-din web.
+din web. [Demo aici](https://www.youtube.com/watch?v=5-9MwKhyKu8&feature=youtu.be)
 
 Functionalitati
 ---------------
