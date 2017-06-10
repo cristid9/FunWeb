@@ -6,7 +6,16 @@ p.gold { color:#EAC117;font-weight:bold;font-family:Comic;font-size:19 }
 @import url(http://fonts.googleapis.com/css?family=Lato);
 
 body {
-    background-color: #66CD00;
+    /* The image used */
+    background-image: url("/resources/images/castlebackgr.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .p1_box {
@@ -151,7 +160,7 @@ body {
 }
 
 body{
-    width: 98%;
+    width: 95%;
 }
 
 a {
@@ -232,7 +241,7 @@ html {
     left: 0;
     top: 0;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    height: 300%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
@@ -244,7 +253,7 @@ html {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 30%; /* Could be more or less, depending on screen size */
+   /* width: 30%; */ /* Could be more or less, depending on screen size */
     height: 40%;
 }
 
@@ -270,11 +279,13 @@ html {
 #arenaPlay {
     font-family: 'arcadeFont';
     text-decoration: none;
+    margin-top: 400px;
 }
 
 #training {
     font-family: 'arcadeFont';
     text-decoration: none;
+    margin-top: 400px;
 }
 
 #footer {
