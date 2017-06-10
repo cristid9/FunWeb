@@ -86,26 +86,43 @@
         <br/>
         <br/>
         <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
         <div class="row">
             <div class="col-sm-3"> </div>
             <div class="col-sm-4">
                 <div class="grid_6">
                     <div class="row">
-                        <img src="/resources/assets/sqlQuestioner.png" width="30%" height="30%"/>
-                    </div>
-                    <div class="row">
+                        <br/>
+                        <br/>
+                        <br/>
                         <a id="arenaPlay" href="/pvp"> Join Arena </a>
                     </div>
+                    <div class="row">
+                        <img src="/resources/assets/sqlQuestioner.png" width="30%" height="30%"/>
+                    </div>
+
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="grid_6">
                     <div class="row">
-                        <img src="/resources/assets/frontendQuestioner.png" width="30%" height="30%" />
-                    </div>
-                    <div class="row">
+                        <br/>
+                        <br/>
+                        <br/>
                         <a id="training" href="/arena"> Start training </a>
                     </div>
+                    <div class="row">
+
+                        <img src="/resources/assets/frontendQuestioner.png" width="30%" height="30%" />
+                    </div>
+
                 </div>
             </div>
         </div>

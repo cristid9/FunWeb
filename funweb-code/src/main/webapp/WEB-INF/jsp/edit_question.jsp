@@ -28,15 +28,15 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="admin_menu.html">Users<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+                <li><a href="/adminPanel">Users<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
                 <li><a href="statistics.html">Statistics<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list-alt"></span></a></li>
                 <li><a href="#">Chat<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
                 <li class="active" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Map Editor<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
                     <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="add_character.html">Add new Character</a></li>
+                        <li><a href="add_question.html">Add new Question</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Edit Character</a></li>
+                        <li><a href="#">Edit Question</a></li>
 
                     </ul>
                 </li>
@@ -55,8 +55,8 @@
             <th>Enunciation</th>
         </tr>
         </thead>
-        <tbody>
-        <tr data-toggle="collapse" data-target=".order1">
+        <tbody id="questionsList">
+       <!-- <tr data-toggle="collapse" data-target=".order1">
             <td>
                 <a href="#">
                     <span class="glyphicon glyphicon-asterisk"></span>
@@ -96,10 +96,67 @@
             </td>
         </tr>
 
-
+        -->
         </tbody>
     </table>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+
+        var populateTable = function(questions){
+            $("#questionsList").html("");
+            for(var i = 0; i < questions.length; i++){
+                console.log(questions[i]);
+
+                var options;
+
+                $.post("http://localhost:8082/getQuestionOptions", {id : questions[i].id}, function(data){
+                       options = JSON.parse(data);
+
+                    $("#questionsList").append(
+
+                        '<tr class="collapse order1">' +
+                        '<td>1</td>'+
+                        '<td>' + options[0].enunciation + '</td>' +
+                        '</tr>' +
+                        '<tr class="collapse order1">' +
+                        '<td>1</td>'+
+                        '<td>' + options[1].enunciation +'</td>'+
+                        '</tr>' +
+                        '<tr class="collapse order1">'+
+                        '<td>1</td>'+
+                        '<td>' + options[2].enunciation + '</td>'+
+                        '</tr>'
+                    );
+                });
+                $("#questionsList").append(
+                    ' <tr data-toggle="collapse" data-target=".order1">'+
+                    '<td>'+
+                    '<a href="#">' +
+                    '<span class="glyphicon glyphicon-asterisk"></span>' +
+                    '</a>' +
+
+                    '</td>' +
+                    '<td>' + questions[i].enunciation + '</td>' +
+                    '</tr>'
+                );
+
+            }
+        }
+
+        function getData(){
+            $.post("http://localhost:8082/getQuestionsList", function (data) {
+                console.log(data);
+                questionsList = JSON.parse(data);
+                console.log(questionsList);
+                populateTable(questionsList);
+            });
+        }
+        getData();
+    });
+</script>
+
 </body>
 </html>

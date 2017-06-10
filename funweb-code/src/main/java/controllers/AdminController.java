@@ -12,11 +12,51 @@ import org.springframework.web.bind.annotation.*;
 import pojos.Option;
 import pojos.Question;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
-@SessionAttributes(value = "username")
+//@SessionAttributes(value = "username")
 public class AdminController {
+
+    @ResponseBody
+    @RequestMapping(value="/getQuestionsList", method = RequestMethod.POST)
+    public String getQuestionsList(){
+        try {
+            JSONArray questions = BidirectionalQuestionFactory.getAll();
+
+            System.out.println("Sunt aici "+ questions.toString());
+            return questions.toString();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        return "{}";
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/getQuestionOptions", method = RequestMethod.POST)
+    public String getQuestionOptions(@RequestParam(name = "id") String id){
+        try {
+            List<Option> options = BidirectionalOptionFactory.getAllOptions(Long.parseLong(id));
+
+            try {
+                JSONArray objects = new JSONArray();
+                for (Option o : options) {
+                    JSONObject obj = new JSONObject();
+                    obj.put("enunciation", o.getEnunciation());
+                    objects.put(obj);
+                }
+                System.out.println(objects.toString());
+                return objects.toString();
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        return "{}";
+    }
+
 
     @RequestMapping(value="/edit_question", method = RequestMethod.GET)
     public String getPvpPage(){

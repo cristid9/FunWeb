@@ -14,11 +14,14 @@ var loadingState = {
         this.game.load.tilemap('map', '/resources/assets/map.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', '/resources/assets/terrain.png');
         this.game.load.image('tiles1', '/resources/assets/trees.png');
+        this.game.load.image('background', '/resources/images/castlebackgr.jpg');
 
     },
 
     create: function () {
-        this.game.stage.backgroundColor = '#aaa';
+
+        this.game.add.tileSprite(0, 0, this.game.world.width  , this.game.world.height  , 'background');
+        //this.game.stage.backgroundColor = '#aaa';
 
         this.guy = this.game.add.sprite(570, this.game.world.centerY, 'trotinel');
         this.guy.scale.setTo(1.5, 1.5);
