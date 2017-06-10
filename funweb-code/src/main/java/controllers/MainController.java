@@ -390,6 +390,14 @@ public class MainController {
         return new ModelAndView("admin");
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logout(HttpServletRequest request) {
+
+        request.getSession().removeAttribute("username");
+
+        return new ModelAndView("register");
+    }
+
     @ResponseBody
     @RequestMapping(value="/getUsersList" , method = RequestMethod.POST)
     public String getUsersList(){

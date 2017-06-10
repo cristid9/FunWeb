@@ -112,7 +112,7 @@
 
                 var options;
 
-                $.post("http://localhost:8082/getQuestionOptions", {id : questions[i].id}, function(data){
+                $.post("http://localhost:8083/getQuestionOptions", {id : questions[i].id}, function(data){
                        options = JSON.parse(data);
 
                     $("#questionsList").append(
@@ -147,7 +147,7 @@
         }
 
         function getData(){
-            $.post("http://localhost:8082/getQuestionsList", function (data) {
+            $.post("http://localhost:8083/getQuestionsList", function (data) {
                 console.log(data);
                 questionsList = JSON.parse(data);
                 console.log(questionsList);

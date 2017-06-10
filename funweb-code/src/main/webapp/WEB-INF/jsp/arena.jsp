@@ -8,8 +8,33 @@
 
         <style type="text/css">
             #nextQuestion {
-                display: none;
+                background-color: none;
             }
+            
+            #modalNPC1 {
+                background-color: #993333;
+            }
+            
+            #modalNPC2 {
+                background-color: #993333;
+            }
+            
+            #modalNPC3 {
+                background-color: #993333;
+            }
+            
+            #modalNPC4 {
+                background-color: #993333;
+            }
+
+            #questionsPane {
+                background-color: #993333;
+            }
+            
+            #scorePane {
+                background-color: #993333;
+            }
+            
         </style>
 
         <meta charset="utf-8">
@@ -65,7 +90,7 @@
                                         <li><a href="#">Admin Menu</a></li>
                                     </ul>
                                 </li>
-                                <li class=""><a href="#">Logout</a></li>
+                                <li class=""><a href="/logout">Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -101,10 +126,10 @@
                                 </li>
                             </ul>
 
-                            <button type="button" id="nextQuestion">
-                                next
+                            <button type="button" class="btn btn-success" id="nextQuestion">
+                                next set
                             </button>
-                            <div id="yourscore"><p>Score: <span id="score"></span></p></div>
+                            <%--<div id="yourscore"><p>Score: <span id="score"></span></p></div>--%>
                         </div>
 
                     </div>
@@ -142,13 +167,17 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
+                            <h4 class="modal-title">HTML NPC</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
+                            <p>
+                                Ready to solve HTML questions?
+                            </p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="NPC1Start" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="NPC1Start" class="btn btn-success" data-dismiss="modal">
+                                Start solving questions
+                            </button>
                         </div>
                     </div>
 
@@ -162,13 +191,17 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
+                            <h4 class="modal-title">NODE.JS NPC</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
+                            <p>
+                                Ready for some node.js questions?
+                            </p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="NPC2Start" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="NPC2Start" class="btn btn-success" data-dismiss="modal">
+                                Start solving questions
+                            </button>
                         </div>
                     </div>
 
@@ -182,13 +215,17 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
+                            <h4 class="modal-title">SQL NPC</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
+                            <p>
+                                Ready for SQL questions?
+                            </p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="NPC3Start" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="NPC3Start" class="btn btn-success" data-dismiss="modal">
+                                Start solving questions
+                            </button>
                         </div>
                     </div>
 
@@ -202,13 +239,17 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
+                            <h4 class="modal-title">CSS NPC</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
+                            <p>
+                                Ready for CSS questions?
+                            </p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="NPC4Start" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="NPC4Start" class="btn btn-success" data-dismiss="modal">
+                                Start solving questions
+                            </button>
                         </div>
                     </div>
 
@@ -341,7 +382,13 @@
                         $('#nextQuestion').hide();
                     } else {
 
-                        $('#scorePaneMain').text(currentScore);
+                        if (currentScore == 0) {
+
+                            $('#scorePaneMain').text('La inceput e greu, ai ' + currentScore + ' arena puncte');
+                        } else {
+                            $('#scorePaneMain').text('Bravo, ai obtinut ' + currentScore + ' arena puncte');
+                        }
+
 
                         $('#scorePane').modal('show');
                         $('#questionsPane').modal('hide');

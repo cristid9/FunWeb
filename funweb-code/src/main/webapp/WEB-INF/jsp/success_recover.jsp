@@ -4,6 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-    <p> shitty styling </p>
+    <p> An email has been sent </p>
 </body>
 </html>
