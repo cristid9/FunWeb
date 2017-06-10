@@ -34,10 +34,20 @@ public class MainController {
     User loggedInUser = null;
 
     @RequestMapping(value ="statistics", method = RequestMethod.GET)
-    public String getStatistics() {return "statistics";}
+    public String getStatistics(HttpServletRequest request) {
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return "error";
+        }
+
+        return "statistics";
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String getRegisterPage() {
+    public String getRegisterPage(HttpServletRequest request) {
+
         return "register";
     }
 
@@ -167,24 +177,50 @@ public class MainController {
     }
 
     @RequestMapping(value="/pvp", method = RequestMethod.GET)
-    public String getPvpPage(){
-        return "pvp";
+    public ModelAndView getPvpPage(HttpServletRequest request) {
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return new ModelAndView("error");
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("username", request.getSession().getAttribute("username"));
+
+        return modelAndView;
     }
 
     @RequestMapping(value="/main_menu", method = RequestMethod.GET)
-    public String getMainMenuPage(){
+    public String getMainMenuPage(HttpServletRequest request){
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return "error";
+        }
 
         return "main_menu";
     }
 
     @RequestMapping(value="/chat_room", method = RequestMethod.GET)
-    public String getChatRoomPage(){
+    public String getChatRoomPage(HttpServletRequest request){
+
+        String username = (String) request.getSession().getAttribute("username");
+        if (request.getSession().getAttribute("username").equals("")) {
+            return "error";
+        }
 
         return "chat_room";
     }
 
     @RequestMapping(value="/add_question", method = RequestMethod.GET)
-    public String getAddQuestionPage(){
+    public String getAddQuestionPage(HttpServletRequest request) {
+
+        if (request.getSession().getAttribute("username").equals("")) {
+            return "error";
+        }
+
         return "add_question";
     }
 
@@ -344,12 +380,14 @@ public class MainController {
     }
 
     @RequestMapping(value = "/adminPanel", method = RequestMethod.GET)
-    public ModelAndView getAdminPannel() {
-       // if (!loggedInUser.getUserRole().equals("admin")) {
-         //   return new ModelAndView("redirect:/main_menu");
-        //}
-            return new ModelAndView("admin");
+    public ModelAndView getAdminPannel(HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("username");
 
+        if (username == null) {
+            return new ModelAndView("error");
+        }
+
+        return new ModelAndView("admin");
     }
 
     @ResponseBody
@@ -425,7 +463,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "/arena", method = RequestMethod.GET)
-    public ModelAndView getArena() {
+    public ModelAndView getArena(HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return new ModelAndView("error");
+        }
+
         return new ModelAndView("arena");
     }
 
@@ -433,6 +477,10 @@ public class MainController {
     public ModelAndView quickChatPage(HttpServletRequest request, HttpServletResponse response) {
 
         String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return new ModelAndView("error");
+        }
 
         ModelAndView modelAndView = new ModelAndView("quick_chat");
         modelAndView.addObject("username", username);
