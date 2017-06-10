@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Tehnologii Web — Faculty of Computer Science IASI</title>
+    <link rel="stylesheet" href="scholarly.css">
+    <link rel="stylesheet" href="node_modules/prismjs/themes/prism-coy.css">
+    <script src="node_modules/prismjs/prism.js" defer></script>
+  </head>
+  <body prefix="schema: http://schema.org/ xsd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+    <header>
+      <p class="title">Tehnologii Web</p>
+      <p class="subtitle">Faculty of Computer Science IASI</p>
+    </header>
+    <article id="what" typeof="schema:ScholarlyArticle" resource="#">
+      <h1>FunWeb</h1>
+      <section>
+        <ol>
+          <li property="schema:author" typeof="sa:ContributorRole">
+            <a property="schema:author" href="http://github.com/cristid9" typeof="schema:Person">
+              <span property="schema:givenName">Danila</span>
+              <span property="schema:familyName">Marius-Cristian</span>
+            </a>
+          </li>
+          <li property="schema:contributor" typeof="sa:ContributorRole">
+            <a property="schema:contributor" href="https://github.com/BogdanB01" typeof="schema:Person">
+              <span property="schema:givenName">Boca</span>
+              <span property="schema:familyName">Ioan-Bogdan</span>
+          <li property="schema:contributor" typeof="sa:ContributorRole">
+            <a property="schema:contributor" href="https://github.com/mariusolaru" typeof="schema:Person">
+              <span property="schema:givenName">Olaru</span>
+              <span property="schema:familyName">Marius-George</span>
+            </a>
+            <a href="#scienceai" property="sa:roleAffiliation" resource="http://science.ai/"></a>
+          </li>
+         
+        </ol>
+      </section>
+
+      <section typeof="sa:Abstract" id="abstract">
+        <h2>Introducere</h2>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          FunWeb este un joc multi-player (de tip RPG -- Role Playing Game) care sa aiba drept scop ilustrarea
+          folosirii in practica si invatarea de catre jucatori a celor mai importante concepte predate la disciplina "Tehnologii Web": protocolul HTTP, cookie-uri, sesiuni Web, mecanismul de functionare a unui server de aplicatii Web, dezvoltarea si invocarea de servicii Web pe baza REST, transferul asincron de date prin Ajax, realizarea de mash-up-uri, aspecte esentiale privind securitatea Web si altele. Pe baza API-ului creat, aliniat paradigmei REST.
+        </p>
+      </section>
+      <section typeof="sa:MaterialsAndMethods" id="motivation">
+        <h2>Motivatie</h2>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Ne propunem sa realizam o aplicatie Web , care sa aiba rolul de a invata utilizatorii sai tainele Tehnologiilor Web , intr-un mod cat mai interactiv 
+            posibil . Astfel , pe langa posibilitatea de a se antrena singur , si de a-si imbunatati cunostiintele , jucandu-se , un utilizator
+            si le poate testa cu alti utilizatori , intr-un mod de joc "Arena" . Acest mod de joc are rolul de a starni ambitia utilizatorului
+            spre a-si dovedi cunostiintele acumulate , si de a se impune in fata celorlalti .  
+          </p>
+        <p>
+          Deci , scopurile noastre principale pe care speram ca le-am atins sunt sunt:
+        </p>
+        <ul>
+          <li>
+            Crearea unei aplicatii web usor de folosit pentru orice utilizator .
+          </li>
+          <li>
+            Atragerea utilizatorului prin complexitatea serviciilor oferite de aplicatie .
+          </li>
+          <li>
+            Atingerea a cat mai multor capitole posibile din domeniul Tehnologiilor Web .
+          </li>
+          <li>
+            Ajutarea studentilor spre invatarea Tehnologiilor Web intr-un mod cat mai interactiv .
+          </li>
+        </ul>
+      <section typeof="sa:Results" id="definition">
+        <h2>Definitie</h2>
+        <p>
+          O aplicatie web este un program care ruleaza intr-o arhitectura client-server folosind tehnologiile deschise World Wide Web . Ele inlocuiesc
+          modelele in care atat serverul cat si clientul ruleaza tehnologii proprietar , mentenanta aplicatiilor de pe partea de client fiind foarte complexa , 
+          costisitoare si susceptibila la erori .
+        </p>
+        <p>
+          Avantaje:
+        </p>
+        <ul>
+          <li>
+            Sunt independente de sistemul de operare. Pot fi rulate aproape de pe orice sistem de operare prin intermediul unui browser web .
+          </li>
+          <li>
+            Nu necesita instalare, fiind necesara doar existenta unui browser web .
+          </li>
+          <li>
+            Backup-ul este foarte simplu de realizat, datele fiind stocate centralizat .
+          </li>
+          <li>
+            Pot fi folosite si de pe tableta si smartphone intrucat acestea au browser incorporat .
+          </li>
+        </ul>
+        <p>
+          Dezavantaje:
+        </p>
+        <ul>
+          <li>
+            Poate fi dificil sau chiar imposibil de realizat o conexiune cu hardware-ul local al clientului (imprimante, scanner, etc) .
+          </li>
+        </ul>
+
+        <a href="http://tinypic.com?ref=xkyo9y" target="_blank"><img src="http://i66.tinypic.com/xkyo9y.png" border="0" alt="Image and video hosting by TinyPic"></a>
+
+        <section id="file-headers">
+          <h3>Scenarii de utilizare</h3>
+          <p>
+            Sunt doua tipuri de utilizatori ai aplicatiei: 
+            <ul>
+            <li>
+              Administrator
+            </li>
+            <li>
+              Utilizator
+            </li>
+            </ul>
+            </p>
+            <p>
+            Un admin va avea drepturi extinse asupra aplicatiei, putand efectua managementul userilor. Acesta va putea bana un utilizator care nu se supune regulilor comunitatii (limbaj vulgar pe chat, etc).
+			De asemenea va putea adauga intrebari si edita intrebarile deja adaugate. 
+          </p>
+          <p>
+			Odata ajuns pe site un utilizator va trebui sa se logheze folosind un cont deja creat, sau in caz ca nu are va putea sa isi creeze un cont de utilizator dand click pe optiunea de creere utilizatori.
+			Pentru a se loga un utilizator va trebui sa introduca un email, un nume de utilizator si o parola. Combinatia nume/parola va fi folosita ulterior pentru a se loga. 
+			Utilizatorul va primi un email de bun venit. 
+			
+			In cazul in care utilizatorul si-a uitat parola, acesta va putea sa isi recupereze parola. Procedeul de recuperare parola se desfasoara in felul urmator:
+				- odata ce a uitat parola, va trebui sa dea click pe optiunea de recuperare parola
+				- va primi un email cu un link generat automat. Odata ce userul va accesa linkul generat automat va avea acces la o pagina temporara de unde i se va pune la dispozitie un formular pentru introducerea noii parole.
+				Formularul va fi alcatuit din 2 componente : o casuta de text pentru introducerea noii parole si o a doua casuta pentru introducerea parolei de reconfirmare. 
+				In care in care utilizatorul va parcurge cu succes acesti pasi, acesta isi va recupera parola.
+		  
+		</p>	
+            <ul>
+          
+            <li>
+              PvP
+            </li>
+			<li> 
+				Training
+			</li>
+            <li>
+              Chat
+            </li>
+           
+            <li>
+              Options->Change password (in cazul in care cel logat este administrator , va avea optiunea suplimentara : Admin menu)
+              </li>
+             <li>
+              Logout
+             </li>
+            </ul>
+          </p>
+          <p>
+            
+          </p>
+          <p>
+            Apasant pe "Chat" utilizatorul va putea intra intr-o camera de chat pentru a comunica cu ceilalti utilizatori ai aplicatiei. Aceasta camera de chat a fost gandita in scop educativ
+			, pentru a oferi utilizatorilor o experienta mai placuta si mai ajutatoare. Acestia vor putea comunica cu ceilalti utilizatori si vor putea dezbate diferite tematici. Utilizatorii neprietenosi,
+			vor putea fi pedepsiti de admin.
+          </p>
+      
+          <p>
+            Apasand butonul "Options" , si fiind administrator , adminul va putea accesa o noua pagina , cea de "Admin Options" , in care va avea disponibile 
+            mai multe comenzi specifice unui administrator : blocare utilizatori , adaugare intrebari , adaugare harti etc .
+            Apasand butonul "Options" , si fiind utilizator normal , va fi accesibila doar serviciul de schimbare a parolei .  
+          </p>
+          <p>
+            La apasarea butonului "Logout" , utilizatorul va fi delogat de la aplicatie , respectiv va fi redirectat catre pagina de Login . 
+          </p>
+	
+		  <p>
+			In cazul in care utilizatorii vor intra in camera de antrenament, acesta va putea sa se antreneze cu diferite npc-uri. Fiecare dintre acestia vor avea replici cu care vor comunica cu user-ul, fiecare spunandu-i o anumita poveste utilizatorul. 
+			Va aparea un modal unde utilizatorul va putea accepta invitatia npc-ului. Astfel va trebui sa raspunda la o serie de intrebari , care vor testa capacitatile utilizatorului dintr-un anumit domeniu. 
+			Progresul jucatorului va fi salvat in baza de date. Acest progres va fi folosit pentru a i se selecta adversari in modul arena. 
+		  </p>
+		  
+		  <p>
+			In modul arena utilizatorul va putea sa se isi masoare puterile cu ceilalti utilizatori pentru a vedea cine e mai bun. Li se va oferi un set de intrebari la care acestia vor trebui sa raspunda in ordine sa avanseze.
+			Dupa ce setul de intrebari va fi epuizat, i se va oferi un feedback-ul utilizatorului cu privinta la corectitudinea raspunsurilor sale.
+		  </p>
+		
+		
+		<h3> 
+			<p> 
+				Pentru a dezvolta partea de front-end s-a folosit Bootstrap, CSS si Phaser JS.
+			</p>
+			
+			<p>
+				Pe partea de back-end s-a decis impartirea proiectului in 3 componente :
+			</p>
+			<ul>
+				<li>FW-DB Api : API-ul REST, care a fot  a fost dezvoltat folosind BootSpring.</li>
+				<li>FunWeb-Code : a fost dezvoltat folosing Spring MVC. </li>
+				<li>FW-Server : Serverul de webSocketi folositi la chat si la partea de pvp. </li>
+			</ul>
+			
+			
+		</h3>
+		
+		
+		</section>
+    </article>
+  
+  </body>
+</html>
