@@ -86,7 +86,7 @@
                             <ul class="nav navbar-nav pull-right">
                                 <li class=" dropdown"><a href="#" class="dropdown-toggle active glyphicon glyphicon-wrench" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Change Password</a></li>
+                                        <li><a href="/change_password">Change Password</a></li>
                                         <li><a href="#">Admin Menu</a></li>
                                     </ul>
                                 </li>
