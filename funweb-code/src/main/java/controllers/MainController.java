@@ -76,7 +76,7 @@ public class MainController {
             e.printStackTrace();
         }
 
-        if (!String.valueOf(new_password2.hashCode()).equals(loginDataCustomPassword)) {
+        if (!String.valueOf(current_passsword.hashCode()).equals(loginDataCustomPassword)) {
             return new ModelAndView("redirect:/error");
         }
 
@@ -84,7 +84,11 @@ public class MainController {
             return new ModelAndView("redirect:/error");
         }
 
-        
+        try {
+            BidirectionalLoginDataCustomFactory.update(user.getId(), String.valueOf(new_password.hashCode()));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
 
         return new ModelAndView("success_recover");
     }
