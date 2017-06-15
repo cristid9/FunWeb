@@ -51,6 +51,12 @@ public class MainController {
         return "register";
     }
 
+    @RequestMapping(value = "/change_password", method = RequestMethod.GET)
+    public String getChangePassword(HttpServletRequest request) {
+
+        return "change_password";
+    }
+
     @RequestMapping(value = "/recover_password", method = RequestMethod.GET)
     public String getRecoverPasswordPage() {
         return "recover_password";
