@@ -70,7 +70,7 @@
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Change Password</a></li>
+                                        <li><a href="/change_password">Change Password</a></li>
                                         <li><a href="/adminPanel">Admin Menu</a></li>
                                     </ul>
                                 </li>
