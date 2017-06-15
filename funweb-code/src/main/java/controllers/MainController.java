@@ -55,7 +55,7 @@ public class MainController {
 
 
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
-    public String postChangePassword(
+    public ModelAndView postChangePassword(
             @RequestParam(name = "current_password") String current_passsword,
             @RequestParam(name = "new_password") String new_password,
             @RequestParam(name = "new_password2") String new_password2,
@@ -76,12 +76,17 @@ public class MainController {
             e.printStackTrace();
         }
 
-
         if (!String.valueOf(new_password2.hashCode()).equals(loginDataCustomPassword)) {
-            return "redirect:/error";
+            return new ModelAndView("redirect:/error");
         }
 
-        return "success_recover";
+        if (!new_password.equals(new_password2)) {
+            return new ModelAndView("redirect:/error");
+        }
+
+        
+
+        return new ModelAndView("success_recover");
     }
 
     @RequestMapping(value = "/recover_password", method = RequestMethod.GET)
