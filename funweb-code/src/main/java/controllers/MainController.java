@@ -3,20 +3,16 @@ package controllers;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import factories.BidirectionalLoginDataCustomFactory;
 import factories.BidirectionalPendingPasswordResetFactory;
-import factories.BidirectionalQuestionFactory;
 import factories.BidirectionalUserFactory;
 import funWebMailer.FunWebMailer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pojos.LoginDataCustom;
 import pojos.PendingPasswordReset;
-import pojos.Question;
 import pojos.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +55,31 @@ public class MainController {
 
 
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
-    public String postChangePassword(HttpServletRequest request) {
+    public String postChangePassword(
+            @RequestParam(name = "current_password") String current_passsword,
+            @RequestParam(name = "new_password") String new_password,
+            @RequestParam(name = "new_password2") String new_password2,
+            HttpServletRequest request) {
+
+        User user = null;
+        try {
+            user = BidirectionalUserFactory.newInstance((String) request.getSession().getAttribute("username"));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+
+        String loginDataCustomPassword = null;
+        try {
+            loginDataCustomPassword = BidirectionalLoginDataCustomFactory.getPassword(user.getId());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+
+        if (!String.valueOf(new_password2.hashCode()).equals(loginDataCustomPassword)) {
+            return "redirect:/error";
+        }
 
         return "success_recover";
     }
