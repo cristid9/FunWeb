@@ -21,6 +21,7 @@
 </head>
 
 <body>
+<div id="fb-root"></div>
 <div class ="container-fluid" id="login">
     <div class="text-center">
         <h1> <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> &lt; Fun Web  &#47; &gt;</span></h1>
@@ -137,6 +138,19 @@
                 js.src = "//connect.facebook.net/en_US/sdk.js";
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
+
+            function login() {
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        console.log('Welcome!  Fetching your information.... ');
+                        FB.api('/me', function(response) {
+                            console.log('Good to see you, ' + response.name + '.');
+                        });
+                    } else {
+                        console.log('User cancelled login or did not fully authorize.');
+                    }
+                });
+            }
         </script>
 
 
