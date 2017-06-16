@@ -86,7 +86,7 @@
                 currentdate.getHours() + ":"
                 + currentdate.getMinutes();
 
-            $chat.append('<div class = "well"><strong> '+ data.user +'</strong> (<b>' + datetime + '</b>) : ' + data.msg + '<div>');
+            $chat.append('<div class = "well"><strong> '+ data.user +'</strong> (<b>' + datetime + '</b>) : ' + safe_tags_replace(data.msg) + '<div>');
             //$chat.scrollTop($chat.height())
             var objDiv = document.getElementById("chat");
             objDiv.scrollTop = objDiv.scrollHeight;
