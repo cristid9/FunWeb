@@ -88,6 +88,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="/change_password">Change Password</a></li>
                                         <li><a href="#">Admin Menu</a></li>
+                                        <li><a href="/profile">View Profile</a></li>
                                     </ul>
                                 </li>
                                 <li class=""><a href="/logout">Logout</a></li>
