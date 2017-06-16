@@ -98,6 +98,23 @@ public class MainController {
         return "recover_password";
     }
 
+    @RequestMapping(value = "/recover_password", method = RequestMethod.GET)
+    public ModelAndView getRankingsPage(HttpServletRequest request) {
+        List<String> users = null;
+        try {
+           users = BidirectionalUserFactory.getAll();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        ModelAndView modelAndView = new ModelAndView("rankings");
+
+        modelAndView.addObject("rankings" , users);
+        return modelAndView;
+    }
+
+
+
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView getProfilePage(HttpServletRequest request) {
         String username = (String) request.getSession().getAttribute("username");
