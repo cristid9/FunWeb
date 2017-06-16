@@ -51,7 +51,8 @@
             </div>
 
             <button type="submit" class="btn btn-success">Register</button>
-            <button type="submit" class="btn btn-primary">Register with FaceBook</button>
+            <button type="submit" onclick="javascript:login();" class="btn btn-primary">Register with FaceBook</button>
+
 
 
         </div>
