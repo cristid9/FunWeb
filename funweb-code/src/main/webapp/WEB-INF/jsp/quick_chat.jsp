@@ -52,6 +52,19 @@
         var $messageArea = $('#messageArea');
         var $users = $('#users');
         var $username = '${username}';// This value is provided by spring
+        var tagsToReplace = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        };
+
+        function replaceTag(tag) {
+            return tagsToReplace[tag] || tag;
+        }
+
+        function safe_tags_replace(str) {
+            return str.replace(/[&<>]/g, replaceTag);
+        }
 
         setTimeout(function () {
             socket.emit('new user', $username, function (data) {
