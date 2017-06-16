@@ -102,6 +102,10 @@ public class MainController {
     public ModelAndView getProfilePage(HttpServletRequest request) {
         String username = (String) request.getSession().getAttribute("username");
 
+        if (username == null) {
+            return new ModelAndView("error");
+        }
+
         User user = null;
 
         try {
