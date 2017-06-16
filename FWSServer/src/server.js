@@ -7,6 +7,8 @@ var io = require('socket.io').listen(server);
 users = [];
 connections = [];
 pvpPlayers = [];
+teams = [];
+pending = [];
 
 // Not that modular yet
 
