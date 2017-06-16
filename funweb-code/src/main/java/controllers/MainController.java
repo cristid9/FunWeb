@@ -98,7 +98,7 @@ public class MainController {
         return "recover_password";
     }
 
-    @RequestMapping(value = "/recover_password", method = RequestMethod.GET)
+    @RequestMapping(value = "/rankings", method = RequestMethod.GET)
     public ModelAndView getRankingsPage(HttpServletRequest request) {
         List<String> users = null;
         try {
