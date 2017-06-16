@@ -52,9 +52,12 @@ io.sockets.on('connection', function(socket){
 
     pvpPlayers.push(data);
 
-    if (pvpPlayers.length >= 2) {
-      io.sockets.emit('foundOponents', pvpPlayers);
-    }
+   if (pending.length > 0){
+	   io.sockets.emit('foundOponents' , [data, pending[0]]);
+	   pending.pop();
+   }else if (pending.length == 0) {
+	   pending.push(data);
+   }
 
   });
 
