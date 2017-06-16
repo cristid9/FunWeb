@@ -98,6 +98,11 @@ public class MainController {
         return "recover_password";
     }
 
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String getProfilePage() {
+        return "profile";
+    }
+
     @RequestMapping(
             value = "/recoverPassword",
             method = RequestMethod.POST
