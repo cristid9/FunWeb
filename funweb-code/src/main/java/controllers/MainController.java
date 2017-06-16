@@ -99,8 +99,28 @@ public class MainController {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String getProfilePage() {
-        return "profile";
+    public ModelAndView getProfilePage(HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("username");
+
+        User user = null;
+
+        try {
+            user = BidirectionalUserFactory.newInstance(username);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+        ModelAndView modelAndView = new ModelAndView("profile");
+        modelAndView.addObject("username", user.getName());
+        modelAndView.addObject("email", user.getEmail());
+        modelAndView.addObject("role", user.getUserRole());
+        modelAndView.addObject("hints_left", user.getHintsLeft());
+        modelAndView.addObject("login_type", user.getLoginType());
+        modelAndView.addObject("level", user.getLevel());
+
+        return modelAndView;
+
+
     }
 
     @RequestMapping(
