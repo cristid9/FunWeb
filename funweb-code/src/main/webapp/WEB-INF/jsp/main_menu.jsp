@@ -73,6 +73,7 @@
                                         <li><a href="/change_password">Change Password</a></li>
                                         <li><a href="/adminPanel">Admin Menu</a></li>
                                         <li><a href="/profile">View Profile</a></li>
+                                        <li><a href="/rankings">View Rankings</a></li>
                                     </ul>
                                 </li>
                                 <li class=""><a href="/logout">Logout</a></li>
