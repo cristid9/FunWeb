@@ -98,6 +98,11 @@ public class MainController {
         return "recover_password";
     }
 
+    @RequestMapping(value = "/add_hint", method = RequestMethod.GET)
+    public String getHintGeneratorPage() {
+        return "add_new_hint";
+    }
+
     @RequestMapping(value = "/rankings", method = RequestMethod.GET)
     public ModelAndView getRankingsPage(HttpServletRequest request) {
         List<String> users = null;
