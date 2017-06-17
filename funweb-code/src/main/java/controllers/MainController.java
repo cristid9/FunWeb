@@ -56,6 +56,19 @@ public class MainController {
     }
 
 
+    @RequestMapping(value = "/feedback", method = RequestMethod.GET)
+    public String getFeedbackPage(HttpServletRequest request) {
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return "error";
+        }
+
+        return "feedback";
+    }
+
+
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
     public ModelAndView postChangePassword(
             @RequestParam(name = "current_password") String current_passsword,
