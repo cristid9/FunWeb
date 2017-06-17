@@ -48,7 +48,7 @@
 
 
 
-            <button type="submit" class="btn btn-success">Recover</button>
+            <button type="submit" class="btn btn-success">Change Password</button>
 
 
         </div>
