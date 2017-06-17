@@ -53,7 +53,7 @@
                             </td>
                             <td>
 
-                                ${username}
+                                <a href="/change_password"> ${username} </a>
                                 </td>
 
 
