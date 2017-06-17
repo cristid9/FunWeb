@@ -90,7 +90,7 @@ public class MainController {
             e.printStackTrace();
         }
 
-        return new ModelAndView("success_recover");
+        return new ModelAndView("change_password_success");
     }
 
     @RequestMapping(value = "/recover_password", method = RequestMethod.GET)
@@ -107,7 +107,7 @@ public class MainController {
             e.printStackTrace();
         }
 
-        ModelAndView modelAndView = new ModelAndView("rankings");
+        ModelAndView modelAndView = new ModelAndView("ranking");
 
         modelAndView.addObject("rankings" , users);
         return modelAndView;
