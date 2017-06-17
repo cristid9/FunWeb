@@ -100,6 +100,20 @@ public class MainController {
         return "recover_password";
     }
 
+
+    @RequestMapping(value = "/hint_success", method = RequestMethod.GET)
+    public String getAddHintSuccess(HttpServletRequest request)
+    {
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return "error";
+        }
+
+        return "added_hint_success";
+    }
+
     @RequestMapping(value = "/add_hint", method = RequestMethod.GET)
     public String getHintGeneratorPage(HttpServletRequest request)
     {
@@ -142,9 +156,9 @@ public class MainController {
         }
 
 
-        
 
-        return "add_new_hint";
+
+        return "redirect:/hint_succes";
     }
 
 
