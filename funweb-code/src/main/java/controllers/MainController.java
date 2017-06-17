@@ -128,8 +128,8 @@ public class MainController {
 
 
     @RequestMapping(value = "/add_hint", method = RequestMethod.POST)
-    public String postHintGeneratorPage
-            (HttpServletRequest request ,
+    public String postHintGeneratorPage(
+             HttpServletRequest request ,
              @RequestParam(name = "question_id") Long question_id ,
              @RequestParam(name = "hint_value") String hint_value)
     {
@@ -158,7 +158,7 @@ public class MainController {
 
 
 
-        return "redirect:/hint_succes";
+        return "redirect:/hint_success";
     }
 
 
