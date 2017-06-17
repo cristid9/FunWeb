@@ -41,6 +41,7 @@
                         <li><a href="/add_question">Add new Question</a></li>
                         <li class="divider"></li>
                         <li><a href="/edit_question">Edit Character</a></li>
+                        <li><a href="/add_hint">Add new question hint</a></li>
 
                     </ul>
                 </li>
