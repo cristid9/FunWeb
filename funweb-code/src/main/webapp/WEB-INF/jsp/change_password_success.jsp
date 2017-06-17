@@ -15,11 +15,8 @@
 <body>
 
 <div class="container">
-    <div class = "col-sm-2">
-        <div class="wrap">
-            <p class = "name"> ${username} </p> <h1  id="playerScore" class="name">0</h1>
-        </div>
-    </div>
+
+    
 
 
 
@@ -30,14 +27,9 @@
 
 
         </div>
-       
+
     </div>
-    <div class = "col-sm-2">
-        <div class = "wrap">
-            <p  id="oponentName" class="name"> Your opponent </p> :
-            <h1 class="name" id="oponentScore"> 0 </h1>
-        </div>
-    </div>
+
 </div>
 
 
