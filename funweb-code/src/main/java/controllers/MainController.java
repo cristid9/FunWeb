@@ -1,6 +1,7 @@
 package controllers;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import factories.BidirectionalHintFactory;
 import factories.BidirectionalLoginDataCustomFactory;
 import factories.BidirectionalPendingPasswordResetFactory;
 import factories.BidirectionalUserFactory;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pojos.Hint;
 import pojos.LoginDataCustom;
 import pojos.PendingPasswordReset;
 import pojos.User;
@@ -109,6 +111,42 @@ public class MainController {
         }
         return "add_new_hint";
     }
+
+
+    @RequestMapping(value = "/add_hint", method = RequestMethod.POST)
+    public String postHintGeneratorPage
+            (HttpServletRequest request ,
+             @RequestParam(name = "question_id") Long question_id ,
+             @RequestParam(name = "hint_value") String hint_value)
+    {
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return "error";
+        }
+
+
+        Hint hint = new Hint();
+
+        hint.setText(hint_value);
+
+        hint.setQuestionId(question_id);
+
+        hint.setId(0l);
+
+        try {
+            BidirectionalHintFactory.persist(hint);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
+
+        
+
+        return "add_new_hint";
+    }
+
 
     @RequestMapping(value = "/rankings", method = RequestMethod.GET)
     public ModelAndView getRankingsPage(HttpServletRequest request) {
