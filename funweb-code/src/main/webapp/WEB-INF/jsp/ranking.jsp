@@ -47,18 +47,17 @@
                 <div class="tbl-content">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tbody id="usersListMain">
-                          <% for(int i=0; i< rankings.size(); i += 1) { %>
+                        <%
+                            for (int i = 0; i < ((List) request.getAttribute("rankings")).size(); i += 1) {
 
 
-                            <tr>
-                                <td>
-                                    ${i+1}
-                                </td>
-                                <td>
-
-                                    ${rankings.get(i).getName()}
-                                </td>
-                        <% } %>
+                                out.print(
+                                        "<tr><td> " + (i + 1) +
+                                                "</td><td> " + ((List) request.getAttribute("rankings")).get(i) +
+                                                "</td>"
+                                );
+                            }
+                        %>
 
 
 
