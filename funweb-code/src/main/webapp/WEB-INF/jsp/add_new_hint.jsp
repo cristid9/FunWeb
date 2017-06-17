@@ -73,12 +73,12 @@
                     </table>
                 </div>
                 <div class="tbl-content">
-                    <form method="post" action="/add_new_hint">
+                    <form method="post" action="/add_hint">
                         <input type="text"  class="form-control" name="question_id" id="question_id" placeholder="question id">
                         <br> <br>
-                        <input type="text" class="form-control" name=hint_value" id="hint_value" placeholder="hint id">
+                        <input type="text" class="form-control" name="hint_value" id="hint_value" placeholder="hint value">
                         <br> <br>
-                        <button type="button" class="btn btn-primary"> create hint </button>
+                        <button type="submit" class="btn btn-primary"> create hint </button>
                     </form>
 
 
