@@ -35,15 +35,15 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="current_password"> current_password </label>
-                <input type="text" class="form-control" id="current_password" name="current_password" placeholder=" Enter your old password">
+                <input type="password" class="form-control" id="current_password" name="current_password" placeholder=" Enter your old password">
             </div>
             <div class="form-group">
                 <label for="new_password">new_password</label>
-                <input type="text" class="form-control" id="new_password" name="new_password" placeholder=" Enter your new password">
+                <input type="password" class="form-control" id="new_password" name="new_password" placeholder=" Enter your new password">
             </div>
             <div class="form-group">
                 <label for="new_password2">Password</label>
-                <input type="new_password" class="form-control" id="new_password2" name="new_password2" placeholder=" Enter your new password again">
+                <input type="password" class="form-control" id="new_password2" name="new_password2" placeholder=" Enter your new password again">
             </div>
 
 
