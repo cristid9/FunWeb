@@ -68,6 +68,29 @@ public class MainController {
         return "feedback";
     }
 
+    @RequestMapping(value = "/add_feedback", method = RequestMethod.POST)
+    public String postFeedback(
+            HttpServletRequest request,
+            @RequestParam(name = "feedback") String feedback) {
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return "error";
+        }
+
+        //
+        // try {
+        //    BidirectionalFeedbackFactory.persist(feeback);
+        // } catch (UnirestException e) {
+        //    e.printStackTrace();
+        // }
+        //
+
+        return "feedback";
+    }
+
+
 
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
     public ModelAndView postChangePassword(
