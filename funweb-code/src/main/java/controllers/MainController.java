@@ -99,7 +99,14 @@ public class MainController {
     }
 
     @RequestMapping(value = "/add_hint", method = RequestMethod.GET)
-    public String getHintGeneratorPage() {
+    public String getHintGeneratorPage(HttpServletRequest request)
+    {
+
+        String username = (String) request.getSession().getAttribute("username");
+
+        if (username == null) {
+            return "error";
+        }
         return "add_new_hint";
     }
 
