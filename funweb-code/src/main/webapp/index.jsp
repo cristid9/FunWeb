@@ -45,7 +45,7 @@
             </div>
 
             <button type="submit" class="btn btn-success">Login</button>
-            <button type="submit" class="btn btn-primary">Login with FaceBook</button>
+           
 
             <p> Don't have an account? Register <a href= "register.html"> here! </a> </p>
 
