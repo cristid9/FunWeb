@@ -67,8 +67,7 @@
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
                         <tr>
-                            <th>Username</th>
-                            <th>Ban</th>
+
                         </tr>
                         </thead>
                     </table>
@@ -76,8 +75,9 @@
                 <div class="tbl-content">
                     <form method="post" action="/add_new_hint">
                         <input type="text"  class="form-control" name="question_id" id="question_id" placeholder="question id">
+                        <br> <br>
                         <input type="text" class="form-control" name=hint_value" id="hint_value" placeholder="hint id">
-
+                        <br> <br>
                         <button type="button" class="btn btn-primary"> create hint </button>
                     </form>
 
